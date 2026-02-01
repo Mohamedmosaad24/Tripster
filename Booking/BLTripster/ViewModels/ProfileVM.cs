@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace BLTripster.ViewModels
 {
-    internal class ProfileVM
+    public class ProfileVM
     {
+            public string Name { get; set; } 
+            public string Email { get; set; }
+            public string? Location { get; set; }
+            public string? Nationality { get; set; }
+            public DateTime? DateOfBirth { get; set; }
+            public string? ImageUrl { get; set; }
+
     }
 }
