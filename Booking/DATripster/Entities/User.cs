@@ -15,6 +15,8 @@ namespace DATripster.Entities
         public string? Email { get; set; }
         public string? Nationality { get; set; }
         public DateTime? DateOfBirth { get; set; }
+        public string? ImageUrl { get; set; }
+
 
         public ICollection<Booking> Bookings { get; set; } = default!;
         public ICollection<Review>? Reviews { get; set; }
