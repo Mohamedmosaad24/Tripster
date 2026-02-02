@@ -1,3 +1,7 @@
+using BLTripster.IServices;
+using BLTripster.Services;
+using DALTripster.IRepos;
+using DALTripster.Repos;
 using DATripster.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +15,8 @@ namespace PLTripster
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<ISearchService, SearchService>();
+            builder.Services.AddScoped<ISearchRepo, SearchRepo>();
             builder.Services.AddDbContext<TripsterDB>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             var app = builder.Build();

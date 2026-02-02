@@ -1,0 +1,255 @@
+﻿@using DATripster.Entities
+@model ICollection<Hotel>
+
+
+
+<body class="text-black">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <!-- start Rigth section -->
+            <section style="width:30%;" class="p-0">
+                <!-- Search inputs -->
+                <div class="  px-md-5 py-md-4 border border-opacity-10 serach-section">
+                    <button class="border-0"><ion-icon name="arrow-back-outline" style="font-size: 1.6rem;"></ion-icon></button>
+                    <h2>Your search</h2>
+
+                    <form asp-action="Result" class=" d-flex flex-column gap-3">
+                        <div class="d-flex flex-column mt-md-2">
+                            <div class="m-0 p-0 ">
+                                <ion-icon name="location-outline"></ion-icon>
+                                <label for="">Destination</label>
+                            </div>
+                            <input type="text" placeholder="location" name="destination" class="form-control rounded-pill ">
+                        </div>
+                        <div class="d-flex flex-column mt-md-2">
+                            <div class="m-0 p-0">
+                                <ion-icon name="calendar-outline"></ion-icon>
+                                <label for="">Check-in-date</label>
+                            </div>
+                            <input type="date" placeholder="start" name="checkIn" class="form-control rounded-pill ">
+                        </div>
+                        <div class="d-flex flex-column mt-md-2">
+                            <div class="m-0 p-0">
+                                <ion-icon name="calendar-outline"></ion-icon>
+                                <label for="">Check-out-date</label>
+                            </div>
+                            <input type="date" placeholder="end" name="checkOut" class="form-control rounded-pill ">
+                        </div>
+                        <div class="d-flex flex-column mt-md-2">
+                            <div class="m-0 p-0">
+                                <ion-icon name="people-outline"></ion-icon>
+                                <label for="">Guests</label>
+                            </div>
+                            <input type="text" placeholder="guest" name="guests" class="form-control rounded-pill ">
+                        </div>
+                        <div class="mt-3">
+                            <button type="submit" class="bg-primary btn text-white rounded-pill w-100 mt-md-2">Search</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- filter inputs -->
+                <form asp-action="Filter" method="get" class="px-md-5 pt-3 border border-opacity-10">
+
+                    <!-- Popular Filters -->
+                    <h3>Popular Filters</h3>
+
+                    <div class="form-check m-md-3 mt-2">
+                        <input class="form-check-input" type="radio" name="service" value="Budget Hotel" id="budget">
+                        <label class="form-check-label" for="budget">Budget Hotel</label>
+                    </div>
+
+                    <div class="form-check m-md-3 mt-2">
+                        <input class="form-check-input" type="radio" name="service" value="Breakfast included" id="breakfast">
+                        <label class="form-check-label" for="breakfast">Breakfast included</label>
+                    </div>
+
+                    <div class="form-check m-md-3 mt-2">
+                        <input class="form-check-input" type="radio" name="service" value="Free airport shuttle" id="shuttle">
+                        <label class="form-check-label" for="shuttle">Free airport shuttle</label>
+                    </div>
+
+                    <div class="form-check m-md-3 mt-2">
+                        <input class="form-check-input" type="radio" name="service" value="Hostel / Backpacker" id="hostel">
+                        <label class="form-check-label" for="hostel">Hostel / Backpacker</label>
+                    </div>
+
+                    <hr>
+
+                    <!-- Price per Night -->
+                    <h3>Price per Night</h3>
+
+                    <div class="form-check m-md-3 mt-2">
+                        <input class="form-check-input" type="radio" name="price" value="50" id="price50">
+                        <label class="form-check-label" for="price50">Less than $50</label>
+                    </div>
+
+                    <div class="form-check m-md-3 mt-2">
+                        <input class="form-check-input" type="radio" name="price" value="100" id="price100">
+                        <label class="form-check-label" for="price100">$50 to $100</label>
+                    </div>
+
+                    <div class="form-check m-md-3 mt-2">
+                        <input class="form-check-input" type="radio" name="price" value="150" id="price150">
+                        <label class="form-check-label" for="price150">$100 to $150</label>
+                    </div>
+
+                    <div class="form-check m-md-3 mt-2">
+                        <input class="form-check-input" type="radio" name="price" value="1000" id="priceMore">
+                        <label class="form-check-label" for="priceMore">$150 and more</label>
+                    </div>
+
+                    <hr>
+
+                    <!-- Guest Rating -->
+                    <h3>Guest Rating</h3>
+
+                    <div class="form-check m-md-3 mt-2">
+                        <input class="form-check-input" type="radio" name="rating" value="0" id="any">
+                        <label class="form-check-label" for="any">Any</label>
+                    </div>
+
+                    <div class="form-check m-md-3 mt-2">
+                        <input class="form-check-input " type="radio" name="rating" value="5" id="excellent">
+                        <label class="form-check-label" for="excellent">Excellent</label>
+                    </div>
+
+                    <div class="form-check m-md-3 mt-2">
+                        <input class="form-check-input" type="radio" name="rating" value="4" id="verygood">
+                        <label class="form-check-label" for="verygood">Very good</label>
+                    </div>
+
+                    <div class="form-check m-md-3 mt-2">
+                        <input class="form-check-input" type="radio" name="rating" value="3" id="good">
+                        <label class="form-check-label" for="good">Good</label>
+                    </div>
+
+                    <hr>
+
+                    <!-- Property Class -->
+                    @* <h3>Property Class</h3>
+
+                    <div class="d-flex flex-wrap m-md-3">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <input type="radio" class="btn-check" name="stars" id="star@i" value="@i">
+                            <label class="btn btn-outline-dark rounded-pill m-1" for="star@i">
+                                @i <ion-icon name="star-outline"></ion-icon>
+                            </label>
+                        }
+                    </div> *@
+
+                    <button type="submit" class="btn btn-primary w-100 mt-3 rounded-pill mb-2">
+                        Apply Filters
+                    </button>
+
+                </form>
+
+            </section>
+
+            <!-- end of Rigth section -->
+            <!-- Search Results -->
+            <section class=" px-5" style="width:70%;">
+                <div class="mt-3 mb-3">
+                    <p class="mb-1">@Model.Count() search result for</p>
+                    <div class="d-flex justify-content-between">
+                        @if (@ViewBag.location != null || @ViewBag.nights != null){
+                        <h3>@ViewBag.location, @ViewBag.in_out, for @ViewBag.geusts geusts , @ViewBag.nights nights</h3>
+                        }
+                        <form asp-action="Sort" method="get" id="sortForm">
+                            <select name="sortBy"
+                                    class="form-select rounded-pill p-1"
+                                    style="width: 140px; height: 35px;">
+                                <option value="">Sort By...</option>
+                                <option value="price">Price</option>
+                                <option value="rate">Rate</option>
+                            </select>
+                        </form>
+
+
+                    </div>
+                </div>
+                <!-- Card -->
+                <div class="">
+                    @foreach(Hotel hotel in Model)
+                    {
+
+						<div class=" d-flex flex-row card-full p-3 mb-2">
+                        <div class="card-img w-25">
+                                <img src="@Url.Content("~/assets/hotelImg/" + (hotel.Images.FirstOrDefault()?.ImageUrl ?? "img.jpg"))"
+                                     alt="no img" class="search-img">
+                        </div>
+                        <div class="card-body d-flex flex-row justify-content-between p-0 ">
+                            <div class="d-flex flex-column justify-content-between px-2">
+                                <div>
+                                    <h5 class="m-0">@hotel.Name</h5>
+                                    <p class="m-0 opacity-50">@hotel.Address</p>
+                                    <p class="m-0">Free Cancel</p> 
+                                    <h6 class="m-0 mt-2">Confort Room</h6>
+                                    <p class="m-0">1x King size</p>
+                                    <p class="m-0">1x Bathroom</p>
+                                </div>
+                                <div>
+                                    <button class="btn rounded-pill border border-primary text-primary"
+                                            style="height: 34px;">
+                                        #Hot deal
+                                    </button>
+                                    <button class="btn rounded-pill border border-primary text-primary"
+                                            style="height: 34px;">
+                                        #Popular
+                                    </button>
+                                </div>
+                            </div>
+                            <div class=" d-flex justify-content-between flex-column text-end  ">
+                                    <div class="d-flex justify-content-end align-items-center">
+                                            @{
+                                                var avgRate = hotel.Reviews.Select(r => r.Rate).DefaultIfEmpty(0).Average();
+                                                string rateText;
+                                                string rateColor;
+
+                                                if (avgRate >= 4)
+                                                {
+                                                    rateText = "Excellent";
+                                                    rateColor = "green";
+                                                }
+                                                else if (avgRate >= 3)
+                                                {
+                                                    rateText = "Good";
+                                                    rateColor = "orange";
+                                                }
+                                                else
+                                                {
+                                                    rateText = "Average";
+                                                    rateColor = "red";
+                                                }
+                                            }
+                                        <div class="text-end">
+
+                                            <h6 class="m-0" style="color:@rateColor">@rateText</h6>
+
+                                        <p class="m-0">@hotel.Reviews.Count() Reviews</p>
+                                    </div>
+                                        <div class="text-white rounded-pill m-2 px-3 d-inline-flex justify-content-center align-items-center"
+                                             style="height: 30px; background-color:@rateColor">
+                                            @avgRate.ToString("0.0")
+                                        </div>
+                                </div>
+                                <div>
+										<h5 class="m-0 ">@((int)hotel.Rooms.FirstOrDefault().Price)$</h5>
+                                        <p class="m-0 mb-1">@(ViewBag.nights) nights , @ViewBag.geusts geusts</p>
+                                    <button class="m-0 bg-primary btn rounded-pill w-100 px-1 text-white"
+                                            style="height: 34px;" asp-action="#" asp-controller="#" asp-route-id="@hotel.Id">
+                                        See booking options
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+
+</body>
+
