@@ -43,11 +43,11 @@
                 @if (!User.Identity.IsAuthenticated)
                 {
                     <a class="btn btn-outline-primary rounded-pill" asp-controller="Account" asp-action="Register">Sign Up</a>
-                    <a class="btn btn-primary rounded-pill" asp-controller="Account" asp-action="Login">Log In</a>
+                    <a class="btn btn-primary rounded-pill" asp-controller="User" asp-action="Index">Log In</a>
                 }
                 else
                 {
-                    <a class="nav-link p-0" asp-controller="Account" asp-action="Profile" title="Profile">
+                    <a class="nav-link p-0" asp-controller="User" asp-action="Index" title="Profile">
                         <i class="bi bi-person-circle" style="font-size:2rem; color: cornflowerblue;"></i>
                     </a>
                 }

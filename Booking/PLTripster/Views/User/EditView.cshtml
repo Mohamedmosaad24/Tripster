@@ -1,0 +1,76 @@
+﻿@using BLTripster.ViewModels
+@model ProfileVM
+
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- LEFT -->
+        <div class="col-md-8">
+            <h4 class="fw-bold mb-1">Personal details</h4>
+            <p class="text-muted mb-4">Edit your personal details</p>
+
+            <form asp-action="Edit" method="post" class="bg-white p-4 rounded shadow-sm">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+                    <label class="form-label">Full name</label>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Location</label>
+                    <input asp-for="Location" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input asp-for="Email" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nationality</label>
+                    <input asp-for="Nationality" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Date of birth</label>
+                    <input asp-for="DateOfBirth" type="date" class="form-control" />
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <a asp-action="Index" class="btn btn-light">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="btn btn-primary px-4">
+                        Save changes
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="mb-3 text-warning fs-4">
+                        <i class="fa-solid fa-tags"></i>
+                    </div>
+
+                    <h6 class="fw-bold">Pssst!</h6>
+                    <p class="text-muted small">
+                        Do you want to get secret offers and best prices for amazing stays?
+                        <br><br>
+                        Sign up to join our Travel Club!
+                    </p>
+
+                    <a href="#" class="btn btn-outline-primary w-100">
+                        Sign up now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

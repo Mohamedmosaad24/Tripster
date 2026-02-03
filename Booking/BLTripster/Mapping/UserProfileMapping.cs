@@ -13,6 +13,7 @@ namespace BLTripster.Mapping
        public static ProfileVM ToProfileVM(this User user)
        => new ProfileVM
        {
+           Id = user.Id,
             Name = user.Name,
             Email = user.Email!,
             Location= user.Location,
@@ -21,6 +22,17 @@ namespace BLTripster.Mapping
             ImageUrl = user.ImageUrl
        };
 
+        public static User ToUser(this ProfileVM profilevm)
+       => new User
+       {
+           Id = profilevm.Id,
+           Name = profilevm.Name,
+           Email = profilevm.Email!,
+           Location = profilevm.Location,
+           Nationality = profilevm.Nationality,
+           DateOfBirth = profilevm.DateOfBirth,
+           ImageUrl = profilevm.ImageUrl
+       };
 
     }
 

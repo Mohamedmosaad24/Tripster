@@ -1,0 +1,145 @@
+﻿@using BLTripster.ViewModels
+@model ProfileVM
+
+<body>
+    <div id="Page">
+
+        <!-- Sidebar -->
+        <aside id="Sidebar">
+            <div id="SideTop">
+                <a id="BackArrow" href="#"><i class="fa-solid fa-arrow-left"></i></a>
+                <div id="SideTitle">Profile settings</div>
+            </div>
+
+            <nav id="Menu">
+                <a id="MenuItemActive" href="#">
+                    <span class="IconDot"><i class="fa-solid fa-user"></i></span>
+                    <span id="MenuText">Personal details</span>
+                </a>
+
+                <a id="MenuItem" href="#">
+                    <span class="IconDot"><i class="fa-solid fa-credit-card"></i></span>
+                    <span id="MenuText">Payment information</span>
+                </a>
+
+                <a id="MenuItem" href="#">
+                    <span class="IconDot"><i class="fa-solid fa-shield-halved"></i></span>
+                    <span id="MenuText">Safety</span>
+                </a>
+
+                <a id="MenuItem" href="#">
+                    <span class="IconDot"><i class="fa-solid fa-gear"></i></span>
+                    <span id="MenuText">Preferences</span>
+                </a>
+
+                <a id="MenuItem" href="#">
+                    <span class="IconDot"><i class="fa-solid fa-bell"></i></span>
+                    <span id="MenuText">Notifications</span>
+                </a>
+
+                <a id="MenuItem" href="#">
+                    <span class="IconDot"><i class="fa-solid fa-user-plus"></i></span>
+                    <span id="MenuText">Add other passengers</span>
+                </a>
+            </nav>
+
+            <div id="SideBottom">
+                <a id="Logout" href="#">
+                    <span class="IconDot"><i class="fa-solid fa-right-from-bracket"></i></span>
+                    <span>Log out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main id="Main">
+            <div id="MainHeader">
+                <div id="MainTitle">Personal details</div>
+                <div id="MainSub">Edit your personal details</div>
+            </div>
+        @* <form action="Edit" method="post"> *@
+            <div id="ContentRow">
+
+                <!-- Center panel -->
+                <section id="DetailsPanel">
+                    <div id="AvatarRow">
+                        <div id="Avatar"></div>
+                    </div>
+
+                    <div id="Table">
+                        <div id="Row" class="d-none">
+                            <div id="Key">Id</div>
+                            <div id="Val">@Model.Id</div>
+                        </div>
+
+                        <div id="Row">
+                            <div id="Key">Full name</div>
+                            <div id="Val">@Model.Name</div>
+                           
+                        </div>
+
+                        <div id="Row">
+                            <div id="Key">Location</div>
+                            <div id="Val">@Model.Location</div>
+                           
+                        </div>
+
+                        <div id="Row">
+                            <div id="Key">Email</div>
+                            <div id="Val">@Model.Email</div>
+                        </div>
+
+                        <div id="Row">
+                            <div id="Key">Nationality</div>
+                            <div id="Val">@Model.Nationality</div>
+                        </div>
+
+                        <div id="Row">
+                            <div id="Key">Date of birth</div>
+                            <div id="Val">@Model.DateOfBirth</div>
+                        </div>
+
+                    </div>
+                        @* <button class="btn btn-outline-secondary text-start  mx-1 px-5 justify-content-right "> *@
+                        @*  Edit *@
+                        @* </button> *@
+                        <div class="text-end mt-3">
+                            @* <button asp-action="Edit" class="btn btn-primary mx-1 px-3"> *@
+                            @*     Edit *@
+                            @* </button> *@
+
+                            <a asp-action="Edit"
+                               asp-route-id="@Model.Id"
+                               class="btn btn-primary mx-1 px-3">
+                                Edit
+                            </a>
+
+                           
+                        </div>
+
+
+                </section>
+
+                <!-- Right card -->
+                <aside id="PromoCard">
+                    <div id="PromoIcon">
+                        <i class="fa-solid fa-tags"></i>
+                    </div>
+
+                    <div id="PromoTitle">Pssst!</div>
+
+                    <div id="PromoText">
+                        Do you want to get secret offers and best prices for amazing stays?
+                        <br><br>
+                        Sign up to join our Travel Club!
+                    </div>
+
+                    <a id="PromoBtn" href="#">Sign up now</a>
+                </aside>
+
+            </div>
+            @* </form> *@
+        </main>
+
+    </div>
+</body>
