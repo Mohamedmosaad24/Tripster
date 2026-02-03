@@ -1,0 +1,47 @@
+﻿body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #333;
+}
+
+/* Primary Brand Color */
+.btn-primary {
+    background-color: #1a66ff;
+    border-color: #1a66ff;
+}
+
+/* The success checkmark styling */
+.success-circle {
+    width: 100px;
+    height: 100px;
+    background-color: #e8f5e9; /* Light green background */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+/* Card Styling */
+.card {
+    border: 1px solid #f0f0f0 !important;
+    background-color: #fff;
+}
+
+/* Spacing and Borders for the bottom details */
+.trip-details {
+    max-width: 900px;
+}
+
+hr {
+    color: #e0e0e0;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+/* Icon alignment */
+.bi {
+    font-size: 1.1rem;
+    vertical-align: -2px;
+}

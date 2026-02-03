@@ -17,4 +17,8 @@
     <ProjectReference Include="..\BLTripster\BLTripster.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\Booking\" />
+  </ItemGroup>
+
 </Project>

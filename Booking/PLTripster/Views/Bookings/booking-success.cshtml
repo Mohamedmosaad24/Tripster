@@ -1,0 +1,86 @@
+﻿@model DATripster.Entities.Booking
+
+@{
+    ViewData["Title"] = "Booking Confirmed";
+  
+    var checkInDisplay = Model.CheckIn?.ToString("dddd, dd MMMM yyyy") ?? "N/A";
+    var checkOutDisplay = Model.CheckOut?.ToString("dddd, dd MMMM yyyy") ?? "N/A";
+}
+
+<main class="container my-5">
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-sm p-2 rounded-4">
+                <img src="~/assets/Booking/1.jpg"
+                     class="card-img-top rounded-4" alt="Hotel Room">
+                <div class="card-body">
+                    <h5 class="fw-bold mb-1">Hotel Norrebro ★★★</h5>
+                    <p class="text-muted small mb-4">Copenhagen, Denmark</p>
+
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between small mb-2">
+                            <span class="text-muted fw-bold">Check-in</span>
+                            <strong>@checkInDisplay</strong>
+                        </div>
+                        <div class="d-flex justify-content-between small mb-2">
+                            <span class="text-muted fw-bold">Check-out</span>
+                            <strong>@checkOutDisplay</strong>
+                        </div>
+                    </div>
+
+                    <hr class="opacity-10">
+                    <p class="fw-bold small mb-0">Standard double room</p>
+                    <p class="text-primary fw-bold mb-0">Total Paid: $@Model.TotalPrice</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7 text-center">
+            <div class="confirmation-icon-wrapper mb-3">
+                <div class="success-circle d-inline-flex align-items-center justify-content-center bg-light-green rounded-circle" style="width: 80px; height: 80px; background-color: #e8f5e9;">
+                    <i class="bi bi-check-lg text-success fs-1"></i>
+                </div>
+            </div>
+            <h2 class="fw-bold">Your booking is now confirmed!</h2>
+            <p class="text-muted">A confirmation email has been sent to your inbox.</p>
+        </div>
+    </div>
+
+    <div class="trip-details pt-5">
+        <h4 class="fw-bold mb-5">Your trip starts @checkInDisplay</h4>
+
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-2">
+                <span class="fw-bold small"><i class="bi bi-calendar-check me-2"></i>Check-in</span>
+            </div>
+            <div class="col-md-10">
+                <span class="text-muted">@checkInDisplay, from 3 PM</span>
+            </div>
+        </div>
+
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-2">
+                <span class="fw-bold small"><i class="bi bi-calendar-x me-2"></i>Check-out</span>
+            </div>
+            <div class="col-md-10">
+                <span class="text-muted">@checkOutDisplay, until 11 AM</span>
+            </div>
+        </div>
+
+        <hr class="my-5 opacity-10">
+
+        <div class="row mb-4">
+            <div class="col-md-2">
+                <span class="fw-bold small">Hotel address</span>
+            </div>
+            <div class="col-md-10">
+                <span class="text-muted">Norrebrogade 9, 10178 Copenhagen, Denmark</span>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <a asp-action="Index" asp-controller="Home" class="btn btn-outline-dark rounded-pill px-4">Back to Home</a>
+            <button onclick="window.print()" class="btn btn-primary rounded-pill px-4 ms-2">Print Receipt</button>
+        </div>
+    </div>
+</main>

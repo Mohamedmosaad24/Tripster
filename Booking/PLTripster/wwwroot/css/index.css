@@ -1,0 +1,55 @@
+﻿/* Custom Font or generic San-serif */
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #333;
+}
+
+/* Matching the blue primary color */
+.btn-primary {
+    background-color: #1a66ff;
+    border-color: #1a66ff;
+}
+
+    .btn-primary:hover {
+        background-color: #0052cc;
+        border-color: #0052cc;
+    }
+
+.btn-outline-primary {
+    color: #1a66ff;
+    border-color: #1a66ff;
+}
+
+/* Form Styling */
+.form-control, .form-select {
+    border-radius: 12px;
+    border: 1px solid #eee;
+    background-color: #fcfcfc;
+    padding: 0.75rem 1rem;
+}
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #1a66ff;
+        background-color: #fff;
+    }
+
+.form-label {
+    margin-bottom: 0.5rem;
+    color: #666;
+}
+
+/* Sidebar Sticky Adjustment */
+.sticky-top {
+    z-index: 10;
+}
+
+/* Divider styling */
+hr {
+    color: #dee2e6;
+}
+
+/* Icon spacing */
+.bi {
+    vertical-align: middle;
+}

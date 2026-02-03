@@ -3,6 +3,7 @@ using BLTripster.Services;
 using DALTripster.IRepos;
 using DALTripster.Repos;
 using DATripster.Data;
+using DATripster.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace PLTripster
@@ -21,6 +22,8 @@ namespace PLTripster
             builder.Services.AddScoped<ISearchRepo, SearchRepo>();
             builder.Services.AddScoped<IHotelRepo, HotelRepo>();
             builder.Services.AddScoped<IHotelService, HotelService>();
+            builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+            builder.Services.AddScoped<IBookingService, BookingService>();
             builder.Services.AddDbContext<TripsterDB>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             var app = builder.Build();

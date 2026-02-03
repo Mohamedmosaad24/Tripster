@@ -41,6 +41,7 @@ namespace DATripster.Data
         public DbSet<Image> Images { get; set; } = default!;
         public DbSet<Service> Services { get; set; } = default!;
         public DbSet<HotelService> HotelServices { get; set; } = default!;
+       
 
 
     }
