@@ -83,3 +83,236 @@ p {
     border-top: 1px solid #e0e0e0;
     font-family: Arial, sans-serif;
 }
+
+/* Hotel Details Page CSS */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f8f9fa;
+    font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+}
+
+.img-container {
+    display: grid;
+    grid-template-areas:
+        "pic1 pic1 pic2 pic3"
+        "pic1 pic1 pic4 pic5";
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 200px 200px;
+    gap: 8px;
+}
+
+    .img-container div {
+        overflow: hidden;
+        border-radius: 15px;
+    }
+
+    .img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.pic1 {
+    grid-area: pic3;
+}
+
+.pic2 {
+    grid-area: pic2;
+}
+
+.pic3 {
+    grid-area: pic1;
+}
+
+.pic4 {
+    grid-area: pic4;
+}
+
+.pic5 {
+    grid-area: pic5;
+}
+
+.back-btn {
+    display: inline-flex;
+    margin: 8px;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+    .back-btn a {
+        color: #000;
+    }
+
+.desc {
+    display: inline-flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.exc-badge {
+    width: 45px;
+    background-color: rgb(196, 239, 196);
+}
+
+.avg-badge {
+    width: 45px;
+    background-color: rgb(255, 243, 205);
+}
+
+
+.rate {
+    margin: 20px;
+    float: inline-end;
+}
+
+.navbar-custom {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0;
+}
+
+    .navbar-custom .nav-link {
+        color: #6c757d;
+        font-size: 15px;
+        font-weight: 400;
+        padding: 16px 24px;
+        border-bottom: 3px solid transparent;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        position: relative;
+    }
+
+        .navbar-custom .nav-link:hover {
+            color: #007bff;
+            background-color: #f8f9fa;
+        }
+
+        .navbar-custom .nav-link.active {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            font-weight: 500;
+        }
+
+.nav-container {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 25px;
+}
+
+    .nav-container li {
+        margin: 0;
+    }
+
+.rooms-section {
+    background-color: #f7f9fc;
+    padding: 60px 0;
+}
+
+.room-card {
+    width: 280px;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 25px;
+    padding: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.room-img {
+    border-radius: 25px;
+}
+
+.room-body {
+    padding: 14px 6px 6px;
+}
+
+.room-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.room-details {
+    list-style: none;
+    padding: 0;
+    font-size: 12px;
+}
+
+.room-note {
+    font-size: 13px;
+    color: #8a8a8a;
+    margin-bottom: 12px;
+}
+
+.room-btn {
+    width: 100%;
+    background: #1f5eff;
+    color: #fff;
+    padding: 0;
+    border-radius: 25px;
+}
+
+.room-details li {
+    margin-bottom: 4px;
+}
+
+.overall-score {
+    color: #0d6efd;
+}
+
+.rating-label {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.progress {
+    height: 6px;
+    border-radius: 4px;
+}
+
+.progress-bar {
+    border-radius: 4px;
+}
+
+.review-title {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.review-meta {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.badge-score {
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.badge-excellent {
+    background-color: #e6f9e8;
+    color: #198754;
+}
+
+.badge-average {
+    background-color: #fff3cd;
+    color: #ffc107;
+}
+
+.plus {
+    color: #198754;
+    font-weight: bold;
+}
+
+.minus {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+hr {
+    margin: 24px 0;
+}

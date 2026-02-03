@@ -1,0 +1,225 @@
+﻿@using DATripster.Entities
+@model Hotel
+
+@{
+    ViewData["Title"] = "Hotel Details";
+}
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="100">
+    <div class="container-fluid">
+        <div class="container p-4">
+            <div class="back-btn">
+
+                <a asp-controller="Search" asp-action="Result"><i class="fa-sharp fa-solid fa-arrow-left"></i></a>
+            </div>
+            <div class="img-container mb-4">
+                @*Static Images*@
+                <div class="pic1 shadow-sm"><img src="~/assets/hotelImg/hotel1.jpg" alt="" class="img-fluid"> </div>
+                <div class="pic2 shadow-sm"><img src="~/assets/hotelImg/hotel3.jpg" alt="" class="img-fluid"> </div>
+                <div class="pic3 shadow-sm"><img src="~/assets/hotelImg/hotel6.jpg" alt="" class="img-fluid"> </div>
+                <div class="pic4 shadow-sm"><img src="~/assets/hotelImg/hotel3.jpg" alt="" class="img-fluid"> </div>
+                <div class="pic5 shadow-sm"><img src="~/assets/hotelImg/hotel4.jpg" alt="" class="img-fluid"> </div>
+            </div>
+
+            <div class="desc">
+                <h3 class="fw-bold">@Model.Name</h3>
+                <p class="fs-6 text-black-50">@Model.Description</p>
+            </div>
+
+            <div class="rate">
+                @{
+                    var avgRate = Model.Reviews?.Select(r => r.Rate).DefaultIfEmpty(0).Average();
+                    var numRev = Model.Reviews?.Count();
+                    string rateText;
+                    string rateColor;
+
+                    if (avgRate >= 4)
+                    {
+                        rateText = "Excellent";
+                        rateColor = "green";
+                    }
+                    else if (avgRate >= 3)
+                    {
+                        rateText = "Good";
+                        rateColor = "orange";
+                    }
+                    else
+                    {
+                        rateText = "Average";
+                        rateColor = "red";
+                    }
+                }
+                <h4 class="fs-5" style="color:@rateColor">
+                    Excellent <span class="badge exc-badge rounded-pill opacity-75 fw-medium" style="color:@rateColor">@avgRate</span>
+                    <small class="d-block fs-6 text-black-50">@numRev reviews</small>
+                </h4>
+            </div>
+
+            <nav class="navbar-custom" id="navbar">
+                <ul class="nav-container">
+                    <li>
+                        <a href="#overview" class="nav-link active" data-section="overview">Overview</a>
+                    </li>
+                    <li>
+                        <a href="#rooms" class="nav-link" data-section="rooms">Rooms</a>
+                    </li>
+                    <li>
+                        <a href="#reviews" class="nav-link" data-section="amenities">Reviews</a>
+                    </li>
+                    <li>
+                        <a href="#policies" class="nav-link" data-section="policies">Policies</a>
+                    </li>
+                </ul>
+            </nav>
+            <section id="overview">
+
+                <div class="mt-4">
+                    <div id="overview" class="content-section" style="margin-bottom: 77px;">
+                        <h2>Property Overview</h2>
+                       <div class="row gx-3 align-items-start">
+                        
+                        <div class="col-12 col-lg-4">
+                            <ul class="list-unstyled mb-0">
+                                @foreach(var feature in Model.HotelServices)
+                                {
+                                    <li class="m-2"><i class="fa-solid fa-check me-2"></i> @feature.Service.Name</li>
+                                }
+                            </ul>
+                        </div>
+
+      
+                        @*Dynamic Location*@
+                        <div class="col-12 col-lg-8">
+                                <a href="https://www.google.com/maps?q=@Model.Latitude,@Model.Longitude" target="_blank" class="text-decoration-none">
+                                <div class="position-relative" style="width: 60%; height: 200px; float:inline-end">
+                                    <img src="~/assets/map/fk-map.png" class="img-fluid rounded" alt="Map">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+        <section id="rooms" class="rooms-section">
+            <div class="container">
+                <h3 class="mb-4">Rooms</h3>
+
+                <div class="row g-4">
+                    @foreach (var room in Model.Rooms.Where(r => r.IsAvailable))
+                    {
+                        var roomImage = room.Images?.FirstOrDefault()?.ImageUrl
+                        ?? "~/assets/roomImg/pic1.jpg";
+
+                        <div class="col-md-3">
+                            <div class="room-card">
+                                <div class="room-img-wrapper">
+                                    <img src="~/assets/roomImg/@roomImage" class="room-img img-fluid">
+
+                                    <div class="room-body">
+                                        <h6 class="room-title">@room.RoomType room</h6>
+
+                                        <ul class="room-details">
+                                            <li>25 sqm</li>  @*static data*@
+                                            <li>@room.Capacity people</li>
+                                            <li>1 queen bed or 2 separate beds</li>  @*static data*@
+                                        </ul>
+                                        <p class="room-note">Non-refundable, Breakfast included</p> @*static data*@
+                                        <p class="room-note">
+                                            @(room.IsAvailable ? "Available" : "Not Available")
+                                        </p>
+
+                                        @*add controller and action*@
+                                        <a class="btn btn-primary rounded-pill room-btn">
+                                            Book now for @room.Price $
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+
+
+        <section id="reviews">
+            <div class="container py-5">
+                <div class="row g-5">
+
+                    <div class="col-md-4">
+                        <h3 class="mb-3">Reviews</h3>
+
+                        <div class="overall-score mb-4 fs-3">9.6<span class="fs-3">/10</span></div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between rating-label">
+                                <span>Cleanliness</span><span>10/10</span>
+                            </div>
+                            <div class="progress" style="height: 5px;">
+                                <div class="progress-bar bg-primary" style="width:100%"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between rating-label">
+                                <span>Amenities</span><span>7/10</span>
+                            </div>
+                            <div class="progress" style="height: 5px;">
+                                <div class="progress-bar bg-primary" style="width:70%"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between rating-label">
+                                <span>Location</span><span>9/10</span>
+                            </div>
+                            <div class="progress" style="height: 5px;">
+                                <div class="progress-bar bg-primary" style="width:90%"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between rating-label">
+                                <span>Comfort</span><span>8/10</span>
+                            </div>
+                            <div class="progress" style="height: 5px;">
+                                <div class="progress-bar bg-primary" style="width:80%"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between rating-label">
+                                <span>WiFi Connection</span><span>9/10</span>
+                            </div>
+                            <div class="progress" style="height: 5px;">
+                                <div class="progress-bar bg-primary" style="width:90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="col-md-8">
+                    @foreach (var review in Model.Reviews)
+                    {
+                        @*Add list of Advantages*@
+                        <div class="review mb-4 p-3 rounded">
+                            <div class="review-title fw-bold">@review.Comment</div>
+                            <div class="review-meta mb-2 text-muted">@review.User?.Name</div>
+
+                            <div class="rate">
+                                <h4 class="fs-6 @((review.Rate >= 6) ? "text-success" : "text-warning")"> @(review.Rate >= 6 ? "Excellent" : "Average") 
+                                    <span class="badge rounded-pill @((review.Rate >= 6) ? "badge-excellent " : "badge-average ")">@review.Rate</span> </h4>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <script src="main.js"></script>
+</body>

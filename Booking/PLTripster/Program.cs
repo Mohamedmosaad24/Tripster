@@ -17,6 +17,8 @@ namespace PLTripster
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<ISearchService, SearchService>();
             builder.Services.AddScoped<ISearchRepo, SearchRepo>();
+            builder.Services.AddScoped<IHotelRepo, HotelRepo>();
+            builder.Services.AddScoped<IHotelService, HotelService>();
             builder.Services.AddDbContext<TripsterDB>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             var app = builder.Build();
