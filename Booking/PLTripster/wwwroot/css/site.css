@@ -1,4 +1,4 @@
-html {
+﻿html {
   font-size: 14px;
 }
 
@@ -83,3 +83,694 @@ p {
     border-top: 1px solid #e0e0e0;
     font-family: Arial, sans-serif;
 }
+
+
+
+/* صغحة البروفايل واللوجين والريجيستر */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+}
+
+body {
+    font-family: system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    background: #dbe7ff;
+    color: #0f172a;
+}
+
+#AuthWrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+#AuthCard {
+    width: 920px;
+    max-width: 100%;
+    background: #fff;
+    border-radius: 22px;
+    overflow: hidden;
+    display: flex;
+    box-shadow: 0 18px 60px rgba(2,6,23,.18);
+}
+
+/* ===== Left (Form) ===== */
+#Left {
+    width: 44%;
+    padding: 38px 34px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#TopBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#BackBtn {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#BackBtn {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #0f172a;
+    font-weight: 700;
+}
+
+    #BackBtn:hover {
+        background: #f8fafc;
+    }
+
+
+#TopLink {
+    font-size: 12px;
+    color: #64748b;
+}
+
+    #TopLink a {
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 700
+    }
+
+        #TopLink a:hover {
+            text-decoration: underline
+        }
+
+#Title {
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: -.3px;
+}
+
+#SubTitle {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+/* form */
+#AuthForm {
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+    #AuthForm label {
+        font-size: 12px;
+        color: #64748b;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    #AuthForm input {
+        width: 100%;
+        height: 44px;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        padding: 0 14px;
+        outline: none;
+        transition: .15s ease;
+        background: #fff;
+    }
+
+        #AuthForm input:focus {
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 4px rgba(124,58,237,.12);
+        }
+
+    #AuthForm #Line {
+        height: 1px;
+        background: #eef2ff;
+        border: none;
+    }
+
+#PrimaryBtn {
+    margin-top: 6px;
+    height: 44px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 800;
+    background: linear-gradient(90deg,#3b5bff,#6d28d9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: .15s ease;
+}
+
+    #PrimaryBtn:hover {
+        transform: translateY(-1px);
+        filter: brightness(1.02)
+    }
+
+#OrRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 4px;
+    color: #cbd5e1;
+    font-size: 12px;
+}
+
+    #OrRow div {
+        height: 1px;
+        background: #e2e8f0;
+        flex: 1
+    }
+
+/* #SocialRow{
+  display:flex;
+  gap: 10px;
+}
+#SocialRow button{
+  width:44px;height:44px;
+  border-radius:14px;
+  border:1px solid #e2e8f0;
+  background:#fff;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:.15s ease;
+}
+#SocialRow button:hover{transform:translateY(-1px);border-color:#cbd5e1}
+
+#LangRow{
+  margin-top: 10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#64748b;
+  font-size:12px;
+} */
+
+/* ===== Social Buttons (Pills) ===== */
+#SocialRow {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+    #SocialRow button {
+        width: 100%;
+        height: 46px;
+        border-radius: 999px;
+        border: 1px solid #e2e8f0;
+        background: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        font-weight: 700;
+        color: #0f172a;
+        transition: .15s ease;
+    }
+
+        #SocialRow button:hover {
+            transform: translateY(-1px);
+            border-color: #cbd5e1;
+        }
+
+
+        #SocialRow button span {
+            position: absolute;
+            left: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+        }
+
+
+
+#Right {
+    width: 56%;
+    position: relative;
+    padding: 26px;
+    background: radial-gradient(1200px 800px at 20% 20%, rgba(255,255,255,.25), transparent 60%), linear-gradient(135deg,#3b5bff,#5b21b6,#1d9bf0);
+}
+
+#RightPanel {
+    width: 100%;
+    height: 100%;
+    border-radius: 18px;
+    background: rgba(255,255,255,.10);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#Art {
+    width: 92%;
+    max-width: 520px;
+    border-radius: 16px;
+    box-shadow: 0 18px 50px rgba(2,6,23,.25);
+    border: 1px solid rgba(255,255,255,.18);
+    background: #fff;
+}
+
+/* Floating cards مثل الصورة */
+#FloatA {
+    position: absolute;
+    top: 38px;
+    left: 38px;
+    width: 170px;
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.92);
+    box-shadow: 0 18px 45px rgba(2,6,23,.18);
+}
+
+    #FloatA small {
+        color: #94a3b8;
+        font-weight: 700
+    }
+
+    #FloatA b {
+        display: block;
+        margin-top: 6px;
+        font-size: 20px
+    }
+
+#FloatB {
+    position: absolute;
+    right: 40px;
+    bottom: 42px;
+    width: 240px;
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.92);
+    box-shadow: 0 18px 45px rgba(2,6,23,.18);
+}
+
+    #FloatB b {
+        display: block;
+        margin-bottom: 6px
+    }
+
+    #FloatB span {
+        display: block;
+        color: #64748b;
+        font-size: 12px;
+        line-height: 1.5
+    }
+
+#IconDot1, #IconDot2 {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 18px 45px rgba(2,6,23,.14);
+}
+
+#IconDot1 {
+    top: 92px;
+    right: 130px;
+}
+
+#IconDot2 {
+    top: 185px;
+    right: 95px;
+}
+
+@media (max-width: 920px) {
+    #AuthCard {
+        flex-direction: column
+    }
+
+    #Left, #Right {
+        width: 100%
+    }
+
+    #Right {
+        min-height: 360px
+    }
+
+    #IconDot1, #IconDot2 {
+        display: none
+    }
+}
+
+
+
+#AuthCard {
+    flex-direction: row;
+}
+
+body#LoginPage #AuthCard {
+    flex-direction: row-reverse;
+}
+/* End of style.css ----------------------------------------------------------------------------------------*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+}
+
+body {
+    font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    background: #ffffff;
+    color: #0f172a;
+}
+
+#Page {
+    min-height: 100vh;
+    display: flex;
+}
+
+/* ===== Sidebar ===== */
+#Sidebar {
+    width: 290px;
+    border-right: 1px solid #eef2f7;
+    padding: 26px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+#SideTop {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+#BackArrow {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #0f172a;
+    background: #fff;
+    border: 1px solid #eef2f7;
+}
+
+    #BackArrow:hover {
+        background: #f8fafc
+    }
+
+#SideTitle {
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.IconDot {
+    width: 24px;
+    text-align: center;
+    margin-right: 10px;
+    font-size: 16px;
+    color: #555;
+}
+
+#Menu a {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    text-decoration: none;
+}
+
+    #Menu a:hover .IconDot {
+        color: #000;
+    }
+
+
+/* Menu */
+#Menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+/* Normal item */
+#MenuItem {
+    text-decoration: none;
+    color: #0f172a;
+    padding: 10px 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+    #MenuItem:hover {
+        background: #f8fafc
+    }
+
+/* Active item */
+#MenuItemActive {
+    text-decoration: none;
+    color: #2563eb;
+    padding: 10px 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f1f6ff;
+}
+
+#IconDot {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#MenuText {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* Bottom */
+#SideBottom {
+    margin-top: auto;
+    padding-top: 10px;
+}
+
+#Logout {
+    text-decoration: none;
+    color: #0f172a;
+    padding: 10px 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+    #Logout:hover {
+        background: #f8fafc
+    }
+
+#LogoutIcon {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== Main ===== */
+#Main {
+    flex: 1;
+    padding: 30px 34px;
+}
+
+#MainHeader {
+    margin-bottom: 18px;
+}
+
+#MainTitle {
+    font-size: 22px;
+    font-weight: 900;
+}
+
+#MainSub {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+/* Content layout */
+#ContentRow {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+/* Details panel */
+#DetailsPanel {
+    flex: 1;
+    padding: 8px 6px;
+}
+
+#AvatarRow {
+    padding: 10px 0 18px;
+}
+
+#Avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.5), transparent 50%), linear-gradient(135deg,#c7d2fe,#60a5fa,#a78bfa);
+    border: 2px solid #fff;
+    box-shadow: 0 12px 30px rgba(2,6,23,.10);
+}
+
+/* Table rows */
+#Table {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 6px;
+}
+
+#Row {
+    display: grid;
+    grid-template-columns: 140px 1fr 60px;
+    gap: 18px;
+    align-items: center;
+}
+
+#Key {
+    font-size: 13px;
+    color: #0f172a;
+    font-weight: 700;
+}
+
+#Val {
+    font-size: 13px;
+    color: #0f172a;
+}
+
+#EditLink {
+    font-size: 12px;
+    font-weight: 800;
+    color: #94a3b8;
+    text-decoration: none;
+    justify-self: end;
+}
+
+    #EditLink:hover {
+        color: #2563eb
+    }
+
+/* Promo card */
+#PromoCard {
+    width: 300px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 18px 50px rgba(2,6,23,.10);
+    border: 1px solid #eef2f7;
+    padding: 18px;
+}
+
+#PromoIcon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+#PromoTitle {
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+#PromoText {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.55;
+}
+
+#PromoBtn {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    border-radius: 999px;
+    border: 1px solid #2563eb;
+    color: #2563eb;
+    font-weight: 900;
+    text-decoration: none;
+}
+
+    #PromoBtn:hover {
+        background: #eff6ff;
+    }
+
+#PromoIcon {
+    font-size: 28px;
+    color: #ff9800;
+    margin-bottom: 10px;
+}
+
+
+/* Responsive */
+@media (max-width: 980px) {
+    #ContentRow {
+        flex-direction: column
+    }
+
+    #PromoCard {
+        width: 100%
+    }
+}
+
+@media (max-width: 760px) {
+    #Sidebar {
+        display: none
+    }
+
+    #Main {
+        padding: 22px 18px
+    }
+
+    #Row {
+        grid-template-columns: 120px 1fr 50px
+    }
+}
+
+/* ---------------------------------------------نهايه البروفايل-------------------------------------------*/

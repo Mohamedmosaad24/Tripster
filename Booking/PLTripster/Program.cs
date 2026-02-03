@@ -15,6 +15,8 @@ namespace PLTripster
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IUserRepo, UserRepo>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<ISearchService, SearchService>();
             builder.Services.AddScoped<ISearchRepo, SearchRepo>();
             builder.Services.AddDbContext<TripsterDB>(options =>
