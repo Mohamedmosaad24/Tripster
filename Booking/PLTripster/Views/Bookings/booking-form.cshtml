@@ -1,116 +1,26 @@
-﻿@model DATripster.Entities.Booking
+﻿@model WebTripster.ViewModels.BookingFormVM
 
-@{
-    ViewData["Title"] = "Book Hotel Norrebro";
-}
+<div class="col-lg-7">
+    <form asp-action="ConfirmBooking" method="post">
+        <input type="hidden" asp-for="RoomId" />
 
-<main class="container my-5">
-    <form asp-action="ConfirmBooking" asp-controller="Booking" method="post">
-
-        <input type="hidden" asp-for="RoomId" value="1" />
-        <input type="hidden" asp-for="UserId" value="1" />
-
-        <div class="row g-5">
-            <div class="col-lg-7">
-                <a href="javascript:history.back()" class="text-decoration-none text-dark mb-4 d-block">
-                    <i class="bi bi-arrow-left me-2"></i>
-                </a>
-                <h2 class="fw-bold mb-4">Book Hotel Norrebro</h2>
-
-                <section class="mb-5">
-                    <h5 class="fw-bold">Step 1:</h5>
-                    <p class="text-muted small mb-2">Property amenities</p>
-                    <div class="d-flex flex-wrap gap-3 mb-3 small">
-                        <span><i class="bi bi-wifi me-1"></i> Free Wifi</span>
-                        <span><i class="bi bi-p-square me-1"></i> Free parking</span>
-                        <span><i class="bi bi-key me-1"></i> Key card access</span>
-                        <span><i class="bi bi-wind me-1"></i> Air conditioning</span>
-                    </div>
-                    <p class="small fw-bold text-dark">Breakfast included</p>
-
-                    <label class="form-label small fw-bold">Choose bed option</label>
-                    <select class="form-select form-control-lg">
-                        <option selected>2 separate beds</option>
-                        <option>1 double bed</option>
-                    </select>
-                </section>
-
-                <hr class="my-5 opacity-10">
-
-                <section class="mb-5">
-                    <h5 class="fw-bold mb-4">Step 2: Stay Dates</h5>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label small">Check-in Date</label>
-                            <input type="date" asp-for="CheckIn" class="form-control form-control-lg" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label small">Check-out Date</label>
-                            <input type="date" asp-for="CheckOut" class="form-control form-control-lg" required>
-                        </div>
-                    </div>
-
-                    <p class="text-muted small mb-2 mt-4">Guest details</p>
-                    <div class="mb-3">
-                        <input type="text" class="form-control form-control-lg" placeholder="Full name e.g. Maria Lost">
-                    </div>
-                </section>
-
-                <hr class="my-5 opacity-10">
-
-                <section class="mb-5">
-                    <h5 class="fw-bold mb-4">Step 3: Payment details</h5>
-                    <div class="mb-3">
-                        <label class="form-label small">Card number</label>
-                        <input type="text" class="form-control form-control-lg" placeholder="**** **** **** ****">
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label small">Valid until</label>
-                            <input type="text" class="form-control form-control-lg" placeholder="MM/YY">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label small">CVC</label>
-                            <input type="text" class="form-control form-control-lg" placeholder="***">
-                        </div>
-                    </div>
-                </section>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label small">Check-in</label>
+                <input type="date" asp-for="CheckIn" class="form-control" />
+                <span asp-validation-for="CheckIn" class="text-danger small"></span>
             </div>
-
-            <div class="col-lg-5">
-                <div class="card border-0 shadow-sm p-2 rounded-4 sticky-top" style="top: 2rem;">
-                    <img src="~/assets/Booking/1.jpg" class="card-img-top rounded-4" alt="Hotel Room">
-                    <div class="card-body">
-                        <h5 class="fw-bold mb-1">Hotel Norrebro ★★★</h5>
-                        <p class="text-muted small mb-4">Copenhagen, Denmark</p>
-
-                        <hr class="opacity-10">
-
-                        <p class="fw-bold small mb-2">Standard double room</p>
-                        <div class="d-flex justify-content-between small mb-1">
-                            <span>Price per night</span>
-                            <span>$180</span>
-                        </div>
-                        <div class="d-flex justify-content-between small mb-1">
-                            <span>City tax</span>
-                            <span>$40</span>
-                        </div>
-                        <div class="d-flex justify-content-between small mb-4">
-                            <span>Service fee</span>
-                            <span>$20</span>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center border-top pt-3 mb-4">
-                            <span class="fw-bold h5">TOTAL</span>
-                            <span class="fw-bold h5 text-primary">$600</span>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill fw-bold">
-                            Book now
-                        </button>
-                    </div>
-                </div>
+            <div class="col-md-6">
+                <label class="form-label small">Check-out</label>
+                <input type="date" asp-for="CheckOut" class="form-control" />
             </div>
         </div>
+
+        <div class="mb-3">
+            <label class="form-label small">First and Last name</label>
+            <input type="text" asp-for="GuestFullName" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary rounded-pill w-100 py-3 mt-4">Book now</button>
     </form>
-</main>
+</div>

@@ -3,6 +3,7 @@ using BLTripster.IServices;
 using DATripster.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using WebTripster.ViewModels;
 
 namespace WebTripster.Controllers
 {
@@ -39,10 +40,28 @@ namespace WebTripster.Controllers
         }
 
         [HttpGet]
-        public IActionResult BookingConfirmed()
+        public async Task<IActionResult> BookingConfirmed(int bookingId)
         {
-           
-            return View(BookingConfirmed);
+          
+            var booking = await _bookingService.GetBookingDetailsAsync(bookingId);
+
+            if (booking == null) return NotFound();
+
+         
+            var viewModel = new BookingSuccessVM
+            {
+                HotelName = booking.Room.Hotel.Name,
+                HotelAddress = booking.Room.Hotel.Address,
+                RoomType = booking.Room.RoomType,
+                CheckIn = booking.CheckIn ?? DateTime.Now,
+                CheckOut = booking.CheckOut ?? DateTime.Now.AddDays(1),
+                TotalPrice = booking.TotalPrice,
+             
+                MainImageUrl = booking.Room.Images?.FirstOrDefault()?.ImageUrl
+                               ?? "/images/default-room.jpg"
+            };
+
+            return View(viewModel);
         }
     }
 }

@@ -43,5 +43,9 @@ namespace BLTripster.Services
           
             return resultId > 0;
         }
+        public async Task<Booking?> GetBookingDetailsAsync(int bookingId)
+        {
+            return await _bookingRepo.GetBookingByIdAsync(bookingId);
+        }
     }
 }
