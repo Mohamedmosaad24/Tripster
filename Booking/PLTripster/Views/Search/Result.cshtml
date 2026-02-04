@@ -236,10 +236,10 @@
                                 <div>
 										<h5 class="m-0 ">@((int)hotel.Rooms.FirstOrDefault().Price)$</h5>
                                         <p class="m-0 mb-1">@(ViewBag.nights) nights , @ViewBag.geusts geusts</p>
-                                    <button class="m-0 bg-primary btn rounded-pill w-100 px-1 text-white"
-                                            style="height: 34px;" asp-action="#" asp-controller="#" asp-route-id="@hotel.Id">
+                                    <a class="m-0 bg-primary btn rounded-pill w-100 px-1 text-white"
+												style="height: 34px;" asp-controller="Hotel" asp-action="details" asp-route-id="@hotel.Id">
                                         See booking options
-                                    </button>
+                                    </a>
                                 </div>
 
                             </div>

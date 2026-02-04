@@ -20,15 +20,18 @@ namespace DALTripster.Repos
         }
         public Hotel? GetById(int id)
         {
-                return db.Hotels
-                  .Include(h => h.Images)
-                  .Include(h => h.Reviews)
-                  .ThenInclude(r => r.User)
-                  .Include(h => h.Rooms)
-                      .ThenInclude(r => r.Images)
-                  .Include(h => h.HotelServices)
-                      .ThenInclude(hs => hs.Service)
-                  .FirstOrDefault(h => h.Id == id);
+            var query = db.Hotels
+                .AsNoTracking()
+                .Include(h => h.Rooms)
+                .ThenInclude(r => r.Bookings)
+                .Include(h => h.Rooms)
+                .ThenInclude(r => r.Images)
+                .Include(h => h.Reviews)
+                .Include(h => h.HotelServices)
+                .ThenInclude(h=>h.Service)
+                .Include(h => h.Images)
+                .AsQueryable().FirstOrDefault(h => h.Id == id);
+            return query;
         }
         public void Add(Hotel entity)
         {
