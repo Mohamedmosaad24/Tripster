@@ -18,6 +18,8 @@ namespace PLTripster
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IUserRepo, UserRepo>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IHomeRepo, HomeRepo>();
+            builder.Services.AddScoped<IHomeService, HomeService>();
             builder.Services.AddScoped<ISearchService, SearchService>();
             builder.Services.AddScoped<ISearchRepo, SearchRepo>();
             builder.Services.AddScoped<IHotelRepo, HotelRepo>();

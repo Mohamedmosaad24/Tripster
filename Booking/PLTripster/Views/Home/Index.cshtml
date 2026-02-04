@@ -1,8 +1,187 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<DATripster.Entities.Hotel>
+
+@{
+    ViewData["Title"] = "Home - Tripster";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="HeroContainer" class="container mt-2 align-content-center">
+    <div class="container">
+        <h1 class="text-center">Book your stay with Tripster</h1>
+        <span class="text-center d-block">
+            1,480,086 rooms around the world are waiting for you!
+        </span>
+    </div>
+
+    <form action="Search" method="get" class="search-pill-container mt-4">
+        <div class="search-group">
+            <label for="location">Location</label>
+            <input type="text"
+                   id="location"
+                   name="city"
+                   placeholder="Where are you going?"
+                   class="form-control-plaintext"
+                   />
+        </div>
+
+        <div class="search-group">
+            <label for="checkin">Check-in</label>
+            <input type="date"
+                   id="checkin"
+                   name="checkIn"
+                   class="form-control-plaintext"
+                    />
+        </div>
+
+        <div class="search-group">
+            <label for="checkout">Check-out</label>
+            <input type="date"
+                   id="checkout"
+                   name="checkOut"
+                   class="form-control-plaintext"
+                   />
+        </div>
+
+        <div class="search-group">
+            <label for="guests">Guests</label>
+            <input type="number"
+                   id="guests"
+                   name="guests"
+                   placeholder="Number of guests"
+                   min="1"
+                   value="1"
+                   class="form-control-plaintext" />
+        </div>
+
+        <button type="submit" class="search-btn-circle" title="Search">
+            <i class="bi bi-arrow-right fs-5"></i>
+        </button>
+    </form>
 </div>
+
+<div class="container my-5">
+    <h2 class="mb-4">Popular destinations</h2>
+
+    <div class="row g-3">
+        <div class="col-md-3">
+            <div class="dest-card main-tall" style="background-image: url('/assets/Home/spain.jpg');">
+                <span class="dest-label">Spain</span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="row g-3">
+                <div class="col-12">
+                    <div class="dest-card tall" style="background-image: url('/assets/Home/london.jpg');">
+                        <span class="dest-label">London</span>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="dest-card tall" style="background-image: url('/assets/Home/lisbon.jpg');">
+                        <span class="dest-label">Lisbon</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="dest-card main-tall" style="background-image: url('/assets/Home/croatia.jpg');">
+                <span class="dest-label">Croatia</span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="row g-3">
+                <div class="col-12">
+                    <div class="dest-card short" style="background-image: url('/assets/Home/bratislava.jpg');">
+                        <span class="dest-label">Bratislava</span>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="dest-card extra-tall" style="background-image: url('/assets/Home/copenhagen.jpg');">
+                        <span class="dest-label">Copenhagen</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hotels Loved by Guests Section -->
+<div class="container my-5">
+    <h2 class="mb-4">Hotels loved by guests</h2>
+
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var hotel in Model)
+            {
+                var averageRating = hotel.Reviews != null && hotel.Reviews.Any()
+                ? hotel.Reviews.Average(r => r.Rate)
+                : (double?)null;
+
+                <div class="col">
+                    <div class="hotel-card">
+                        <div class="hotel-img-container"
+                             style="background-image: url('@(hotel.Images?.FirstOrDefault()?.ImageUrl ?? "/assets/Home/hotel1.jpg")');">
+
+                            <!-- Rating Badge -->
+                            @if (averageRating.HasValue)
+                            {
+                                <span class="badge-rating">@averageRating.Value.ToString("0.0")</span>
+                            }
+
+                            <button type="button" class="wishlist-btn" title="Add to wishlist">
+                                <i class="bi bi-heart"></i>
+                            </button>
+                        </div>
+
+                        <div class="hotel-body">
+                            <h5 class="hotel-title">@hotel.Name</h5>
+                            <p class="hotel-loc">
+                                <i class="bi bi-geo-alt me-1"></i>@hotel.Address
+                            </p>
+                        </div>
+
+                        <div class="hotel-footer">
+                            <div>
+                                <span class="fw-bold text-dark">from $@(hotel.Rooms?.Min(r => r.Price) ?? 0)/night</span>
+                            </div>
+                            <a asp-controller="Hotel" asp-action="Details" asp-route-id="@hotel.Id"
+                               class="btn btn-link text-decoration-none p-0">
+                                <i class="bi bi-arrow-right fs-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <p class="text-muted text-center">No hotels available at the moment.</p>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="newsletter-banner">
+        <div class="d-flex align-items-center">
+            <div>
+                <img class="newsletter-icon me-4" src="/assets/Home/payment.png" alt="paymenticon" />
+            </div>
+            <div class="newsletter-text">
+                <h5 class="fw-bold mb-1">Pssst!</h5>
+                <p class="mb-0 text-muted">
+                    Do you want to get secret offers and best prices for amazing stays? <br />
+                    Sign up to join our Travel Club!
+                </p>
+            </div>
+        </div>
+        <button class="btn btn-outline-primary rounded-pill px-4">
+            Sign up for newsletter
+        </button>
+    </div>
+</div>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
