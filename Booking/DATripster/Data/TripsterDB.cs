@@ -244,32 +244,103 @@ namespace DATripster.Data
                 new Image
                 {
                     Id = 1,
-                    ImageUrl = "https://picsum.photos/id/1018/900/600",
+                    ImageUrl = "hotel1.jpg",
                     HotelId = 1,
                     RoomId = null
                 },
                 new Image
                 {
                     Id = 2,
-                    ImageUrl = "https://picsum.photos/id/1019/900/600",
+                    ImageUrl = "room-1.jpg",
+                    HotelId = null,
+                    RoomId = 1
+                },
+                new Image
+                {
+                    Id = 3,
+                    ImageUrl = "room-2.jpg",
                     HotelId = null,
                     RoomId = 2
                 },
                 new Image
                 {
-                    Id = 3,
-                    ImageUrl = "https://picsum.photos/id/1020/900/600",
+                    Id = 4,
+                    ImageUrl = "room-3.jpg",
                     HotelId = null,
                     RoomId = 3
                 },
                 new Image
                 {
-                    Id = 4,
-                    ImageUrl = "https://picsum.photos/id/1021/900/600",
+                    Id = 5,
+                    ImageUrl = "room-4.jpg",
                     HotelId = null,
                     RoomId = 4
-                }
-            );
+                },
+                new Image
+                {
+                    Id = 6,
+                    ImageUrl = "hotel3.jpg",
+                    HotelId = 1,
+                    RoomId = null
+                },
+                  new Image
+                  {
+                      Id = 7,
+                      ImageUrl = "hotel4.jpg",
+                      HotelId = 1,
+                      RoomId = null
+                  },
+                new Image
+                {
+                    Id = 8,
+                    ImageUrl = "hotel7.jpg",
+                    HotelId = 1,
+                    RoomId = null
+                },
+                    new Image
+                {
+                Id = 9,
+                ImageUrl = "hotel8.jpg",
+                HotelId = 2,
+                RoomId = null
+                },
+                new Image
+                {
+                    Id = 10,
+                    ImageUrl = "hotel9.jpg",
+                    HotelId = 2,
+                    RoomId = null
+                },
+                new Image
+                {
+                    Id = 11,
+                    ImageUrl = "hotel10.jpg",
+                    HotelId = 2,
+                    RoomId = null
+                },
+                new Image
+                {
+                    Id = 12,
+                    ImageUrl = "hotel11.jpg",
+                    HotelId = 2,
+                    RoomId = null
+                },
+                new Image
+                {
+                    Id = 13,
+                    ImageUrl = "hotel12.jpg",
+                    HotelId = 2,
+                    RoomId = null
+                },
+                 new Image
+                 {
+                     Id = 14,
+                     ImageUrl = "hotel6.jpg",
+                     HotelId = 1,
+                     RoomId = null
+                 }
+
+                );
 
         }
 

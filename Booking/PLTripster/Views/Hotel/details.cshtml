@@ -12,13 +12,23 @@
 
                 <a asp-controller="Search" asp-action="Result"><i class="fa-sharp fa-solid fa-arrow-left"></i></a>
             </div>
-            <div class="img-container mb-4">
-                @*Static Images*@
-                <div class="pic1 shadow-sm"><img src="~/assets/hotelImg/hotel1.jpg" alt="" class="img-fluid"> </div>
-                <div class="pic2 shadow-sm"><img src="~/assets/hotelImg/hotel3.jpg" alt="" class="img-fluid"> </div>
-                <div class="pic3 shadow-sm"><img src="~/assets/hotelImg/hotel6.jpg" alt="" class="img-fluid"> </div>
-                <div class="pic4 shadow-sm"><img src="~/assets/hotelImg/hotel3.jpg" alt="" class="img-fluid"> </div>
-                <div class="pic5 shadow-sm"><img src="~/assets/hotelImg/hotel4.jpg" alt="" class="img-fluid"> </div>
+            @{
+                var images = Model.Images?.ToList() ?? new List<Image>();
+            }
+
+            <div class="img-container">
+                @for (int i = 0; i < 5; i++)
+                {
+                    var imageUrl = (i < images.Count && !string.IsNullOrEmpty(images[i].ImageUrl))
+                    ? Url.Content(images[i].ImageUrl)
+                    : Url.Content("~/assets/hotelImg/hotel1.jpg");
+
+                    <div class="pic@(i + 1)">
+                        <img src="~/assets/hotelImg/@imageUrl" />
+                    </div>
+                }
+            </div>
+              
             </div>
 
             <div class="desc">
@@ -203,7 +213,6 @@
                 <div class="col-md-8">
                     @foreach (var review in Model.Reviews)
                     {
-                        @*Add list of Advantages*@
                         <div class="review mb-4 p-3 rounded">
                             <div class="review-title fw-bold">@review.Comment</div>
                             <div class="review-meta mb-2 text-muted">@review.User?.Name</div>
