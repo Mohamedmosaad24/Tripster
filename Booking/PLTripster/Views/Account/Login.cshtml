@@ -1,0 +1,128 @@
+﻿@using BLTripster.ViewModels
+@model LoginVM
+
+
+<body id="LoginPage">
+
+<div id="AuthWrap">
+  <div id="AuthCard">
+
+    <!-- LEFT -->
+    <div id="Left">
+      <div id="TopBar">
+        <a id="BackBtn" asp-action="Register">←</a>
+        <div id="TopLink">New here? <a asp-action="Register">Sign up</a></div>
+      </div>
+
+      <div>
+        <div id="Title">Sign In</div>
+        <div id="SubTitle">Welcome back to Tripster</div>
+      </div>
+
+      <!-- Form with ASP.NET Core validation -->
+      <form id="AuthForm" asp-action="SaveLogin" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div>
+          <label asp-for="UserName">User Name</label>
+          <input asp-for="UserName" type="text" placeholder="mohamed24" />
+          <span asp-validation-for="UserName" class="text-danger"></span>
+          <hr id="Line">
+        </div>
+
+        <div>
+          <label asp-for="Password">Password</label>
+          <input asp-for="Password" type="password" placeholder="••••••••" />
+          <span asp-validation-for="Password" class="text-danger"></span>
+          <hr id="Line">
+        </div>
+
+        <div style="display: flex; align-items: center; margin: 10px 0;">
+          <input asp-for="RememberMe" type="checkbox" id="RememberMe" style="margin-right: 8px;" />
+          <label asp-for="RememberMe" for="RememberMe" style="margin: 0; cursor: pointer;">Remember Me</label>
+        </div>
+
+        <button id="PrimaryBtn" type="submit">
+          Sign In <span>→</span>
+        </button>
+
+        <div id="OrRow"><div></div><span>Or</span><div></div></div>
+
+        <div id="SocialRow">
+          <button type="button">
+            <span>
+              <!-- Google Icon -->
+              <svg width="22" height="22" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.5 29.2 35 24 35c-6.1 0-11-4.9-11-11s4.9-11 11-11c2.8 0 5.3 1 7.2 2.7l5.6-5.6C33.4 7.1 28.9 5 24 5 12.4 5 3 14.4 3 26s9.4 21 21 21 21-9.4 21-21c0-1.8-.2-3.1-.4-4.5z"/>
+                <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16.1 19 13 24 13c2.8 0 5.3 1 7.2 2.7l5.6-5.6C33.4 7.1 28.9 5 24 5c-8.1 0-15.1 4.6-18.7 9.7z"/>
+                <path fill="#4CAF50" d="M24 47c4.9 0 9.3-1.9 12.7-4.9l-5.9-4.8C29 38.6 26.6 39.5 24 39.5c-5.2 0-9.6-3.5-11.1-8.3l-6.7 5.1C9.7 42.4 16.3 47 24 47z"/>
+                <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1 2.8-3.1 5.2-5.9 6.7l.1.1 5.9 4.8C34.9 41.5 45 36 45 26c0-1.8-.2-3.1-.4-4.5z"/>
+              </svg>
+            </span>
+            Sign in with Google
+          </button>
+
+          <button type="button">
+            <span>
+              <!-- Facebook Icon -->
+              <svg width="22" height="22" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#1877F2" d="M24 4C12.95 4 4 12.95 4 24c0 9.99 7.31 18.27 16.88 19.77V29.7h-4.7V24h4.7v-4.35c0-4.64 2.76-7.2 6.99-7.2 2.02 0 4.13.36 4.13.36v4.55h-2.33c-2.3 0-3.02 1.43-3.02 2.9V24h5.14l-.82 5.7h-4.32v14.07C36.69 42.27 44 33.99 44 24 44 12.95 35.05 4 24 4z"/>
+              </svg>
+            </span>
+            Sign in with Facebook
+          </button>
+
+          <button type="button">
+            <span>
+              <!-- Email Icon -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6h16v12H4V6z" stroke="#0f172a" stroke-width="1.6" />
+                <path d="M4 7l8 6 8-6" stroke="#0f172a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            Sign in with email
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- RIGHT -->
+    <div id="Right">
+      <div id="RightPanel">
+        <div id="FloatA">
+          <small>Hotels</small>
+          <b>176,18</b>
+        </div>
+
+        <svg id="Art" viewBox="0 0 820 520" xmlns="http://www.w3.org/2000/svg">
+          <rect width="820" height="520" rx="22" fill="#ffffff"/>
+          <rect x="70" y="90" width="300" height="16" rx="8" fill="#e5e7eb"/>
+          <rect x="70" y="140" width="380" height="16" rx="8" fill="#e5e7eb"/>
+          <rect x="70" y="190" width="260" height="16" rx="8" fill="#e5e7eb"/>
+          <rect x="70" y="270" width="260" height="52" rx="14" fill="#3b5bff"/>
+          <circle cx="336" cy="296" r="18" fill="#1d4ed8"/>
+          <path d="M332 296h10M338 291l4 5-4 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="480" y="120" width="220" height="240" rx="18" fill="#eef2ff"/>
+          <path d="M510 290c40-60 80 50 120-10 40-60 70 70 110 0" fill="none" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="590" cy="240" r="28" fill="#111827"/>
+          <text x="580" y="248" font-size="18" fill="#fff" font-family="Arial" font-weight="700">45</text>
+        </svg>
+
+        <div id="IconDot1">◎</div>
+        <div id="IconDot2">♪</div>
+
+        <div id="FloatB">
+          <b>Your journey awaits</b>
+          <span>Book your dream hotel and start exploring the world.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+}
+
+</body>

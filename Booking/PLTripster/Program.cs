@@ -1,9 +1,11 @@
 using BLTripster.IServices;
 using BLTripster.Services;
+using DALTripster.Entities;
 using DALTripster.IRepos;
 using DALTripster.Repos;
 using DATripster.Data;
 using DATripster.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace PLTripster
@@ -26,8 +28,14 @@ namespace PLTripster
             builder.Services.AddScoped<IHotelService, HotelService>();
             builder.Services.AddScoped<IBookingRepository, BookingRepository>();
             builder.Services.AddScoped<IBookingService, BookingService>();
+
+
             builder.Services.AddDbContext<TripsterDB>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<TripsterDB>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -39,6 +47,7 @@ namespace PLTripster
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
