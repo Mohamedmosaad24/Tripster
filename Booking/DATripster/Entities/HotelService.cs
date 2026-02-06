@@ -8,6 +8,7 @@ namespace DATripster.Entities
 {
     public class HotelService
     {
+
         public int HotelId { get; set; }
         public Hotel? Hotel { get; set; }
 

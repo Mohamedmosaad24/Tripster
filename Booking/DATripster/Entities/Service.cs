@@ -10,7 +10,7 @@ namespace DATripster.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; } = default!;
-
+        public String? Icon { get; set; }
         public ICollection<HotelService> HotelServices { get; set; } = default!;
     }
 }
