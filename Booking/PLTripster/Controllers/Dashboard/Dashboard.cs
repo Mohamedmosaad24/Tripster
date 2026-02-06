@@ -16,27 +16,27 @@ namespace CenterSystem.Controllers
         #endregion
 
         #region Hotel dashboard
-        //HotelRepo >> implemntation..getall/edit/add/getid/delete
+        //HotelRepo : IRepo<Room> =>> implemntation..getall/edit/add/getid/delete
 
         #endregion
 
         #region Rooms dashboard
-        //RoomsRepo >> implemntation..getall/edit/add/getid/delete
+        //RoomsRepo : IRepo<Room> =>> implemntation..getall/edit/add/getid/delete
 
         #endregion
 
         #region Bookings dashboard
-        //BookingsRepo >> implemntation  .. Mangement {update}
+        //BookingsRepo =>> implemntation  .. Mangement {update}
 
         #endregion
 
         #region Reviews dashboard
-        //ReviewsRepo >> GetAll/RemoveReview
+        //ReviewsRepo =>> GetAll/RemoveReview
 
         #endregion
 
         #region Users dashboard
-        //UsersRepo >> GetAll /RemoveUser/ActiveAccount
+        //UsersRepo =>> GetAll /RemoveUser/ActiveAccount
 
         #endregion
     }
