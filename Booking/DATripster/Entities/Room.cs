@@ -13,11 +13,17 @@ namespace DATripster.Entities
         public int Capacity { get; set; }
         public decimal Price { get; set; }
         public bool IsAvailable { get; set; }
-
+        public float? Sqm { get; set; }
+        public int? NumberOFBathRoom { get; set; } = 1;
+        public TypeOfBed TypeOfBed { get; set; }
         public int HotelId { get; set; }
         public Hotel Hotel { get; set; } = default!;
-
         public ICollection<Image>? Images { get; set; }
         public ICollection<Booking>? Bookings { get; set; }
+    }
+    public enum TypeOfBed
+    {
+        King= 1,
+        Queen
     }
 }
