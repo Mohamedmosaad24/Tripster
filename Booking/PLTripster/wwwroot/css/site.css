@@ -809,7 +809,7 @@ body {
     }
 
 .pic1 {
-    grid-area: pic3;
+    grid-area: pic1;
 }
 
 .pic2 {
@@ -817,7 +817,7 @@ body {
 }
 
 .pic3 {
-    grid-area: pic1;
+    grid-area: pic3;
 }
 
 .pic4 {
