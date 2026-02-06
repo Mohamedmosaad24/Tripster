@@ -38,6 +38,19 @@ namespace PLTripster
 
             var app = builder.Build();
 
+            // Ensure AspNetUsers has FullName column (fixes "Invalid column name 'FullName'" after sign up/sign in)
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<TripsterDB>();
+                try
+                {
+                    db.Database.ExecuteSqlRaw(
+                        "IF NOT EXISTS (SELECT 1 FROM sys.columns c INNER JOIN sys.tables t ON c.object_id = t.object_id WHERE t.name = 'AspNetUsers' AND c.name = 'FullName') " +
+                        "ALTER TABLE AspNetUsers ADD FullName nvarchar(max) NOT NULL DEFAULT N''");
+                }
+                catch { /* column may already exist or DB not ready */ }
+            }
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {

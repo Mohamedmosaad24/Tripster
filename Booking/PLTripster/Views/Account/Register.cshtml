@@ -1,4 +1,4 @@
-﻿@model BLTripster.ViewModels.RegisterVM
+@model BLTripster.ViewModels.RegisterVM
 
 
 
@@ -18,7 +18,7 @@
                 </div>
 
                 <!-- Form with ASP.NET Core validation -->
-                <form id="AuthForm" asp-action="Register" method="post">
+                <form id="AuthForm" asp-controller="Account" asp-action="SaveRegister" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div>

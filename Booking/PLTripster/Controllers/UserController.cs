@@ -1,27 +1,46 @@
-﻿using BLTripster.IServices;
+using BLTripster.IServices;
 using BLTripster.Mapping;
 using BLTripster.ViewModels;
+using DALTripster.Entities;
 using DATripster.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 
 namespace PLTripster.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserService userService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, UserManager<ApplicationUser> userManager)
         {
             this.userService = userService;
+            _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            int currentUserId = 8;
+            var appUser = await _userManager.GetUserAsync(User);
+            if (appUser == null)
+                return RedirectToAction("Login", "Account");
 
-            var user = userService.GetUserById(currentUserId);
+            var user = userService.GetUserByEmail(appUser.Email ?? "");
             if (user == null)
-                return Content($"User with id={currentUserId} not found.");
+            {
+                user = new User
+                {
+                    Name = appUser.FullName ?? appUser.UserName ?? "",
+                    Email = appUser.Email ?? ""
+                };
+                userService.AddUser(user);
+                user = userService.GetUserByEmail(appUser.Email ?? "");
+            }
+
+            if (user == null)
+                return Content("Profile could not be loaded.");
 
             var vm = UserProfileMapping.ToProfileVM(user);
             return View(vm);

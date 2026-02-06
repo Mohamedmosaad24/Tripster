@@ -1,4 +1,4 @@
-﻿@using BLTripster.ViewModels
+@using BLTripster.ViewModels
 @model ProfileVM
 
 <body>
@@ -44,7 +44,7 @@
             </nav>
 
             <div id="SideBottom">
-                <a id="Logout" href="#">
+                <a id="Logout" asp-controller="Account" asp-action="Logout">
                     <span class="IconDot"><i class="fa-solid fa-right-from-bracket"></i></span>
                     <span>Log out</span>
                 </a>

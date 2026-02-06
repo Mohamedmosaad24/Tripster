@@ -1,5 +1,7 @@
-﻿using BLTripster.ViewModels;
+using BLTripster.IServices;
+using BLTripster.ViewModels;
 using DALTripster.Entities;
+using DATripster.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +11,13 @@ namespace PLTripster.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IUserService _userService;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _userService = userService;
         }
         [HttpGet]
         public IActionResult Register()
@@ -21,6 +25,7 @@ namespace PLTripster.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveRegister(RegisterVM userVM)
         {
             if (ModelState.IsValid)
@@ -32,11 +37,11 @@ namespace PLTripster.Controllers
                     FullName = userVM.FullName
                 };
 
-                // هنا تكمل باقي الكود
                 var result = await _userManager.CreateAsync(appUser, userVM.Password);
 
                 if (result.Succeeded)
                 {
+                    _userService.AddUser(new User { Name = userVM.FullName, Email = userVM.Email });
                     await _signInManager.SignInAsync(appUser, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
@@ -73,6 +78,7 @@ namespace PLTripster.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveLogin(LoginVM loginVM)
         {
             if (ModelState.IsValid)

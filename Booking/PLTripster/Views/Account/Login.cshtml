@@ -1,4 +1,4 @@
-﻿@using BLTripster.ViewModels
+@using BLTripster.ViewModels
 @model LoginVM
 
 
@@ -20,12 +20,12 @@
       </div>
 
       <!-- Form with ASP.NET Core validation -->
-      <form id="AuthForm" asp-action="SaveLogin" method="post">
+      <form id="AuthForm" asp-controller="Account" asp-action="SaveLogin" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div>
           <label asp-for="UserName">User Name</label>
-          <input asp-for="UserName" type="text" placeholder="mohamed24" />
+          <input asp-for="UserName" type="text" placeholder="mohamed" />
           <span asp-validation-for="UserName" class="text-danger"></span>
           <hr id="Line">
         </div>
@@ -37,10 +37,18 @@
           <hr id="Line">
         </div>
 
-        <div style="display: flex; align-items: center; margin: 10px 0;">
-          <input asp-for="RememberMe" type="checkbox" id="RememberMe" style="margin-right: 8px;" />
-          <label asp-for="RememberMe" for="RememberMe" style="margin: 0; cursor: pointer;">Remember Me</label>
-        </div>
+        @* <div style="display: flex; align-items: center; margin: 10px 0;"> *@
+        @*   <input asp-for="RememberMe" type="checkbox" id="RememberMe" style="margin-right: 8px;" /> *@
+        @*   <label asp-for="RememberMe" for="RememberMe" style="margin: 0; cursor: pointer;">Remember Me</label> *@
+        @* </div> *@
+                    <div class="remember-forgot-container">
+                        <label class="remember-checkbox-wrapper">
+                            <input asp-for="RememberMe" type="checkbox" id="RememberMe" />
+                            <span>Remember Me</span>
+                        </label>
+
+                        <a asp-action="ForgotPassword" class="forgot-password-link">Forgot Your Password?</a>
+                    </div>
 
         <button id="PrimaryBtn" type="submit">
           Sign In <span>→</span>
