@@ -17,6 +17,18 @@ namespace CenterSystem.Controllers
 
         #region Hotel dashboard
         //HotelRepo : IRepo<Room> =>> implemntation..getall/edit/add/getid/delete
+<<<<<<< Updated upstream
+=======
+        [HttpPost]
+        public IActionResult AddHotel(AddHotelVM model)
+        {
+            return View();
+        }
+        public IActionResult SaveHotel(AddHotelVM model)
+        {
+            if (!ModelState.IsValid)
+                return View("Add", model);
+>>>>>>> Stashed changes
 
         #endregion
 
