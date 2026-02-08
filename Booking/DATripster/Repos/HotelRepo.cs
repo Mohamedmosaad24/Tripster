@@ -35,7 +35,9 @@ namespace DALTripster.Repos
         }
         public void Add(Hotel entity)
         {
-            throw new NotImplementedException();
+            db.Hotels.Add(entity);
+            db.SaveChanges();
+
         }
 
         public void Delete(int id)
@@ -51,7 +53,7 @@ namespace DALTripster.Repos
 
         public void Save()
         {
-            throw new NotImplementedException();
+            db.SaveChanges();
         }
 
         public void Update(Hotel entity)
