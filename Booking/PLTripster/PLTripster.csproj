@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Room\" />
     <Folder Include="wwwroot\assets\Booking\" />
   </ItemGroup>
 
