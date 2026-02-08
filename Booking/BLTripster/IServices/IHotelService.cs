@@ -10,5 +10,6 @@ namespace BLTripster.IServices
     public interface IHotelService
     {
         Hotel GetHotel(int id);
+        void AddHotel(AddHotelVM hotel);
     }
 }
