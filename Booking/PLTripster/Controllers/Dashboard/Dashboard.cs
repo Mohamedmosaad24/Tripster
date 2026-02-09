@@ -1,11 +1,10 @@
-﻿
-using BLTripster.IServices;
+﻿using BLTripster.IServices;
 using DALTripster.IRepos;
 using DATripster.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace CenterSystem.Controllers
+namespace DALTripster.Controllers
 {
     public class Dashboard : Controller
     {
