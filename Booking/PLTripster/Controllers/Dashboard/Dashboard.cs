@@ -25,7 +25,7 @@ namespace CenterSystem.Controllers
 
         #region Hotel dashboard
         //HotelRepo : IRepo<Room> =>> implemntation..getall/edit/add/getid/delete
-        [HttpPost]
+
         public IActionResult AddHotel(AddHotelVM model)
         {
             if (!ModelState.IsValid)
@@ -39,7 +39,7 @@ namespace CenterSystem.Controllers
 
             hotelService.AddHotel(model);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("AddHotel");
         }
         #endregion
 
