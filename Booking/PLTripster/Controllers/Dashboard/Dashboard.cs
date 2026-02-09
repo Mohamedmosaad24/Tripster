@@ -1,5 +1,5 @@
 ﻿
-
+using BLTripster.IServices;
 using DALTripster.IRepos;
 using DATripster.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +10,14 @@ namespace CenterSystem.Controllers
     public class Dashboard : Controller
     {
         private readonly IHotelService hotelService;
+        private readonly IRepo<Room> _roomRepo;
+        private readonly IReviewService reviewService;
 
-        public Dashboard(IHotelService hotelService)
-        {
+        public Dashboard(IHotelService hotelService, IRepo<Room> roomRepo, IReviewService reviewService)
+        {   
             this.hotelService = hotelService;
+            _roomRepo = roomRepo;
+            this.reviewService = reviewService;
         }
         #region Home dashboard
         //Display analysis
@@ -41,15 +45,7 @@ namespace CenterSystem.Controllers
 
         #region Rooms dashboard
         //RoomsRepo : IRepo<Room> =>> implemntation..getall/edit/add/getid/delete
-        private readonly IRepo<Room> _roomRepo;
-
-        public Dashboard(IRepo<Room> roomRepo)
-        {
-            _roomRepo = roomRepo;
-        }
-
-     
-        // LIST ROOMS
+             // LIST ROOMS
     
         public IActionResult Rooms()
         {
@@ -128,6 +124,19 @@ namespace CenterSystem.Controllers
 
         #region Reviews dashboard
         //ReviewsRepo =>> GetAll/RemoveReview
+        [HttpGet]
+        public IActionResult Reviews()
+        {
+            var reviews = reviewService.GetAll();
+            return View(reviews);
+        }
+
+        [HttpPost]
+        public IActionResult RemoveReview(int reviewId)
+        {
+            reviewService.RemoveReview(reviewId);
+            return RedirectToAction("Index");
+        }
 
         #endregion
 
