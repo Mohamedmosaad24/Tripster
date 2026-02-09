@@ -1,0 +1,30 @@
+﻿@model IEnumerable<DATripster.Entities.Room>
+
+<h2>Rooms</h2>
+
+<a asp-action="AddRoom" class="btn btn-success mb-3">Add Room</a>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Type</th>
+        <th>Capacity</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var room in Model)
+    {
+        <tr>
+            <td>@room.RoomType</td>
+            <td>@room.Capacity</td>
+            <td>@room.Price</td>
+            <td>
+                <a asp-action="EditRoom" asp-route-id="@room.Id" class="btn btn-warning">Edit</a>
+                <a asp-action="DeleteRoom" asp-route-id="@room.Id"
+                   class="btn btn-danger"
+                   onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
