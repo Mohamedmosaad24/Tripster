@@ -1,0 +1,24 @@
+﻿@model DATripster.Entities.Room
+
+<h2>Edit Room</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label>Room Type</label>
+        <input asp-for="RoomType" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Capacity</label>
+        <input asp-for="Capacity" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Price</label>
+        <input asp-for="Price" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

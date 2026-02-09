@@ -1,9 +1,9 @@
 ﻿
 
-using System.ComponentModel.DataAnnotations;
-using BLTripster.IServices;
+using DALTripster.IRepos;
 using DATripster.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace CenterSystem.Controllers
 {
@@ -25,19 +25,14 @@ namespace CenterSystem.Controllers
 
         #region Hotel dashboard
         //HotelRepo : IRepo<Room> =>> implemntation..getall/edit/add/getid/delete
+// Updated upstream
+
         [HttpPost]
         public IActionResult AddHotel(AddHotelVM model)
         {
             if (!ModelState.IsValid)
                 return View("Add", model);
-
-            if (model.Images.Count > 5)
-            {
-                ModelState.AddModelError("", "Maximum 5 images allowed");
-                return View("Add",model);
-            }
-
-            hotelService.AddHotel(model);
+// Stashed changes
 
             return RedirectToAction("Index");
         }
@@ -45,6 +40,83 @@ namespace CenterSystem.Controllers
 
         #region Rooms dashboard
         //RoomsRepo : IRepo<Room> =>> implemntation..getall/edit/add/getid/delete
+        private readonly IRepo<Room> _roomRepo;
+
+        public Dashboard(IRepo<Room> roomRepo)
+        {
+            _roomRepo = roomRepo;
+        }
+
+     
+        // LIST ROOMS
+    
+        public IActionResult Rooms()
+        {
+            var rooms = _roomRepo.GetAll();
+            return View(rooms);
+        }
+
+        // ADD ROOM (GET)
+
+        [HttpGet]
+        public IActionResult AddRoom()
+        {
+            return View();
+        }
+
+        // ADD ROOM (POST)
+        [HttpPost]
+        public IActionResult AddRoom(Room room)
+        {
+            if (!ModelState.IsValid)
+                return View(room);
+
+            _roomRepo.Add(room);
+            _roomRepo.Save();
+
+            return RedirectToAction(nameof(Rooms));
+        }
+
+        // EDIT ROOM (GET)
+
+        [HttpGet]
+        public IActionResult EditRoom(int id)
+        {
+            var room = _roomRepo.GetById(id);
+            if (room == null)
+                return NotFound();
+
+            return View(room);
+        }
+
+
+        // EDIT ROOM (POST)
+        [HttpPost]
+        public IActionResult EditRoom(Room room)
+        {
+            if (!ModelState.IsValid)
+                return View(room);
+
+            _roomRepo.Update(room);
+            _roomRepo.Save();
+
+            return RedirectToAction(nameof(Rooms));
+        }
+
+
+        // DELETE ROOM
+
+        public IActionResult DeleteRoom(int id)
+        {
+            _roomRepo.Delete(id);
+            _roomRepo.Save();
+
+            return RedirectToAction(nameof(Rooms));
+        }
+
+
+
+
 
         #endregion
 
