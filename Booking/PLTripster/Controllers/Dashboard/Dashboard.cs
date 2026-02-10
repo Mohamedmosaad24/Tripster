@@ -1,5 +1,4 @@
-﻿
-
+﻿using BLTripster.IServices;
 using DALTripster.IRepos;
 using DATripster.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +24,7 @@ namespace CenterSystem.Controllers
 
         #region Hotel dashboard
         //HotelRepo : IRepo<Room> =>> implemntation..getall/edit/add/getid/delete
-// Updated upstream
+        // Updated upstream
 
         [HttpPost]
 
@@ -33,7 +32,7 @@ namespace CenterSystem.Controllers
         {
             if (!ModelState.IsValid)
                 return View("Add", model);
-// Stashed changes
+            // Stashed changes
 
             return RedirectToAction("Index");
         }
@@ -48,9 +47,9 @@ namespace CenterSystem.Controllers
             _roomRepo = roomRepo;
         }
 
-     
+
         // LIST ROOMS
-    
+
         public IActionResult Rooms()
         {
             var rooms = _roomRepo.GetAll();
