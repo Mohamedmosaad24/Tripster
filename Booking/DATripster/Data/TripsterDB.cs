@@ -45,16 +45,16 @@ namespace DATripster.Data
             base.OnModelCreating(modelBuilder);
 
             //Seed data for Hotel, Room, User, Booking, Review, Image, Service, and HotelService entities
-            base.OnModelCreating(modelBuilder);
+            //base.OnModelCreating(modelBuilder);
 
-            HotelSeed.Seed(modelBuilder);
-            RoomSeed.Seed(modelBuilder);
-            ImageSeed.Seed(modelBuilder);
-            UserSeed.Seed(modelBuilder);
-            ServiceSeed.Seed(modelBuilder);
-            HotelServiceSeed.Seed(modelBuilder);
-            ReviewSeed.Seed(modelBuilder);
-            BookingSeed.Seed(modelBuilder);
+            //HotelSeed.Seed(modelBuilder);
+            //RoomSeed.Seed(modelBuilder);
+            //ImageSeed.Seed(modelBuilder);
+            //UserSeed.Seed(modelBuilder);
+            //ServiceSeed.Seed(modelBuilder);
+            //HotelServiceSeed.Seed(modelBuilder);
+            //ReviewSeed.Seed(modelBuilder);
+            //BookingSeed.Seed(modelBuilder);
 
             // ... (rest of your seeding code remains unchanged)
         }
