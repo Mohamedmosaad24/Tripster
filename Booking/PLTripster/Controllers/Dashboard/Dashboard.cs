@@ -13,14 +13,14 @@ namespace DALTripster.Controllers
     public class Dashboard : Controller
     {
         private readonly IHotelService hotelService;
-       
+
         private readonly IReviewService reviewService;
 
         private readonly IRoomService _roomService;
-        public Dashboard(IHotelService hotelService, IReviewService reviewService,IRoomService roomService)
-        {   
+        public Dashboard(IHotelService hotelService, IReviewService reviewService, IRoomService roomService)
+        {
             this.hotelService = hotelService;
-           
+
             this.reviewService = reviewService;
             _roomService = roomService;
         }
@@ -124,7 +124,7 @@ namespace DALTripster.Controllers
         #region Reviews dashboard
         //ReviewsRepo =>> GetAll/RemoveReview
         [HttpGet]
-        public IActionResult Reviews()
+        public IActionResult AllReviews()
         {
             var reviews = reviewService.GetAll();
             return View(reviews);
