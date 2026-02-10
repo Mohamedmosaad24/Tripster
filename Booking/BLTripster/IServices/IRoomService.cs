@@ -1,18 +1,18 @@
 ﻿using DATripster.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLTripster.IServices
 {
     public interface IRoomService
     {
+        IEnumerable<Room> GetAll();
+        Room? GetById(int id);
 
-        Room? GetRoomById(int roomId);
-        IEnumerable<Room> GetAllRooms();
+        void Add(Room room);
+        void Update(Room room);
+        void Delete(int id);
 
-
+        void Save();
     }
 }
+

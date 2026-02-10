@@ -1,17 +1,12 @@
 ﻿using BLTripster.IServices;
 using DALTripster.IRepos;
 using DATripster.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLTripster.Services
 {
     public class RoomService : IRoomService
     {
-
         private readonly IRoomRepository _roomRepository;
 
         public RoomService(IRoomRepository roomRepository)
@@ -19,16 +14,35 @@ namespace BLTripster.Services
             _roomRepository = roomRepository;
         }
 
-        public Room? GetRoomById(int roomId)
-        {
-            return _roomRepository.GetById(roomId);
-        }
-
-        public IEnumerable<Room> GetAllRooms()
+        public IEnumerable<Room> GetAll()
         {
             return _roomRepository.GetAll();
         }
 
+        public Room? GetById(int id)
+        {
+            return _roomRepository.GetById(id);
+        }
 
+        public void Add(Room room)
+        {
+            _roomRepository.Add(room);
+        }
+
+        public void Update(Room room)
+        {
+            _roomRepository.Update(room);
+        }
+
+        public void Delete(int id)
+        {
+            _roomRepository.Delete(id);
+        }
+
+        public void Save()
+        {
+            _roomRepository.Save();
+        }
     }
 }
+

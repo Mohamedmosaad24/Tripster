@@ -10,8 +10,7 @@ namespace DALTripster.IRepos
     public interface IRoomRepository :IRepo<Room>
     {
 
-     //Room? GetById(int roomId);
-     //   IEnumerable<Room> GetAll();
+   
 
     }
 }

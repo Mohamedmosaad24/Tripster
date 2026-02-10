@@ -1,8 +1,6 @@
 ﻿
 
 using BLTripster.IServices;
-using BLTripster.ViewModels;
-using BLTripster.IServices;
 using DALTripster.IRepos;
 using DATripster.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -52,87 +50,7 @@ namespace DALTripster.Controllers
 
 
         #region Rooms dashboard
-        //RoomsRepo : IRepo<Room> =>> implemntation..getall/edit/add/getid/delete
-        private readonly IRepo<Room> _roomRepo;
-
-        public Dashboard(IRepo<Room> roomRepo)
-        {
-            _roomRepo = roomRepo;
-        }
-
-        // =====================
-        // LIST ROOMS
-        // =====================
-             // LIST ROOMS
-    
-        public IActionResult Rooms()
-        {
-            var rooms = _roomRepo.GetAll()
-                .Select(r => r.ToListVM());
-
-            return View(rooms);
-        }
-
-        // =====================
-        // ADD ROOM (GET)
-        // =====================
-        public IActionResult AddRoom()
-        {
-            return View(new RoomVM());
-        }
-
-        // =====================
-        // ADD ROOM (POST)
-        // =====================
-        [HttpPost]
-        public IActionResult AddRoom(RoomVM model)
-        {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            _roomRepo.Add(model.ToEntity());
-            _roomRepo.Save();
-
-            return RedirectToAction(nameof(Rooms));
-        }
-
-        // =====================
-        // EDIT ROOM (GET)
-        // =====================
-        public IActionResult EditRoom(int id)
-        {
-            var room = _roomRepo.GetById(id);
-            if (room == null)
-                return NotFound();
-
-            return View(room.ToVM());
-        }
-
-        // =====================
-        // EDIT ROOM (POST)
-        // =====================
-        [HttpPost]
-        public IActionResult EditRoom(RoomVM model)
-        {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            _roomRepo.Update(model.ToEntity());
-            _roomRepo.Save();
-
-            return RedirectToAction(nameof(Rooms));
-        }
-
-        // =====================
-        // DELETE ROOM
-        // =====================
-        public IActionResult DeleteRoom(int id)
-        {
-            _roomRepo.Delete(id);
-            _roomRepo.Save();
-
-            return RedirectToAction("Index");
-        }
+ 
 
 
         #endregion
