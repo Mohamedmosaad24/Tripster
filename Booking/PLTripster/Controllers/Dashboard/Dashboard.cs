@@ -2,21 +2,26 @@
 
 using BLTripster.IServices;
 using BLTripster.ViewModels;
+using BLTripster.IServices;
 using DALTripster.IRepos;
 using DATripster.Entities;
 using Microsoft.AspNetCore.Mvc;
 using BLTripster.Mapping;
 using System.ComponentModel.DataAnnotations;
 
-namespace CenterSystem.Controllers
+namespace DALTripster.Controllers
 {
     public class Dashboard : Controller
     {
         private readonly IHotelService hotelService;
+        private readonly IRepo<Room> _roomRepo;
+        private readonly IReviewService reviewService;
 
-        public Dashboard(IHotelService hotelService)
-        {
+        public Dashboard(IHotelService hotelService, IRepo<Room> roomRepo, IReviewService reviewService)
+        {   
             this.hotelService = hotelService;
+            _roomRepo = roomRepo;
+            this.reviewService = reviewService;
         }
         #region Home dashboard
         //Display analysis
@@ -31,6 +36,7 @@ namespace CenterSystem.Controllers
 // Updated upstream
 
         [HttpPost]
+
         public IActionResult AddHotel(AddHotelVM model)
         {
             if (!ModelState.IsValid)
@@ -57,6 +63,8 @@ namespace CenterSystem.Controllers
         // =====================
         // LIST ROOMS
         // =====================
+             // LIST ROOMS
+    
         public IActionResult Rooms()
         {
             var rooms = _roomRepo.GetAll()
@@ -123,7 +131,7 @@ namespace CenterSystem.Controllers
             _roomRepo.Delete(id);
             _roomRepo.Save();
 
-            return RedirectToAction(nameof(Rooms));
+            return RedirectToAction("Index");
         }
 
 
@@ -136,6 +144,19 @@ namespace CenterSystem.Controllers
 
         #region Reviews dashboard
         //ReviewsRepo =>> GetAll/RemoveReview
+        [HttpGet]
+        public IActionResult Reviews()
+        {
+            var reviews = reviewService.GetAll();
+            return View(reviews);
+        }
+
+        [HttpPost]
+        public IActionResult RemoveReview(int reviewId)
+        {
+            reviewService.RemoveReview(reviewId);
+            return RedirectToAction("Index");
+        }
 
         #endregion
 
