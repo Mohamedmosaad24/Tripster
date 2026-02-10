@@ -1,7 +1,10 @@
 ﻿
 using BLTripster.IServices;
+using BLTripster.Services;
+using BLTripster.ViewModels;
 using DATripster.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Threading.Tasks;
 using WebTripster.ViewModels;
 
@@ -9,13 +12,15 @@ namespace WebTripster.Controllers
 {
     public class BookingController : Controller
     {
-        
+        public readonly IRoomService RoomService;
+
         private readonly IBookingService _bookingService;
 
        
-        public BookingController(IBookingService bookingService)
+        public BookingController(IBookingService bookingService, IRoomService roomService)
         {
             _bookingService = bookingService;
+            RoomService = roomService;
         }
 
         [HttpPost]
@@ -63,5 +68,39 @@ namespace WebTripster.Controllers
 
             return View(viewModel);
         }
+
+
+        [HttpGet]
+public IActionResult Index(int roomId)
+{
+            var room = RoomService.GetRoomById(roomId);
+
+            if (room == null)
+                return NotFound("Room not found");
+
+            if (room.Hotel == null)
+                return NotFound("Hotel not found for this room");
+
+            var model = new BookingPageVM
+            {
+                HotelName = room.Hotel.Name,
+                RoomTypeName = room.RoomType,
+                PricePerNight = room.Price,
+
+            
+                MainImageUrl = room.Images?
+                    .FirstOrDefault()?.ImageUrl
+                    ?? "/assets/Booking/1.jpg",
+
+                Form = new BookingFormVM
+                {
+                    RoomId = room.Id,
+                    UserId = 1
+                }
+            };
+
+            return View(model);
+        }
+
     }
 }

@@ -1,0 +1,28 @@
+﻿@using DATripster.Entities
+@model List<Review>
+@{
+    ViewData["Title"] = "Review";
+}
+
+<h1>Review</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Rating</th>
+            <th>Comment</th>
+            <th>User Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var review in Model)
+        {
+            <tr>
+                <td>@review.Id</td>
+                <td>@review.Rate</td>
+                <td>@review.Comment</td>
+                <td>@review.UserId</td>
+            </tr>
+        }
+
+    </tbody>

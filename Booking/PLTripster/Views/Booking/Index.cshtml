@@ -1,0 +1,76 @@
+﻿@using BLTripster.ViewModels
+@model BookingPageVM
+@{
+    ViewData["Title"] = "Book Room";
+}
+
+<main class="container my-5">
+    <div class="row g-5">
+
+        <!-- LEFT SIDE -->
+        <div class="col-lg-7">
+            <h2 class="fw-bold mb-4">
+                Book @Model.HotelName
+            </h2>
+
+            <form asp-action="ConfirmBooking" method="post">
+
+                <input type="hidden" asp-for="Form.RoomId" />
+                <input type="hidden" asp-for="Form.UserId" />
+
+                <!-- Dates -->
+                <div class="mb-3">
+                    <label asp-for="Form.CheckIn"></label>
+                    <input asp-for="Form.CheckIn" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Form.CheckOut"></label>
+                    <input asp-for="Form.CheckOut" class="form-control" />
+                </div>
+
+                <!-- Guest -->
+                <div class="mb-3">
+                    <label asp-for="Form.GuestFullName"></label>
+                    <input asp-for="Form.GuestFullName" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Form.GuestEmail"></label>
+                    <input asp-for="Form.GuestEmail" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Form.GuestPhone"></label>
+                    <input asp-for="Form.GuestPhone" class="form-control" />
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary w-100 py-3 rounded-pill fw-bold">
+                    Book now
+                </button>
+            </form>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="col-lg-5">
+            <div class="card shadow-sm rounded-4 sticky-top" style="top:2rem">
+
+                <img src="@Model.MainImageUrl"
+                     class="card-img-top rounded-4"
+                     alt="Room Image" />
+
+                <div class="card-body">
+                    <h5 class="fw-bold">@Model.HotelName</h5>
+                    <p class="text-muted">@Model.RoomTypeName</p>
+
+                    <div class="d-flex justify-content-between">
+                        <span>Price per night</span>
+                        <strong>$@Model.PricePerNight</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>

@@ -1,4 +1,6 @@
-﻿using DALTripster.Entities;
+﻿using DALTripster.Data.Seeds;
+using DALTripster.Entities;
+using DATripster.Data.Seeds;
 using DATripster.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +43,18 @@ namespace DATripster.Data
             modelBuilder.Entity<HotelService>()
            .ToTable("HotelServices");
             base.OnModelCreating(modelBuilder);
+
+            //Seed data for Hotel, Room, User, Booking, Review, Image, Service, and HotelService entities
+            base.OnModelCreating(modelBuilder);
+
+            HotelSeed.Seed(modelBuilder);
+            RoomSeed.Seed(modelBuilder);
+            ImageSeed.Seed(modelBuilder);
+            UserSeed.Seed(modelBuilder);
+            ServiceSeed.Seed(modelBuilder);
+            HotelServiceSeed.Seed(modelBuilder);
+            ReviewSeed.Seed(modelBuilder);
+            BookingSeed.Seed(modelBuilder);
 
             // ... (rest of your seeding code remains unchanged)
         }

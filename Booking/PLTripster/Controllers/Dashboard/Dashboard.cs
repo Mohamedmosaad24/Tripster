@@ -18,7 +18,7 @@ namespace DALTripster.Controllers
         private readonly IReviewService reviewService;
 
         public Dashboard(IHotelService hotelService, IRepo<Room> roomRepo, IReviewService reviewService)
-        {
+        {   
             this.hotelService = hotelService;
             _roomRepo = roomRepo;
             this.reviewService = reviewService;
@@ -63,8 +63,8 @@ namespace DALTripster.Controllers
         // =====================
         // LIST ROOMS
         // =====================
-        // LIST ROOMS
-
+             // LIST ROOMS
+    
         public IActionResult Rooms()
         {
             var rooms = _roomRepo.GetAll()
