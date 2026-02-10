@@ -30,7 +30,8 @@ namespace PLTripster
             builder.Services.AddScoped<IBookingService, BookingService>();
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
             builder.Services.AddScoped<IRoomService, RoomService>();
-
+            builder.Services.AddScoped<IReviewRepo, ReviewRepo>();
+            builder.Services.AddScoped<IReviewService, ReviewServices>();
             builder.Services.AddDbContext<TripsterDB>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 

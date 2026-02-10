@@ -121,6 +121,17 @@ namespace DALTripster.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CheckIn = new DateTime(2026, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CheckOut = new DateTime(2026, 2, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RoomId = 1,
+                            TotalPrice = 240m,
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("DATripster.Entities.Hotel", b =>
@@ -152,6 +163,26 @@ namespace DALTripster.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Hotels");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Copenhagen, Denmark",
+                            Description = "Modern hotel in city center",
+                            Latitude = 55.685000000000002,
+                            Longitude = 12.561,
+                            Name = "Hotel Norrebro"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Hurghada, Egypt",
+                            Description = "Resort with sea view",
+                            Latitude = 27.257899999999999,
+                            Longitude = 33.811599999999999,
+                            Name = "Sea View Resort"
+                        });
                 });
 
             modelBuilder.Entity("DATripster.Entities.HotelService", b =>
@@ -167,6 +198,28 @@ namespace DALTripster.Migrations
                     b.HasIndex("ServiceId");
 
                     b.ToTable("HotelServices", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            HotelId = 1,
+                            ServiceId = 1
+                        },
+                        new
+                        {
+                            HotelId = 1,
+                            ServiceId = 2
+                        },
+                        new
+                        {
+                            HotelId = 2,
+                            ServiceId = 1
+                        },
+                        new
+                        {
+                            HotelId = 2,
+                            ServiceId = 3
+                        });
                 });
 
             modelBuilder.Entity("DATripster.Entities.Image", b =>
@@ -193,6 +246,50 @@ namespace DALTripster.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("Images");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ImageUrl = "/assets/RoomImg/room-1.jpg",
+                            RoomId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ImageUrl = "/assets/RoomImg/room-2.jpg",
+                            RoomId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ImageUrl = "/assets/RoomImg/room-3.jpg",
+                            RoomId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ImageUrl = "/assets/RoomImg/room-4.jpg",
+                            RoomId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ImageUrl = "/assets/RoomImg/room-5.jpg",
+                            RoomId = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ImageUrl = "/assets/RoomImg/room-6.jpg",
+                            RoomId = 6
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ImageUrl = "/assets/RoomImg/room-7.jpg",
+                            RoomId = 7
+                        });
                 });
 
             modelBuilder.Entity("DATripster.Entities.Review", b =>
@@ -222,6 +319,24 @@ namespace DALTripster.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Comment = "Excellent stay!",
+                            HotelId = 1,
+                            Rate = 5,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Comment = "Very good service",
+                            HotelId = 2,
+                            Rate = 4,
+                            UserId = 2
+                        });
                 });
 
             modelBuilder.Entity("DATripster.Entities.Room", b =>
@@ -262,6 +377,92 @@ namespace DALTripster.Migrations
                     b.HasIndex("HotelId");
 
                     b.ToTable("Rooms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Capacity = 1,
+                            HotelId = 1,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 1,
+                            Price = 120m,
+                            RoomType = "Single Room",
+                            Sqm = 18f,
+                            TypeOfBed = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Capacity = 2,
+                            HotelId = 1,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 1,
+                            Price = 180m,
+                            RoomType = "Double Room",
+                            Sqm = 25f,
+                            TypeOfBed = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Capacity = 3,
+                            HotelId = 1,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 2,
+                            Price = 250m,
+                            RoomType = "Suite",
+                            Sqm = 35f,
+                            TypeOfBed = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Capacity = 4,
+                            HotelId = 1,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 2,
+                            Price = 300m,
+                            RoomType = "Family Room",
+                            Sqm = 40f,
+                            TypeOfBed = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Capacity = 2,
+                            HotelId = 1,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 1,
+                            Price = 220m,
+                            RoomType = "Deluxe Room",
+                            Sqm = 30f,
+                            TypeOfBed = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Capacity = 2,
+                            HotelId = 1,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 1,
+                            Price = 260m,
+                            RoomType = "King Room",
+                            Sqm = 32f,
+                            TypeOfBed = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Capacity = 2,
+                            HotelId = 1,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 1,
+                            Price = 240m,
+                            RoomType = "Queen Room",
+                            Sqm = 28f,
+                            TypeOfBed = 2
+                        });
                 });
 
             modelBuilder.Entity("DATripster.Entities.Service", b =>
@@ -279,6 +480,23 @@ namespace DALTripster.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Services");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Free Wi-Fi"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Breakfast Included"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Swimming Pool"
+                        });
                 });
 
             modelBuilder.Entity("DATripster.Entities.User", b =>
@@ -311,6 +529,27 @@ namespace DALTripster.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateOfBirth = new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "islam@test.com",
+                            ImageUrl = "/assets/users/user1.jpg",
+                            Location = "Egypt",
+                            Name = "Islam Soliman",
+                            Nationality = "Egyptian"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DateOfBirth = new DateTime(1990, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "john@test.com",
+                            Location = "USA",
+                            Name = "John Doe",
+                            Nationality = "American"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -42,12 +42,14 @@ namespace DALTripster.Repos
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var hotel = GetById(id);
+            db.Hotels.Remove(hotel);
+            db.SaveChanges();
         }
 
         public IEnumerable<Hotel> GetAll()
         {
-            throw new NotImplementedException();
+           return db.Hotels.ToList();
         }
 
 
@@ -61,6 +63,17 @@ namespace DALTripster.Repos
             throw new NotImplementedException();
         }
 
-      
+        public void DeleteImg(int id)
+        {
+            var images = db.Images.Where(i => i.HotelId == id).ToList();
+
+            foreach (var img in images)
+            {
+                db.Images.Remove(img);
+            }
+
+            db.SaveChanges();
+
+        }
     }
 }
