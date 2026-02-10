@@ -1,8 +1,11 @@
 ﻿
 
+using BLTripster.IServices;
+using BLTripster.ViewModels;
 using DALTripster.IRepos;
 using DATripster.Entities;
 using Microsoft.AspNetCore.Mvc;
+using BLTripster.Mapping;
 using System.ComponentModel.DataAnnotations;
 
 namespace CenterSystem.Controllers
@@ -38,6 +41,10 @@ namespace CenterSystem.Controllers
         }
         #endregion
 
+
+
+
+
         #region Rooms dashboard
         //RoomsRepo : IRepo<Room> =>> implemntation..getall/edit/add/getid/delete
         private readonly IRepo<Room> _roomRepo;
@@ -47,65 +54,70 @@ namespace CenterSystem.Controllers
             _roomRepo = roomRepo;
         }
 
-     
+        // =====================
         // LIST ROOMS
-    
+        // =====================
         public IActionResult Rooms()
         {
-            var rooms = _roomRepo.GetAll();
+            var rooms = _roomRepo.GetAll()
+                .Select(r => r.ToListVM());
+
             return View(rooms);
         }
 
+        // =====================
         // ADD ROOM (GET)
-
-        [HttpGet]
+        // =====================
         public IActionResult AddRoom()
         {
-            return View();
+            return View(new RoomVM());
         }
 
+        // =====================
         // ADD ROOM (POST)
+        // =====================
         [HttpPost]
-        public IActionResult AddRoom(Room room)
+        public IActionResult AddRoom(RoomVM model)
         {
             if (!ModelState.IsValid)
-                return View(room);
+                return View(model);
 
-            _roomRepo.Add(room);
+            _roomRepo.Add(model.ToEntity());
             _roomRepo.Save();
 
             return RedirectToAction(nameof(Rooms));
         }
 
+        // =====================
         // EDIT ROOM (GET)
-
-        [HttpGet]
+        // =====================
         public IActionResult EditRoom(int id)
         {
             var room = _roomRepo.GetById(id);
             if (room == null)
                 return NotFound();
 
-            return View(room);
+            return View(room.ToVM());
         }
 
-
+        // =====================
         // EDIT ROOM (POST)
+        // =====================
         [HttpPost]
-        public IActionResult EditRoom(Room room)
+        public IActionResult EditRoom(RoomVM model)
         {
             if (!ModelState.IsValid)
-                return View(room);
+                return View(model);
 
-            _roomRepo.Update(room);
+            _roomRepo.Update(model.ToEntity());
             _roomRepo.Save();
 
             return RedirectToAction(nameof(Rooms));
         }
 
-
+        // =====================
         // DELETE ROOM
-
+        // =====================
         public IActionResult DeleteRoom(int id)
         {
             _roomRepo.Delete(id);
@@ -113,9 +125,6 @@ namespace CenterSystem.Controllers
 
             return RedirectToAction(nameof(Rooms));
         }
-
-
-
 
 
         #endregion
