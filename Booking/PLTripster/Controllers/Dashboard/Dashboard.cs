@@ -31,7 +31,7 @@ namespace DALTripster.Controllers
 
         #region Hotel dashboard
         //HotelRepo : IRepo<Room> =>> implemntation..getall/edit/add/getid/delete
-// Updated upstream
+        // Updated upstream
 
         [HttpPost]
 
@@ -39,7 +39,7 @@ namespace DALTripster.Controllers
         {
             if (!ModelState.IsValid)
                 return View("Add", model);
-// Stashed changes
+            // Stashed changes
 
             return RedirectToAction("Index");
         }

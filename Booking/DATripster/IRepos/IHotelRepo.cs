@@ -9,5 +9,6 @@ namespace DALTripster.IRepos
 {
     public interface IHotelRepo : IRepo<Hotel>
     {
+        void DeleteImg(int id);
     }
 }
