@@ -73,7 +73,7 @@ namespace WebTripster.Controllers
         [HttpGet]
 public IActionResult Index(int roomId)
 {
-            var room = RoomService.GetRoomById(roomId);
+            var room = RoomService.GetById(roomId);
 
             if (room == null)
                 return NotFound("Room not found");
