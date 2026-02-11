@@ -148,7 +148,9 @@
 
                         <div class="hotel-footer">
                             <div>
-                                <span class="fw-bold text-dark">from $@(hotel.Rooms?.Min(r => r.Price) ?? 0)/night</span>
+                                <span class="fw-bold text-dark">
+                                     from $@(hotel.Rooms?.Min(r => (decimal?)r.Price) ?? 0)/night
+                                </span>
                             </div>
                             <a asp-controller="Hotel" asp-action="Details" asp-route-id="@hotel.Id"
                                class="btn btn-link text-decoration-none p-0">
