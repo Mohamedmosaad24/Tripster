@@ -1,9 +1,8 @@
-﻿
-using BLTripster.IServices;
+﻿using BLTripster.IServices;
 using DALTripster.IRepos;
 using DATripster.Entities;
-using DATripster.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BLTripster.Services
@@ -17,21 +16,23 @@ namespace BLTripster.Services
             _bookingRepo = bookingRepo;
         }
 
+        public async Task<IEnumerable<Booking>> GetAllBookings()
+        {
+            return await _bookingRepo.GetAllWithDetailsAsync();
+        }
+
         public async Task<bool> CreateBookingAsync(Booking booking)
         {
-            
             if (!booking.CheckIn.HasValue || !booking.CheckOut.HasValue)
                 return false;
 
             if (booking.CheckIn.Value < DateTime.Now.Date)
-                return false; 
+                return false;
 
             if (booking.CheckIn.Value >= booking.CheckOut.Value)
-                return false; 
+                return false;
 
-       
             int totalNights = (booking.CheckOut.Value - booking.CheckIn.Value).Days;
-
             decimal pricePerNight = 180m;
             decimal cityTax = 40m;
             decimal serviceFee = 20m;
@@ -40,9 +41,9 @@ namespace BLTripster.Services
 
             int resultId = await _bookingRepo.AddBookingAsync(booking);
 
-          
             return resultId > 0;
         }
+
         public async Task<Booking?> GetBookingDetailsAsync(int bookingId)
         {
             return await _bookingRepo.GetBookingByIdAsync(bookingId);

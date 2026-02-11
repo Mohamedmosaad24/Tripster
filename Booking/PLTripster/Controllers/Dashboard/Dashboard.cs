@@ -17,12 +17,15 @@ namespace DALTripster.Controllers
         private readonly IReviewService reviewService;
 
         private readonly IRoomService _roomService;
-        public Dashboard(IHotelService hotelService, IReviewService reviewService, IRoomService roomService)
+        private readonly IBookingService _bookingService;
+
+        public Dashboard(IHotelService hotelService, IReviewService reviewService, IRoomService roomService, IBookingService bookingService)
         {
             this.hotelService = hotelService;
 
             this.reviewService = reviewService;
             _roomService = roomService;
+            _bookingService = bookingService;
         }
         #region Home dashboard
         //Display analysis
@@ -118,7 +121,20 @@ namespace DALTripster.Controllers
 
         #region Bookings dashboard
         //BookingsRepo =>> implemntation  .. Mangement {update}
+        [HttpGet]
+        public async Task<IActionResult> AllBookings()
+        {
+            var bookings = await _bookingService.GetAllBookings();
 
+            return View(bookings);
+        }
+        //// لإلغاء حجز أو مسحه
+        //public IActionResult DeleteBooking(int id)
+        //{
+        //    _bookingService.Delete(id);
+        //    _bookingService.Save();
+        //    return RedirectToAction(nameof(AllBookings));
+        //}
         #endregion
 
         #region Reviews dashboard

@@ -9,8 +9,9 @@ namespace DALTripster.IRepos
 {
     public interface IBookingRepository
     {
-     public   Task<int> AddBookingAsync(Booking booking);
-       public Task<Booking> GetBookingByIdAsync(int id);
-       public Task<IEnumerable<Booking>> GetUserBookingsAsync(int userId);
+        public Task<int> AddBookingAsync(Booking booking);
+        public Task<Booking> GetBookingByIdAsync(int id);
+        public Task<IEnumerable<Booking>> GetUserBookingsAsync(int userId);
+        Task<IEnumerable<Booking>> GetAllWithDetailsAsync();
     }
 }

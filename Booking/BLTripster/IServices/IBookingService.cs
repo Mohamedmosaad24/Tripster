@@ -12,6 +12,6 @@ namespace BLTripster.IServices
 
         Task<bool> CreateBookingAsync(Booking booking);
         Task<Booking> GetBookingDetailsAsync(int bookingId);
-        
+        Task<IEnumerable<Booking>> GetAllBookings();
     }
 }

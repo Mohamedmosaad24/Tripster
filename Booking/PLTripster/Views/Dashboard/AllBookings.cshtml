@@ -1,0 +1,36 @@
+﻿@model IEnumerable<DATripster.Entities.Booking>
+
+<div class="container-fluid mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">All Bookings Management</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Guest Name</th>
+                        <th>Hotel</th>
+                        <th>Check-In</th>
+                        <th>Check-Out</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.User</td>
+                            <td>@item.Room?.Hotel?.Name</td>
+                            <td>@item.CheckIn?.ToShortDateString()</td>
+                            <td>@item.CheckOut?.ToShortDateString()</td>
+                            <td><strong class="text-success">$@item.TotalPrice</strong></td>
+                            <td><span class="badge bg-info">Confirmed</span></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
