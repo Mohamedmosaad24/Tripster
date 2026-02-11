@@ -128,13 +128,7 @@ namespace DALTripster.Controllers
 
             return View(bookings);
         }
-        //// لإلغاء حجز أو مسحه
-        //public IActionResult DeleteBooking(int id)
-        //{
-        //    _bookingService.Delete(id);
-        //    _bookingService.Save();
-        //    return RedirectToAction(nameof(AllBookings));
-        //}
+
         #endregion
 
         #region Reviews dashboard

@@ -24,6 +24,7 @@ namespace DATripster.Repositories
             return await _context.Bookings
                                 .Include(b => b.Room)
                                 .ThenInclude(r => r.Hotel)
+                                .Include(u => u.User)
                                 .OrderByDescending(b => b.Id)
                                 .ToListAsync();
         }

@@ -21,7 +21,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@item.User</td>
+                            <td>@item.User.Name</td>
                             <td>@item.Room?.Hotel?.Name</td>
                             <td>@item.CheckIn?.ToShortDateString()</td>
                             <td>@item.CheckOut?.ToShortDateString()</td>
