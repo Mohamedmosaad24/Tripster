@@ -1,0 +1,103 @@
+﻿@model IEnumerable<DATripster.Entities.User>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between mb-3">
+        <h2 class="fw-bold">Users List</h2>
+
+        <a asp-action="AddUser" class="btn btn-success">
+            + Add New User
+        </a>
+    </div>
+
+    <div class="card shadow-lg border-0">
+        <div class="card-body">
+
+            <table class="table table-hover align-middle text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Location</th>
+                        <th>Nationality</th>
+                        <th>Birth Date</th>
+                        <th>Bookings</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+
+                            <!-- Image -->
+                            <td>
+                                <img src="@(string.IsNullOrEmpty(user.ImageUrl)
+                                                                                 ? "/images/default-user.png"
+                                                                                 : user.ImageUrl)"
+                                 class="rounded-circle"
+                                 width="60"
+                                 height="60"
+                                 style="object-fit:cover;" />
+                        </td>
+
+                            <!-- Name -->
+                            <td class="fw-semibold">@user.Name</td>
+
+                            <!-- Email -->
+                            <td>@(user.Email ?? "N/A")</td>
+
+                            <!-- Location -->
+                            <td>@(user.Location ?? "N/A")</td>
+
+                            <!-- Nationality -->
+                            <td>@(user.Nationality ?? "N/A")</td>
+
+                            <!-- Date -->
+                            <td>
+                                @(user.DateOfBirth?.ToString("yyyy-MM-dd") ?? "N/A")
+                            </td>
+
+                            <!-- Bookings Count -->
+                            <td>
+                                <span class="badge bg-primary">
+                                    @user.Bookings?.Count()
+                                </span>
+                            </td>
+
+                            <!-- Actions -->
+                            <td>
+                                <a asp-action="Details" asp-route-id="@user.Id"
+                                   class="btn btn-info btn-sm">
+                                    Details
+                                </a>
+
+                                <a asp-action="Edit" asp-route-id="@user.Id"
+                                   class="btn btn-warning btn-sm">
+                                    Edit
+                                </a>
+
+                                <a asp-action="Delete" asp-route-id="@user.Id"
+                                   class="btn btn-danger btn-sm">
+                                    Delete
+                                </a>
+                            </td>
+
+                        </tr>
+                                        }
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
