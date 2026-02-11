@@ -20,10 +20,9 @@ namespace DALTripster.Controllers
         private readonly IUserService _userService;
 
 
-        public Dashboard(IHotelService hotelService, IReviewService reviewService, IRoomService roomService,IUserService userService)
         private readonly IBookingService _bookingService;
 
-        public Dashboard(IHotelService hotelService, IReviewService reviewService, IRoomService roomService, IBookingService bookingService)
+        public Dashboard(IHotelService hotelService, IReviewService reviewService, IRoomService roomService, IBookingService bookingService,IUserService userService)
         {
             this.hotelService = hotelService;
 
