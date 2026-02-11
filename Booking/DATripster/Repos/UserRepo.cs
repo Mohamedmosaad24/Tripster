@@ -54,7 +54,10 @@ namespace DALTripster.Repos
 
         public void Update(User entity)
         {
-            _context.Users.Update(entity);
+            //_context.Users.Update(entity);
+            User DBUser = GetById(entity.Id);    
+            DBUser.Email = entity.Email;
+            DBUser.Name = entity.Name;
         }
     }
 }
