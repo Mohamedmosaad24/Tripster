@@ -51,7 +51,7 @@ namespace DALTripster.Repos
 
         IEnumerable<Review> IRepo<Review>.GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Reviews.ToList();
         }
     }
 }

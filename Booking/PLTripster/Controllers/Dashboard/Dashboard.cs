@@ -127,7 +127,7 @@ namespace DALTripster.Controllers
         public IActionResult AllReviews()
         {
             var reviews = reviewService.GetAll();
-            return View(reviews);
+            return View("AllReviews", reviews);
         }
 
         [HttpPost]
