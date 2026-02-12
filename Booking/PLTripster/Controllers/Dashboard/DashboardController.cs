@@ -151,6 +151,8 @@ namespace PLTripster.Controllers
         }
 
         // DELETE ROOM
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteRoom(int id)
         {
             _roomService.Delete(id);
