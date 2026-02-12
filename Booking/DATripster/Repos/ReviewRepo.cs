@@ -1,6 +1,7 @@
 ﻿using DALTripster.IRepos;
 using DATripster.Data;
 using DATripster.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace DALTripster.Repos
         //get all reviews 
         public IEnumerable<Review> GetAll()
         {
-            return _context.Reviews.ToList();
+            return _context.Reviews.Include(r => r.User).ToList();
 
         }
 

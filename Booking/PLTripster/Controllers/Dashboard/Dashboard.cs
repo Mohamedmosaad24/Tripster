@@ -18,14 +18,18 @@ namespace DALTripster.Controllers
         private readonly IReviewService reviewService;
 
         private readonly IRoomService _roomService;
+        private readonly IUserService _userService;
+
+
         private readonly IBookingService _bookingService;
 
-        public Dashboard(IHotelService hotelService, IReviewService reviewService, IRoomService roomService, IBookingService bookingService)
+        public Dashboard(IHotelService hotelService, IReviewService reviewService, IRoomService roomService, IBookingService bookingService,IUserService userService)
         {
             this.hotelService = hotelService;
 
             this.reviewService = reviewService;
             _roomService = roomService;
+            _userService = userService;
             _bookingService = bookingService;
         }
         #region Home dashboard
@@ -179,7 +183,107 @@ namespace DALTripster.Controllers
 
         #region Users dashboard
         //UsersRepo =>> GetAll /RemoveUser/ActiveAccount
+        public IActionResult AllUsers()
+        {
+            var users = _userService.GetAllUsers();
+            return View("AllUsers", users);
+        }
+        [HttpGet]
+        public IActionResult UserById(int id)
+        {
+            var user = _userService.GetUserById(id);
+            if (user == null)
+                return Content("Invalid User Id");
 
+           return Redirect("user");
+        }
+        // ===================== Details =====================
+        public IActionResult Details(int id)
+        {
+            var user = _userService.GetUserById(id);
+            if (user == null) return NotFound();
+            return View("UserDetails",user);
+        }
+
+        // ===================== Edit =====================
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var user = _userService.GetUserById(id);
+            if (user == null) return NotFound();
+            return View("UserEdit",user);
+        }
+
+        //[HttpPost]
+        //public IActionResult Edit(User user)
+        //{
+        //    if (!ModelState.IsValid) return View("AllUsers",user);
+
+        //    _userService.UpdateUser(user);
+        //    return RedirectToAction("AllUsers");
+        //}
+
+        [HttpPost]
+        public IActionResult Edit(User user)
+        {
+            //if (!ModelState.IsValid)
+            //    return View("UserEdit", user);  // ✅ ارجع لنفس الـ Edit view
+
+            _userService.UpdateUser(user);
+            return RedirectToAction("AllUsers");
+        }
+
+        // ===================== Delete =====================
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var user = _userService.GetUserById(id);
+            if (user == null) return NotFound();
+            return View("UserDelete",user); 
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            _userService.DeleteUser(id);
+            return RedirectToAction("AllUsers");
+        }
+        ////=======================Add=====================
+        //[HttpGet]
+        //public IActionResult AddUser()
+        //{
+        //    return View("UserAdd");
+        //}
+
+        //[HttpPost]
+        //public IActionResult Create(User user)
+        //{
+        //    //if (!ModelState.IsValid)
+        //    //{
+        //    //}
+        //        return View("AllUsers", user);
+
+        //    _userService.AddUser(user);
+        //    return RedirectToAction("AllUsers");
+        //}
+
+        [HttpGet]
+        public IActionResult AddUser()
+        {
+            return View("UserAdd");
+        }
+
+        [HttpPost]
+        public IActionResult Create(User user)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //}
+                return View("UserAdd", user);  // ✅ ارجع لـ UserAdd لو فيه errors
+
+            _userService.AddUser(user);
+            return RedirectToAction("AllUsers");  // ✅ redirect بعد النجاح
+        }
         #endregion
     }
 }

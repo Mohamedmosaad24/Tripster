@@ -9,9 +9,14 @@
     <link rel="stylesheet" href="~/PLTripster.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
 
     <style>
         /* Dark mode – applied when html has data-theme="dark" */
@@ -44,39 +49,65 @@
         })();
     </script>
 
-    <header class="header-wrap bg-light sticky-top p-2 d-flex align-items-center" style="height:80px">
+    <header class="header-wrap bg-light sticky-top p-2 d-flex align-items-center shadow-sm" style="height:80px">
         <div class="container-fluid d-flex align-items-center justify-content-between">
-            <!-- Navbar -->
-			<nav class="d-none d-md-flex">
-				<a asp-action="Index" asp-controller="Home" class="d-flex align-items-center text-decoration-none me-5">
-					<h1 class="sitename text-dark m-0">Tripster</h1>
-				</a>
 
-                <ul class="navbar-nav flex-row gap-3">
+            <!-- LEFT: Logo -->
+            <div class="d-flex align-items-center">
+                <a asp-action="Index" asp-controller="Home" class="text-decoration-none">
+                    <h1 class="sitename fw-bold text-dark m-0" style="font-size:1.8rem; letter-spacing:1px;">
+                        <i class="fa-solid fa-plane-departure me-2 text-primary"></i>
+                        Tripster
+                    </h1>
+                </a>
+            </div>
+
+            <!-- CENTER: Navbar -->
+            <nav class="d-none d-md-flex justify-content-center flex-grow-1">
+                <ul class="navbar-nav flex-row gap-4">
+
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link fw-semibold text-dark" asp-controller="Home" asp-action="Index">
+                            <i class="fa-solid fa-house me-1"></i> Home
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Properties" asp-action="Index">Properties</a>
+                        <a class="nav-link fw-semibold text-dark" asp-controller="Reviews" asp-action="Reviews">
+                            <i class="fa-solid fa-star me-1"></i> Reviews
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Attractions" asp-action="Index">Attractions</a>
+                        <a class="nav-link fw-semibold text-dark" asp-controller="Search" asp-action="Result">
+                            <i class="fa-solid fa-magnifying-glass me-1"></i> Search
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Popular" asp-action="Index">Popular</a>
-                    </li>
+
                 </ul>
             </nav>
 
-            <!-- Auth / Profile -->
+            <!-- RIGHT: Auth / Profile -->
             <div class="d-flex align-items-center gap-3">
-                <button type="button" id="theme-toggle" class="nav-link p-0 border-0 bg-transparent" title="Toggle dark mode" style="font-size:1.25rem; color: #6c757d;" aria-label="Toggle dark mode">
+
+                <button type="button"
+                        id="theme-toggle"
+                        class="nav-link p-0 border-0 bg-transparent"
+                        title="Toggle dark mode"
+                        style="font-size:1.25rem; color: #6c757d;"
+                        aria-label="Toggle dark mode">
                     <i id="theme-icon" class="fa-solid fa-moon"></i>
                 </button>
+
                 @if (!User.Identity?.IsAuthenticated ?? true)
                 {
-                    <a class="btn btn-outline-primary rounded-pill" asp-controller="Account" asp-action="Register">Sign Up</a>
-                    <a class="btn btn-primary rounded-pill" asp-controller="Account" asp-action="Login">Log In</a>
+                    <a class="btn btn-outline-primary rounded-pill fw-semibold px-4" asp-controller="Account" asp-action="Register">
+                        <i class="fa-solid fa-user-plus me-1"></i> Sign Up
+                    </a>
+
+                    <a class="btn btn-primary rounded-pill fw-semibold px-4" asp-controller="Account" asp-action="Login">
+                        <i class="fa-solid fa-right-to-bracket me-1"></i> Log In
+                    </a>
                 }
                 else
                 {
@@ -84,11 +115,14 @@
                         <i class="fa-solid fa-bell"></i>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:0.65rem;">3</span>
                     </a>
+
                     @await Component.InvokeAsync("UserMenu")
                 }
             </div>
+
         </div>
     </header>
+
 
     <div class="container-fluid ">
         @RenderBody()
