@@ -19,7 +19,6 @@ namespace BLTripster.Mapping
                     RoomType = room.RoomType,
                     Capacity = room.Capacity,
                     Price = room.Price,
-                    IsAvailable = room.IsAvailable,
                     HotelId = room.HotelId
                 };
             }
@@ -32,7 +31,6 @@ namespace BLTripster.Mapping
                     RoomType = vm.RoomType,
                     Capacity = vm.Capacity,
                     Price = vm.Price,
-                    IsAvailable = vm.IsAvailable,
                     HotelId = vm.HotelId
                 };
             }

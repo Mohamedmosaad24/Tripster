@@ -43,6 +43,12 @@ namespace DATripster.Data
             modelBuilder.Entity<HotelService>()
            .ToTable("HotelServices");
             base.OnModelCreating(modelBuilder);
+            //islamAdded
+            modelBuilder.Entity<Image>()
+       .HasOne(i => i.Room)
+       .WithMany(r => r.Images)
+       .HasForeignKey(i => i.RoomId)
+       .OnDelete(DeleteBehavior.Cascade);
 
 
             // ============================================

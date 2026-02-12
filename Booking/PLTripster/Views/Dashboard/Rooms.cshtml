@@ -1,32 +1,87 @@
-﻿@model IEnumerable<DATripster.Entities.Room>
+﻿@model IEnumerable<BLTripster.ViewModels.RoomListVM>
 @{
     Layout = "_DashLayout";
+    ViewData["Title"] = "Rooms";
 }
-<h2>Rooms</h2>
 
-<a asp-action="AddRoom" class="btn btn-success mb-3">Add Room</a>
+<div class="container py-5">
 
-<table class="table table-bordered">
-    <tr>
-        <th>Type</th>
-        <th>Capacity</th>
-        <th>Price</th>
-        <th>Actions</th>
-    </tr>
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">
+            <i class="fa-solid fa-bed text-primary me-2"></i>
+            Rooms Management
+        </h3>
 
-    @foreach (var room in Model)
-    {
-        <tr>
-            <td>@room.RoomType</td>
-            <td>@room.Capacity</td>
-            <td>@room.Price</td>
-            <td>
-                <a asp-action="EditRoom" asp-route-id="@room.Id" class="btn btn-warning">Edit</a>
-                <a asp-action="DeleteRoom" asp-route-id="@room.Id"
-                   class="btn btn-danger"
-                   onclick="return confirm('Are you sure?')">Delete</a>
-            </td>
-        </tr>
-    }
-</table>
+        <a asp-action="AddRoom"
+           class="btn btn-primary rounded-pill px-4 fw-semibold shadow-sm">
+            <i class="fa-solid fa-plus me-1"></i>
+            Add Room
+        </a>
+    </div>
 
+    <!-- Card Wrapper -->
+    <div class="card shadow-lg border-0 rounded-4">
+
+        <div class="card-body p-4">
+
+            <div class="table-responsive">
+                <table class="table align-middle table-hover">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>Room Type</th>
+                            <th>Capacity</th>
+                            <th>Price</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center text-muted py-4">
+                                    <i class="fa-solid fa-circle-info me-2"></i>
+                                    No rooms available.
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var room in Model)
+                            {
+                                <tr>
+                                    <td class="fw-semibold">@room.RoomType</td>
+                                    <td>@room.Capacity Persons</td>
+                                    <td>$@room.Price</td>
+
+                                    <td class="text-end">
+                                        <a asp-action="EditRoom"
+                                           asp-route-id="@room.Id"
+                                           class="btn btn-sm btn-outline-warning rounded-pill me-2">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                            EditRoom
+                                        </a>
+
+                                        <a asp-action="DeleteRoom"
+                                           asp-route-id="@room.Id"
+                                           class="btn btn-sm btn-outline-danger rounded-pill"
+                                           onclick="return confirm('Are you sure you want to delete this room?')">
+                                            <i class="fa-solid fa-trash"></i>
+                                            DeleteRoom
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

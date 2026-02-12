@@ -8,10 +8,11 @@ using DALTripster.IRepos;
 using DATripster.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
-namespace DALTripster.Controllers
+namespace PLTripster.Controllers
 {
-    public class Dashboard : Controller
+    public class DashboardController : Controller
     {
         private readonly IHotelService hotelService;
 
@@ -23,7 +24,7 @@ namespace DALTripster.Controllers
 
         private readonly IBookingService _bookingService;
 
-        public Dashboard(IHotelService hotelService, IReviewService reviewService, IRoomService roomService, IBookingService bookingService,IUserService userService)
+        public DashboardController(IHotelService hotelService, IReviewService reviewService, IRoomService roomService, IBookingService bookingService,IUserService userService)
         {
             this.hotelService = hotelService;
 
@@ -67,13 +68,13 @@ namespace DALTripster.Controllers
         {
 
             var rooms = _roomService.GetAll()
-                .Select(r => new RoomListVM
-                {
-                    Id = r.Id,
-                    RoomType = r.RoomType,
-                    Capacity = r.Capacity,
-                    Price = r.Price
-                }).ToList();
+               .Select(r => new RoomListVM
+               {
+                   Id = r.Id,
+                   RoomType = r.RoomType,
+                   Capacity = r.Capacity,
+                   Price = r.Price
+               }).ToList();
 
             return View("Rooms", rooms);
         }
@@ -82,15 +83,24 @@ namespace DALTripster.Controllers
         [HttpGet]
         public IActionResult AddRoom()
         {
-            return View();
+            return View(new RoomVM());
         }
 
         // ADD ROOM (POST)
         [HttpPost]
-        public IActionResult AddRoom(Room room)
+        public IActionResult AddRoom(RoomVM model)
         {
             if (!ModelState.IsValid)
-                return View(room);
+                return View(model);
+
+            var room = new Room
+            {
+                RoomType = model.RoomType,
+                Capacity = model.Capacity,
+                Price = model.Price,
+                HotelId = model.HotelId,
+                IsAvailable = true
+            };
 
             _roomService.Add(room);
             _roomService.Save();
@@ -106,7 +116,7 @@ namespace DALTripster.Controllers
             if (room == null)
                 return NotFound();
 
-            var roomVM = new RoomVM
+            var model = new RoomVM
             {
                 Id = room.Id,
                 RoomType = room.RoomType,
@@ -115,12 +125,12 @@ namespace DALTripster.Controllers
                 HotelId = room.HotelId
             };
 
-            return View(roomVM);
+            return View(model);
         }
 
         // EDIT ROOM (POST)
         [HttpPost]
-        public IActionResult EditRoom(RoomVM room)
+        public IActionResult EditRoom(RoomVM model)
         {
             if (!ModelState.IsValid)
                 return View(model);
