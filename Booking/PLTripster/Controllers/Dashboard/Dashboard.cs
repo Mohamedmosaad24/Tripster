@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DALTripster.Controllers
 {
-    public class Dashboard : Controller
+    public class    DashboardController   : Controller
     {
         private readonly IHotelService hotelService;
 
@@ -23,7 +23,7 @@ namespace DALTripster.Controllers
 
         private readonly IBookingService _bookingService;
 
-        public Dashboard(IHotelService hotelService, IReviewService reviewService, IRoomService roomService, IBookingService bookingService,IUserService userService)
+        public DashboardController(IHotelService hotelService, IReviewService reviewService, IRoomService roomService, IBookingService bookingService,IUserService userService)
         {
             this.hotelService = hotelService;
 
@@ -85,18 +85,29 @@ namespace DALTripster.Controllers
             return View();
         }
 
-        // ADD ROOM (POST)
+        //add room (POST)
         [HttpPost]
-        public IActionResult AddRoom(Room room)
+        [ValidateAntiForgeryToken]
+        public IActionResult AddRoom(RoomVM model)
         {
             if (!ModelState.IsValid)
-                return View(room);
+                return View(model);
+
+            var room = new Room
+            {
+                RoomType = model.RoomType,
+                Capacity = model.Capacity,
+                Price = model.Price,
+                HotelId = model.HotelId,
+                IsAvailable = true
+            };
 
             _roomService.Add(room);
             _roomService.Save();
 
             return RedirectToAction("Rooms");
         }
+
 
         // EDIT ROOM (GET)
         [HttpGet]
@@ -141,13 +152,15 @@ namespace DALTripster.Controllers
         }
 
         // DELETE ROOM
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteRoom(int id)
         {
             _roomService.Delete(id);
             _roomService.Save();
-
             return RedirectToAction("Rooms");
         }
+
 
         #endregion
 

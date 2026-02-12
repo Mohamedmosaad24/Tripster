@@ -1,26 +1,78 @@
-﻿@model DATripster.Entities.Room
+﻿@model BLTripster.ViewModels.RoomVM
 @{
     Layout = "_DashLayout";
+    ViewData["Title"] = "Edit Room";
 }
-<h2>Edit Room</h2>
 
-<form method="post">
-    <input type="hidden" asp-for="Id" />
+<div class="container-fluid px-4">
 
-    <div class="mb-3">
-        <label>Room Type</label>
-        <input asp-for="RoomType" class="form-control" />
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h3 class="h3 mb-0 text-gray-800">
+            <i class="fas fa-pen text-warning mr-2"></i>
+            Edit Room
+        </h3>
     </div>
 
-    <div class="mb-3">
-        <label>Capacity</label>
-        <input asp-for="Capacity" class="form-control" />
+    <!-- Card -->
+    <div class="card shadow mb-4">
+
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                Update Room Information
+            </h6>
+        </div>
+
+        <div class="card-body p-4">
+
+            <form asp-action="EditRoom"
+                  asp-controller="Dashboard"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="HotelId" />
+
+
+                <!-- Room Type -->
+                <div class="form-group">
+                    <label asp-for="RoomType" class="font-weight-bold"></label>
+                    <input asp-for="RoomType" class="form-control" />
+                </div>
+
+                <!-- Capacity -->
+                <div class="form-group">
+                    <label asp-for="Capacity" class="font-weight-bold"></label>
+                    <input asp-for="Capacity" class="form-control" />
+                </div>
+
+                <!-- Price -->
+                <div class="form-group">
+                    <label asp-for="Price" class="font-weight-bold"></label>
+                    <input asp-for="Price" class="form-control" />
+                </div>
+
+                <!-- Buttons -->
+                <div class="mt-4">
+
+                    <button type="submit"
+                            class="btn btn-warning px-4 shadow-sm">
+                        <i class="fas fa-save mr-1"></i>
+                        Update
+                    </button>
+
+                    <a asp-action="Rooms"
+                       asp-controller="Dashboard"
+                       class="btn btn-secondary px-4 ml-2">
+                        <i class="fas fa-arrow-left mr-1"></i>
+                        Back
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
     </div>
 
-    <div class="mb-3">
-        <label>Price</label>
-        <input asp-for="Price" class="form-control" />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Update</button>
-</form>
+</div>
