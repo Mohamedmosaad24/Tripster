@@ -120,7 +120,7 @@ namespace DALTripster.Controllers
 
         // EDIT ROOM (POST)
         [HttpPost]
-        public IActionResult EditRoom(RoomVM room)
+        public IActionResult EditRoom(RoomVM model)
         {
             if (!ModelState.IsValid)
                 return View(model);
