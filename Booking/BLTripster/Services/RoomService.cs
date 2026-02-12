@@ -3,7 +3,10 @@ using BLTripster.ViewModels;
 using DALTripster.IRepos;
 using DATripster.Entities;
 using System.Collections.Generic;
+<<<<<<< Updated upstream
 using System.ComponentModel.DataAnnotations;
+=======
+>>>>>>> Stashed changes
 
 namespace BLTripster.Services
 {
@@ -36,7 +39,10 @@ namespace BLTripster.Services
             _roomRepository.Update(room);
         }
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         public void Delete(int id)
         {
             _roomRepository.Delete(id);
