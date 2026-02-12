@@ -29,7 +29,10 @@ namespace DALTripster.Repos
             => _context.Rooms.Add(entity);
 
         public void Update(Room entity)
-            => _context.Rooms.Update(entity);
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+        }
+
 
         public void Delete(int id)
         {

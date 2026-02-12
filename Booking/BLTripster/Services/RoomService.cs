@@ -33,22 +33,9 @@ namespace BLTripster.Services
 
         public void Update(Room room)
         {
-            
-            var existingRoom = _roomRepository.GetById(room.Id);
-
-            if (existingRoom != null)
-            {
-                existingRoom.RoomType = room.RoomType;
-                existingRoom.Capacity = room.Capacity;
-                existingRoom.Price = room.Price;
-                existingRoom.IsAvailable = room.IsAvailable;
-                if (room.HotelId != 0)
-                {
-                    existingRoom.HotelId = room.HotelId;
-                }
-                _roomRepository.Update(existingRoom);
-            }
+            _roomRepository.Update(room);
         }
+
 
         public void Delete(int id)
         {

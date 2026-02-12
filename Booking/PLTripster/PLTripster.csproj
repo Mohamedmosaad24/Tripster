@@ -18,7 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <Folder Include="Views\Search\" />
+=======
+>>>>>>> fixRoomAgain
     <Folder Include="wwwroot\assets\Booking\" />
   </ItemGroup>
 

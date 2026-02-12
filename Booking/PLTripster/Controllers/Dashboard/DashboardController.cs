@@ -12,7 +12,11 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace PLTripster.Controllers
 {
+<<<<<<< HEAD:Booking/PLTripster/Controllers/Dashboard/DashboardController.cs
     public class DashboardController : Controller
+=======
+    public class    DashboardController   : Controller
+>>>>>>> fixRoomAgain:Booking/PLTripster/Controllers/Dashboard/Dashboard.cs
     {
         private readonly IHotelService hotelService;
 
@@ -86,8 +90,12 @@ namespace PLTripster.Controllers
             return View(new RoomVM());
         }
 
-        // ADD ROOM (POST)
+        //add room (POST)
         [HttpPost]
+<<<<<<< HEAD:Booking/PLTripster/Controllers/Dashboard/DashboardController.cs
+=======
+        [ValidateAntiForgeryToken]
+>>>>>>> fixRoomAgain:Booking/PLTripster/Controllers/Dashboard/Dashboard.cs
         public IActionResult AddRoom(RoomVM model)
         {
             if (!ModelState.IsValid)
@@ -107,6 +115,7 @@ namespace PLTripster.Controllers
 
             return RedirectToAction("Rooms");
         }
+
 
         // EDIT ROOM (GET)
         [HttpGet]
@@ -151,13 +160,15 @@ namespace PLTripster.Controllers
         }
 
         // DELETE ROOM
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteRoom(int id)
         {
             _roomService.Delete(id);
             _roomService.Save();
-
             return RedirectToAction("Rooms");
         }
+
 
         #endregion
 

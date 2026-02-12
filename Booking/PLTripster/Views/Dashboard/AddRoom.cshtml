@@ -4,6 +4,7 @@
     ViewData["Title"] = "Add Room";
 }
 
+<<<<<<< HEAD
 <div class="container py-5">
 
     <div class="row justify-content-center">
@@ -79,3 +80,81 @@
 }
 
 
+=======
+<div class="container-fluid px-4">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h3 class="h3 mb-0 text-gray-800">
+            <i class="fas fa-bed mr-2 text-primary"></i>
+            Add New Room
+        </h3>
+    </div>
+
+    <!-- Card -->
+    <div class="card shadow mb-4">
+
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                Room Information
+            </h6>
+        </div>
+
+        <div class="card-body p-4">
+
+            <form asp-action="AddRoom"
+                  asp-controller="Dashboard"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <!-- Room Type -->
+                <div class="form-group">
+                    <label asp-for="RoomType" class="font-weight-bold"></label>
+                    <input asp-for="RoomType" class="form-control" />
+                    <span asp-validation-for="RoomType" class="text-danger small"></span>
+                </div>
+
+                <!-- Capacity -->
+                <div class="form-group">
+                    <label asp-for="Capacity" class="font-weight-bold"></label>
+                    <input asp-for="Capacity" class="form-control" />
+                </div>
+
+                <!-- Price -->
+                <div class="form-group">
+                    <label asp-for="Price" class="font-weight-bold"></label>
+                    <input asp-for="Price" class="form-control" />
+                </div>
+
+                <!-- Hotel Id -->
+                <div class="form-group">
+                    <label asp-for="HotelId" class="font-weight-bold"></label>
+                    <input asp-for="HotelId" class="form-control" />
+                </div>
+
+                <!-- Buttons -->
+                <div class="mt-4">
+
+                    <button type="submit"
+                            class="btn btn-primary px-4 shadow-sm">
+                        <i class="fas fa-save mr-1"></i>
+                        Save
+                    </button>
+
+                    <a asp-action="Rooms"
+                       asp-controller="Dashboard"
+                       class="btn btn-secondary px-4 ml-2">
+                        <i class="fas fa-arrow-left mr-1"></i>
+                        Back
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+>>>>>>> fixRoomAgain

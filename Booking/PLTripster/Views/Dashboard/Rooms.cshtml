@@ -4,22 +4,38 @@
     ViewData["Title"] = "Rooms";
 }
 
+<<<<<<< HEAD
 <div class="container py-5">
 
     <!-- Page Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="fw-bold">
             <i class="fa-solid fa-bed text-primary me-2"></i>
+=======
+<div class="container-fluid px-4">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h3 class="h3 mb-0 text-gray-800">
+            <i class="fas fa-bed text-primary mr-2"></i>
+>>>>>>> fixRoomAgain
             Rooms Management
         </h3>
 
         <a asp-action="AddRoom"
+<<<<<<< HEAD
            class="btn btn-primary rounded-pill px-4 fw-semibold shadow-sm">
             <i class="fa-solid fa-plus me-1"></i>
+=======
+           asp-controller="Dashboard"
+           class="btn btn-primary shadow-sm px-4">
+            <i class="fas fa-plus mr-1"></i>
+>>>>>>> fixRoomAgain
             Add Room
         </a>
     </div>
 
+<<<<<<< HEAD
     <!-- Card Wrapper -->
     <div class="card shadow-lg border-0 rounded-4">
 
@@ -29,11 +45,32 @@
                 <table class="table align-middle table-hover">
 
                     <thead class="table-light">
+=======
+    <!-- Card -->
+    <div class="card shadow mb-4">
+
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                Rooms List
+            </h6>
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+
+                    <thead class="thead-light">
+>>>>>>> fixRoomAgain
                         <tr>
                             <th>Room Type</th>
                             <th>Capacity</th>
                             <th>Price</th>
+<<<<<<< HEAD
                             <th class="text-end">Actions</th>
+=======
+                            <th class="text-center">Actions</th>
+>>>>>>> fixRoomAgain
                         </tr>
                     </thead>
 
@@ -42,7 +79,10 @@
                         {
                             <tr>
                                 <td colspan="4" class="text-center text-muted py-4">
+<<<<<<< HEAD
                                     <i class="fa-solid fa-circle-info me-2"></i>
+=======
+>>>>>>> fixRoomAgain
                                     No rooms available.
                                 </td>
                             </tr>
@@ -52,6 +92,7 @@
                             foreach (var room in Model)
                             {
                                 <tr>
+<<<<<<< HEAD
                                     <td class="fw-semibold">@room.RoomType</td>
                                     <td>@room.Capacity Persons</td>
                                     <td>$@room.Price</td>
@@ -71,6 +112,33 @@
                                             <i class="fa-solid fa-trash"></i>
                                             DeleteRoom
                                         </a>
+=======
+                                    <td class="font-weight-bold">@room.RoomType</td>
+                                    <td>@room.Capacity</td>
+                                    <td>$@room.Price</td>
+
+                                    <td class="text-center">
+
+                                        <!-- Edit -->
+                                        <a asp-action="EditRoom"
+                                           asp-controller="Dashboard"
+                                           asp-route-id="@room.Id"
+                                           class="btn btn-warning btn-sm mr-2 shadow-sm">
+                                            <i class="fas fa-pen mr-1"></i>
+                                            Edit
+                                        </a>
+
+                                        <!-- Delete -->
+                                        <button type="button"
+                                                class="btn btn-danger btn-sm shadow-sm"
+                                                data-toggle="modal"
+                                                data-target="#deleteModal"
+                                                data-id="@room.Id">
+                                            <i class="fas fa-trash mr-1"></i>
+                                            Delete
+                                        </button>
+
+>>>>>>> fixRoomAgain
                                     </td>
                                 </tr>
                             }
@@ -81,7 +149,74 @@
             </div>
 
         </div>
+<<<<<<< HEAD
 
     </div>
 
 </div>
+=======
+    </div>
+
+</div>
+
+<!-- ================= DELETE MODAL ================= -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    Confirm Delete
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                Are you sure you want to delete this room?
+            </div>
+
+            <div class="modal-footer justify-content-center">
+
+                <form asp-action="DeleteRoom"
+                      asp-controller="Dashboard"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden"
+                           id="deleteRoomId"
+                           name="id" />
+
+                    <button type="button"
+                            class="btn btn-secondary">
+                        Cancel
+                    </button>
+
+                    <button type="submit"
+                            class="btn btn-danger ml-2">
+                        Yes, Delete
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('#deleteModal').on('show.bs.modal', function (event) {
+
+            var button = $(event.relatedTarget);
+            var roomId = button.data('id');
+
+            $('#deleteRoomId').val(roomId);
+        });
+    </script>
+}
+>>>>>>> fixRoomAgain
