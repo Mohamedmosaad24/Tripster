@@ -3,6 +3,7 @@ using BLTripster.ViewModels;
 using DALTripster.IRepos;
 using DATripster.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace PLTripster.Controllers.Dashboard
 {
@@ -20,7 +21,9 @@ namespace PLTripster.Controllers.Dashboard
         //Display analysis
         public IActionResult Index()
         {
-            return View();
+            var hotels = hotelService.GetAllHotels();
+            return View("IndexHotel",hotels);
+            
         }
         #endregion
 

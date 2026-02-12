@@ -1,9 +1,15 @@
-﻿using DATripster.ViewModels
-@model BLTripster.ViewModels.RoomVM
+﻿@using BLTripster.ViewModels
+@model RoomVM
+
+@{
+    ViewData["Title"] = "Edit Room";
+}
+
 <h2>Edit Room</h2>
 
 <form method="post">
     <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="HotelId" />
 
     <div class="mb-3">
         <label>Room Type</label>

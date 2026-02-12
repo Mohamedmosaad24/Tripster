@@ -1,7 +1,9 @@
 ﻿using BLTripster.IServices;
+using BLTripster.ViewModels;
 using DALTripster.IRepos;
 using DATripster.Entities;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BLTripster.Services
 {
@@ -31,7 +33,21 @@ namespace BLTripster.Services
 
         public void Update(Room room)
         {
-            _roomRepository.Update(room);
+            
+            var existingRoom = _roomRepository.GetById(room.Id);
+
+            if (existingRoom != null)
+            {
+                existingRoom.RoomType = room.RoomType;
+                existingRoom.Capacity = room.Capacity;
+                existingRoom.Price = room.Price;
+                existingRoom.IsAvailable = room.IsAvailable;
+                if (room.HotelId != 0)
+                {
+                    existingRoom.HotelId = room.HotelId;
+                }
+                _roomRepository.Update(existingRoom);
+            }
         }
 
         public void Delete(int id)

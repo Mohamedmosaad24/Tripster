@@ -3,6 +3,7 @@
 using BLTripster.IServices;
 using BLTripster.Mapping;
 using BLTripster.Services;
+using BLTripster.ViewModels;
 using DALTripster.IRepos;
 using DATripster.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -60,8 +61,17 @@ namespace DALTripster.Controllers
         // LIST ROOMS
         public IActionResult Rooms()
         {
-            var rooms = _roomService.GetAll();
-            return View(rooms);
+
+            var rooms = _roomService.GetAll()
+                .Select(r => new RoomListVM
+                {
+                    Id = r.Id,
+                    RoomType = r.RoomType,
+                    Capacity = r.Capacity,
+                    Price = r.Price
+                }).ToList();
+
+            return View("Rooms", rooms);
         }
 
         // ADD ROOM (GET)
@@ -81,7 +91,7 @@ namespace DALTripster.Controllers
             _roomService.Add(room);
             _roomService.Save();
 
-            return RedirectToAction(nameof(Rooms));
+            return RedirectToAction("Rooms");
         }
 
         // EDIT ROOM (GET)
@@ -92,20 +102,38 @@ namespace DALTripster.Controllers
             if (room == null)
                 return NotFound();
 
-            return View(room);
+            var roomVM = new RoomVM
+            {
+                Id = room.Id,
+                RoomType = room.RoomType,
+                Capacity = room.Capacity,
+                Price = room.Price,
+                HotelId = room.HotelId
+            };
+
+            return View(roomVM);
         }
 
         // EDIT ROOM (POST)
         [HttpPost]
-        public IActionResult EditRoom(Room room)
+        public IActionResult EditRoom(RoomVM room)
         {
             if (!ModelState.IsValid)
-                return View(room);
+                return View(model);
+
+            var room = new Room
+            {
+                Id = model.Id,
+                RoomType = model.RoomType,
+                Capacity = model.Capacity,
+                Price = model.Price,
+                HotelId = model.HotelId
+            };
 
             _roomService.Update(room);
             _roomService.Save();
 
-            return RedirectToAction(nameof(Rooms));
+            return RedirectToAction("Rooms");
         }
 
         // DELETE ROOM
@@ -114,7 +142,7 @@ namespace DALTripster.Controllers
             _roomService.Delete(id);
             _roomService.Save();
 
-            return RedirectToAction(nameof(Rooms));
+            return RedirectToAction("Rooms");
         }
 
         #endregion
