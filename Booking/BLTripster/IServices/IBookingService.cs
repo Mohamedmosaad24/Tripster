@@ -10,7 +10,7 @@ namespace BLTripster.IServices
     public interface IBookingService
     {
 
-        Task<bool> CreateBookingAsync(Booking booking);
+        Task<int> CreateBookingAsync(Booking booking);
         Task<Booking> GetBookingDetailsAsync(int bookingId);
         Task<IEnumerable<Booking>> GetAllBookings();
     }

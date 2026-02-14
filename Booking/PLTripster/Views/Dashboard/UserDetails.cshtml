@@ -1,8 +1,83 @@
 ﻿@model DATripster.Entities.User
 
-<h2>User Details</h2>
-<p>ID: @Model.Id</p>
-<p>Name: @Model.Name</p>
-<p>Email: @Model.Email</p>
+@{
+    Layout = "_DashLayout";
+    ViewData["Title"] = "User Details";
+}
 
-<a asp-action="AllUsers" class="btn btn-primary">Back</a>
+<div class="container-fluid px-4">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h3 class="h3 mb-0 text-gray-800">
+            <i class="fas fa-user text-primary mr-2"></i>
+            User Details
+        </h3>
+    </div>
+
+    <!-- Card -->
+    <div class="card shadow mb-4">
+
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                User Information
+            </h6>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row mb-3">
+                <div class="col-md-3 font-weight-bold text-gray-600">
+                    ID
+                </div>
+                <div class="col-md-9">
+                    @Model.Id
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row mb-3">
+                <div class="col-md-3 font-weight-bold text-gray-600">
+                    Name
+                </div>
+                <div class="col-md-9">
+                    @Model.Name
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row mb-3">
+                <div class="col-md-3 font-weight-bold text-gray-600">
+                    Email
+                </div>
+                <div class="col-md-9">
+                    @Model.Email
+                </div>
+            </div>
+
+            <hr />
+
+            <!-- Buttons -->
+            <div class="mt-4">
+
+                <a asp-action="Edit"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-warning px-4 shadow-sm mr-2">
+                    <i class="fas fa-pen mr-1"></i>
+                    Edit
+                </a>
+
+                <a asp-action="AllUsers"
+                   class="btn btn-secondary px-4">
+                    <i class="fas fa-arrow-left mr-1"></i>
+                    Back
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,4 +1,4 @@
-﻿@using BLTripster.ViewModels
+@using BLTripster.ViewModels
 @model BookingPageVM
 @{
     ViewData["Title"] = "Book Room";
@@ -13,36 +13,38 @@
                 Book @Model.HotelName
             </h2>
 
-            <form asp-action="ConfirmBooking" method="post">
+            <form asp-action="ConfirmBooking" asp-controller="Booking" method="post" id="booking-form">
 
-                <input type="hidden" asp-for="Form.RoomId" />
-                <input type="hidden" asp-for="Form.UserId" />
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" name="RoomId" value="@Model.Form.RoomId" />
+                <input type="hidden" name="UserId" value="@Model.Form.UserId" />
 
                 <!-- Dates -->
                 <div class="mb-3">
-                    <label asp-for="Form.CheckIn"></label>
-                    <input asp-for="Form.CheckIn" class="form-control" />
+                    <label for="CheckIn">Check-in</label>
+                    <input type="date" name="CheckIn" id="CheckIn" class="form-control" value="@Model.Form.CheckIn?.ToString("yyyy-MM-dd")" required />
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Form.CheckOut"></label>
-                    <input asp-for="Form.CheckOut" class="form-control" />
+                    <label for="CheckOut">Check-out</label>
+                    <input type="date" name="CheckOut" id="CheckOut" class="form-control" value="@Model.Form.CheckOut?.ToString("yyyy-MM-dd")" required />
                 </div>
 
                 <!-- Guest -->
                 <div class="mb-3">
-                    <label asp-for="Form.GuestFullName"></label>
-                    <input asp-for="Form.GuestFullName" class="form-control" />
+                    <label for="GuestFullName">Guest full name</label>
+                    <input type="text" name="GuestFullName" id="GuestFullName" class="form-control" value="@Model.Form.GuestFullName" required />
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Form.GuestEmail"></label>
-                    <input asp-for="Form.GuestEmail" class="form-control" />
+                    <label for="GuestEmail">Guest email</label>
+                    <input type="email" name="GuestEmail" id="GuestEmail" class="form-control" value="@Model.Form.GuestEmail" />
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Form.GuestPhone"></label>
-                    <input asp-for="Form.GuestPhone" class="form-control" />
+                    <label for="GuestPhone">Guest phone</label>
+                    <input type="text" name="GuestPhone" id="GuestPhone" class="form-control" value="@Model.Form.GuestPhone" />
                 </div>
 
                 <button type="submit"

@@ -1,6 +1,8 @@
 ﻿@using DATripster.Entities
 @model User
-
+@{
+    Layout = "_DashLayout";
+}
 <div class="container mt-4">
     <h2>Add New User</h2>
     <form asp-action="Create" asp-controller="Dashboard" method="post">

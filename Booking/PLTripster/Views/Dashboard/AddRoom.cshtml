@@ -1,27 +1,156 @@
-﻿@model DATripster.Entities.Room
+﻿@model BLTripster.ViewModels.RoomVM
+@{
+    Layout = "_DashLayout";
+    ViewData["Title"] = "Add Room";
+}
+@* 
+<div class="container py-5">
 
-<h2>Add Room</h2>
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
 
-<form method="post">
-    <div class="mb-3">
-        <label>Room Type</label>
-        <input asp-for="RoomType" class="form-control" />
+            <div class="card shadow-lg border-0 rounded-4">
+
+                <div class="card-header bg-primary text-white rounded-top-4 py-3">
+                    <h4 class="mb-0">
+                        <i class="fa-solid fa-bed me-2"></i>
+                        Add New Room
+                    </h4>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form method="post">
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Room Type</label>
+                            <input asp-for="RoomType" class="form-control rounded-3" placeholder="Enter room type" />
+                            <span asp-validation-for="RoomType" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Capacity</label>
+                            <input asp-for="Capacity" class="form-control rounded-3" placeholder="Number of guests" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input asp-for="Price" class="form-control rounded-end-3" placeholder="Enter price" />
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Hotel Id</label>
+                            <input asp-for="HotelId" class="form-control rounded-3" placeholder="Enter hotel ID" />
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary rounded-pill py-2 fw-semibold">
+                                <i class="fa-solid fa-check me-1"></i> Save Room
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
     </div>
 
-    <div class="mb-3">
-        <label>Capacity</label>
-        <input asp-for="Capacity" class="form-control" />
+</div> *@
+
+
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.boxShadow = "0 0 0 0.2rem rgba(13,110,253,.25)";
+            });
+            input.addEventListener('blur', function() {
+                this.style.boxShadow = "none";
+            });
+        });
+    </script>
+}
+
+<div class="container-fluid px-4">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h3 class="h3 mb-0 text-gray-800">
+            <i class="fas fa-bed mr-2 text-primary"></i>
+            Add New Room
+        </h3>
     </div>
 
-    <div class="mb-3">
-        <label>Price</label>
-        <input asp-for="Price" class="form-control" />
+    <!-- Card -->
+    <div class="card shadow mb-4">
+
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                Room Information
+            </h6>
+        </div>
+
+        <div class="card-body p-4">
+
+            <form asp-action="AddRoom"
+                  asp-controller="Dashboard"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <!-- Room Type -->
+                <div class="form-group">
+                    <label asp-for="RoomType" class="font-weight-bold"></label>
+                    <input asp-for="RoomType" class="form-control" />
+                    <span asp-validation-for="RoomType" class="text-danger small"></span>
+                </div>
+
+                <!-- Capacity -->
+                <div class="form-group">
+                    <label asp-for="Capacity" class="font-weight-bold"></label>
+                    <input asp-for="Capacity" class="form-control" />
+                </div>
+
+                <!-- Price -->
+                <div class="form-group">
+                    <label asp-for="Price" class="font-weight-bold"></label>
+                    <input asp-for="Price" class="form-control" />
+                </div>
+
+                <!-- Hotel Id -->
+                <div class="form-group">
+                    <label asp-for="HotelId" class="font-weight-bold"></label>
+                    <input asp-for="HotelId" class="form-control" />
+                </div>
+
+                <!-- Buttons -->
+                <div class="mt-4">
+
+                    <button type="submit"
+                            class="btn btn-primary px-4 shadow-sm">
+                        <i class="fas fa-save mr-1"></i>
+                        Save
+                    </button>
+
+                    <a asp-action="Rooms"
+                       asp-controller="Dashboard"
+                       class="btn btn-secondary px-4 ml-2">
+                        <i class="fas fa-arrow-left mr-1"></i>
+                        Back
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
     </div>
 
-    <div class="mb-3">
-        <label>Hotel Id</label>
-        <input asp-for="HotelId" class="form-control" />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+</div>

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DALTripster.Repos
 {
-    public class RoomRepository: IRoomRepository
+    public class RoomRepository : IRoomRepository
     {
         private readonly TripsterDB _context;
 
@@ -23,13 +23,21 @@ namespace DALTripster.Repos
             => _context.Rooms.ToList();
 
         public Room? GetById(int id)
-            => _context.Rooms.FirstOrDefault(r => r.Id == id);
+        {
+            return _context.Rooms
+                .Include(r => r.Hotel)
+                .Include(r => r.Images)
+                .FirstOrDefault(r => r.Id == id);
+        }
 
         public void Add(Room entity)
             => _context.Rooms.Add(entity);
 
         public void Update(Room entity)
-            => _context.Rooms.Update(entity);
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+        }
+
 
         public void Delete(int id)
         {
@@ -42,8 +50,3 @@ namespace DALTripster.Repos
             => _context.SaveChanges();
     }
 }
-
-
-
-
-        

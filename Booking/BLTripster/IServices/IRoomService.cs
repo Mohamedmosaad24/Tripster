@@ -15,4 +15,3 @@ namespace BLTripster.IServices
         void Save();
     }
 }
-

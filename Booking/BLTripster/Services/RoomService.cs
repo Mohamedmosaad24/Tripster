@@ -1,4 +1,5 @@
 ﻿using BLTripster.IServices;
+using BLTripster.ViewModels;
 using DALTripster.IRepos;
 using DATripster.Entities;
 using System.Collections.Generic;
@@ -39,10 +40,10 @@ namespace BLTripster.Services
             _roomRepository.Delete(id);
         }
 
+
         public void Save()
         {
             _roomRepository.Save();
         }
     }
 }
-

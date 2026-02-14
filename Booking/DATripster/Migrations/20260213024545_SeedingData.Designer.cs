@@ -4,6 +4,7 @@ using DATripster.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DALTripster.Migrations
 {
     [DbContext(typeof(TripsterDB))]
-    partial class TripsterDBModelSnapshot : ModelSnapshot
+    [Migration("20260213024545_SeedingData")]
+    partial class SeedingData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -695,7 +698,6 @@ namespace DALTripster.Migrations
                             Id = 1,
                             DateOfBirth = new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ahmed@email.com",
-                            ImageUrl = "/assets/userImgs/user1.jpg",
                             Location = "Cairo",
                             Name = "Ahmed Mohamed",
                             Nationality = "Egyptian"
@@ -705,7 +707,6 @@ namespace DALTripster.Migrations
                             Id = 2,
                             DateOfBirth = new DateTime(1988, 8, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "fatima@email.com",
-                            ImageUrl = "/assets/userImgs/user2.jpg",
                             Location = "Alexandria",
                             Name = "Fatima Hassan",
                             Nationality = "Egyptian"
@@ -715,7 +716,6 @@ namespace DALTripster.Migrations
                             Id = 3,
                             DateOfBirth = new DateTime(1992, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mahmoud@email.com",
-                            ImageUrl = "/assets/userImgs/user3.jpg",
                             Location = "Giza",
                             Name = "Mahmoud Abdullah",
                             Nationality = "Egyptian"

@@ -20,25 +20,94 @@
 
     <style>
         /* Dark mode – applied when html has data-theme="dark" */
-        html[data-theme="dark"] { color-scheme: dark; }
-        html[data-theme="dark"] body { background-color: #1a1a2e; color: #e4e4e7; }
-        html[data-theme="dark"] .header-wrap { background-color: #16213e !important; border-bottom: 1px solid #2d3748; }
-        html[data-theme="dark"] .header-wrap .sitename { color: #f4f4f5 !important; }
-        html[data-theme="dark"] .header-wrap .nav-link { color: #d4d4d8 !important; }
-        html[data-theme="dark"] .header-wrap .nav-link:hover { color: #a5b4fc !important; }
-        html[data-theme="dark"] .tripster-footer { background-color: #16213e; color: #a1a1aa; border-top: 1px solid #2d3748; }
-        html[data-theme="dark"] .tripster-footer a { color: #d4d4d8; }
-        html[data-theme="dark"] .tripster-footer a:hover { color: #a5b4fc; }
-        html[data-theme="dark"] .scroll-top { background: #2d3748; color: #e4e4e7; }
-        html[data-theme="dark"] .scroll-top:hover { background: #3d4a5c; }
-        html[data-theme="dark"] .card, html[data-theme="dark"] .card-full { background-color: #1e293b; border-color: #334155; color: #e4e4e7; }
-        html[data-theme="dark"] .bg-light { background-color: #16213e !important; }
-        html[data-theme="dark"] .dropdown-menu { background-color: #1e293b; border-color: #334155; }
-        html[data-theme="dark"] .dropdown-item { color: #e4e4e7; }
-        html[data-theme="dark"] .dropdown-item:hover { background-color: #334155; }
-        html[data-theme="dark"] .user-dropdown-header { background-color: transparent; }
-        #theme-toggle { cursor: pointer; border: none; background: none; padding: 0; font-size: 1.25rem; color: inherit; }
-        #theme-toggle:hover { opacity: 0.8; }
+        html[data-theme="dark"] {
+            color-scheme: dark;
+        }
+
+            html[data-theme="dark"] body {
+                background-color: #1a1a2e;
+                color: #e4e4e7;
+            }
+
+            html[data-theme="dark"] .header-wrap {
+                background-color: #16213e !important;
+                border-bottom: 1px solid #2d3748;
+            }
+
+                html[data-theme="dark"] .header-wrap .sitename {
+                    color: #f4f4f5 !important;
+                }
+
+                html[data-theme="dark"] .header-wrap .nav-link {
+                    color: #d4d4d8 !important;
+                }
+
+                    html[data-theme="dark"] .header-wrap .nav-link:hover {
+                        color: #a5b4fc !important;
+                    }
+
+            html[data-theme="dark"] .tripster-footer {
+                background-color: #16213e;
+                color: #a1a1aa;
+                border-top: 1px solid #2d3748;
+            }
+
+                html[data-theme="dark"] .tripster-footer a {
+                    color: #d4d4d8;
+                }
+
+                    html[data-theme="dark"] .tripster-footer a:hover {
+                        color: #a5b4fc;
+                    }
+
+            html[data-theme="dark"] .scroll-top {
+                background: #2d3748;
+                color: #e4e4e7;
+            }
+
+                html[data-theme="dark"] .scroll-top:hover {
+                    background: #3d4a5c;
+                }
+
+            html[data-theme="dark"] .card, html[data-theme="dark"] .card-full {
+                background-color: #1e293b;
+                border-color: #334155;
+                color: #e4e4e7;
+            }
+
+            html[data-theme="dark"] .bg-light {
+                background-color: #16213e !important;
+            }
+
+            html[data-theme="dark"] .dropdown-menu {
+                background-color: #1e293b;
+                border-color: #334155;
+            }
+
+            html[data-theme="dark"] .dropdown-item {
+                color: #e4e4e7;
+            }
+
+                html[data-theme="dark"] .dropdown-item:hover {
+                    background-color: #334155;
+                }
+
+            html[data-theme="dark"] .user-dropdown-header {
+                background-color: transparent;
+            }
+
+        #theme-toggle {
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+            font-size: 1.25rem;
+            color: inherit;
+        }
+
+            #theme-toggle:hover {
+                opacity: 0.8;
+            }
     </style>
 </head>
 <body>

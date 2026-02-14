@@ -1,4 +1,4 @@
-﻿@model DATripster.Entities.User
+@model DATripster.Entities.User
 
 @{
     ViewData["Title"] = "User Details";
@@ -17,7 +17,7 @@
                 <div class="col-md-4 text-center">
                     <img src="@(string.IsNullOrEmpty(Model.ImageUrl)
                                                          ? "/images/default-user.png"
-                                                         : Model.ImageUrl)"
+                                                         : (Model.ImageUrl.StartsWith("/") ? Model.ImageUrl : "/" + Model.ImageUrl))"
                          class="rounded-circle shadow"
                          width="180"
                          height="180"

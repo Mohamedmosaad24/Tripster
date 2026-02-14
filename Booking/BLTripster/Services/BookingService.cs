@@ -21,27 +21,26 @@ namespace BLTripster.Services
             return await _bookingRepo.GetAllWithDetailsAsync();
         }
 
-        public async Task<bool> CreateBookingAsync(Booking booking)
+        public async Task<int> CreateBookingAsync(Booking booking)
         {
             if (!booking.CheckIn.HasValue || !booking.CheckOut.HasValue)
-                return false;
+                return 0;
 
             if (booking.CheckIn.Value < DateTime.Now.Date)
-                return false;
+                return 0;
 
             if (booking.CheckIn.Value >= booking.CheckOut.Value)
-                return false;
+                return 0;
 
             int totalNights = (booking.CheckOut.Value - booking.CheckIn.Value).Days;
+
             decimal pricePerNight = 180m;
             decimal cityTax = 40m;
             decimal serviceFee = 20m;
 
             booking.TotalPrice = (totalNights * pricePerNight) + cityTax + serviceFee;
 
-            int resultId = await _bookingRepo.AddBookingAsync(booking);
-
-            return resultId > 0;
+            return await _bookingRepo.AddBookingAsync(booking);
         }
 
         public async Task<Booking?> GetBookingDetailsAsync(int bookingId)

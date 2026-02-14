@@ -17,16 +17,16 @@
             }
 
             <div class="img-container">
-                @for (int i = 0; i < 5; i++)
-                {
-                    var imageUrl = (i < images.Count && !string.IsNullOrEmpty(images[i].ImageUrl))
-                    ? Url.Content(images[i].ImageUrl)
-                    : Url.Content("~/assets/hotelImg/hotel1.jpg");
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        var imageUrl = (i < images.Count && !string.IsNullOrEmpty(images[i].ImageUrl))
+                            ? images[i].ImageUrl 
+                            : "/assets/hotelImg/hotel1.jpg";
 
-                    <div class="pic@(i + 1)">
-                        <img src="~/assets/hotelImg/@imageUrl" />
-                    </div>
-                }
+                        <div class="pic@(i + 1)">
+                            <img src="@Url.Content(imageUrl)" alt="Hotel Image" />
+                        </div>
+                    }
             </div>
               
             </div>
@@ -121,31 +121,32 @@
                 <div class="row g-4">
                     @foreach (var room in Model.Rooms.Where(r => r.IsAvailable))
                     {
-                        var roomImage = room.Images?.FirstOrDefault()?.ImageUrl
-                        ?? "~/assets/roomImg/pic1.jpg";
-
-                        <div class="col-md-3">
-                            <div class="room-card">
-                                <div class="room-img-wrapper">
-                                    <img src="~/assets/roomImg/@roomImage" class="room-img img-fluid">
+                    var roomImage = room.Images?.FirstOrDefault()?.ImageUrl
+                    ?? "/assets/roomImg/room-1.jpg";
+                    <div class="col-md-3">
+                        <div class="room-card">
+                            <div class="room-img-wrapper">
+                                <img src="@Url.Content(roomImage)" class="room-img img-fluid">
 
                                     <div class="room-body">
                                         <h6 class="room-title">@room.RoomType room</h6>
 
                                         <ul class="room-details">
-                                            <li>25 sqm</li>  @*static data*@
+                                            <li>@room.Sqm</li> 
                                             <li>@room.Capacity people</li>
-                                            <li>1 queen bed or 2 separate beds</li>  @*static data*@
+                                        <li>@room.TypeOfBed</li>
                                         </ul>
-                                        <p class="room-note">Non-refundable, Breakfast included</p> @*static data*@
+                                        <p class="room-note">Non-refundable, Breakfast included</p>
                                         <p class="room-note">
                                             @(room.IsAvailable ? "Available" : "Not Available")
                                         </p>
 
-                                        @*add controller and action*@
-                                        <a class="btn btn-primary rounded-pill room-btn">
+                                    <a asp-controller="Booking"
+                                           asp-action="Index"
+                                           asp-route-roomId="@room.Id"
+                                           class="btn btn-primary rounded-pill room-btn">
                                             Book now for @room.Price $
-                                        </a>
+                                     </a>
                                     </div>
                                 </div>
                             </div>

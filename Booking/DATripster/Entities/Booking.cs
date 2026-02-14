@@ -12,7 +12,9 @@ namespace DATripster.Entities
         public DateTime? CheckIn { get; set; }
         public DateTime? CheckOut { get; set; }
         public decimal TotalPrice { get; set; }
-
+        public string? GuestFullName { get; set; }
+        public string? GuestEmail { get; set; }
+        public string? GuestPhone { get; set; }
         public int RoomId { get; set; }
         public Room Room { get; set; } = default!;
 
