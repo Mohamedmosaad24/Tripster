@@ -1,7 +1,8 @@
-﻿@using BLTripster.ViewModels
+@using BLTripster.ViewModels
 @model BookingPageVM
 @{
     ViewData["Title"] = "Book Room";
+    Layout = "_Layout";
 }
 
 <main class="container my-5">
@@ -13,40 +14,45 @@
                 Book @Model.HotelName
             </h2>
 
-            <form asp-action="ConfirmBooking" method="post">
-
+            <form asp-action="ConfirmBooking" asp-controller="Booking" method="post" id="booking-form">
                 <input type="hidden" asp-for="Form.RoomId" />
                 <input type="hidden" asp-for="Form.UserId" />
 
+                <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+
                 <!-- Dates -->
                 <div class="mb-3">
-                    <label asp-for="Form.CheckIn"></label>
-                    <input asp-for="Form.CheckIn" class="form-control" />
+                    <label asp-for="Form.CheckIn" class="form-label"></label>
+                    <input asp-for="Form.CheckIn" type="date" class="form-control" required />
+                    <span asp-validation-for="Form.CheckIn" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Form.CheckOut"></label>
-                    <input asp-for="Form.CheckOut" class="form-control" />
+                    <label asp-for="Form.CheckOut" class="form-label"></label>
+                    <input asp-for="Form.CheckOut" type="date" class="form-control" required />
+                    <span asp-validation-for="Form.CheckOut" class="text-danger"></span>
                 </div>
 
                 <!-- Guest -->
                 <div class="mb-3">
-                    <label asp-for="Form.GuestFullName"></label>
-                    <input asp-for="Form.GuestFullName" class="form-control" />
+                    <label asp-for="Form.GuestFullName" class="form-label"></label>
+                    <input asp-for="Form.GuestFullName" class="form-control" placeholder="Full name" required />
+                    <span asp-validation-for="Form.GuestFullName" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Form.GuestEmail"></label>
-                    <input asp-for="Form.GuestEmail" class="form-control" />
+                    <label asp-for="Form.GuestEmail" class="form-label"></label>
+                    <input asp-for="Form.GuestEmail" type="email" class="form-control" placeholder="email@example.com" required />
+                    <span asp-validation-for="Form.GuestEmail" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Form.GuestPhone"></label>
-                    <input asp-for="Form.GuestPhone" class="form-control" />
+                    <label asp-for="Form.GuestPhone" class="form-label"></label>
+                    <input asp-for="Form.GuestPhone" class="form-control" placeholder="Phone number" />
+                    <span asp-validation-for="Form.GuestPhone" class="text-danger"></span>
                 </div>
 
-                <button type="submit"
-                        class="btn btn-primary w-100 py-3 rounded-pill fw-bold">
+                <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill fw-bold" id="book-now-btn">
                     Book now
                 </button>
             </form>
@@ -74,3 +80,7 @@
 
     </div>
 </main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

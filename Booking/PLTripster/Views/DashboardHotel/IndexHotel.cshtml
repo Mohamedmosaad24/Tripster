@@ -68,7 +68,7 @@
                                     <td>
                                         @if (hotel.ImageUrls != null && hotel.ImageUrls.Any())
                                         {
-                                            <img src="~/assets/hotelImg/@hotel.ImageUrls.First()"
+                                            <img src="@hotel.ImageUrls.First()"
                                                  alt="@hotel.Name"
                                                  class="img-thumbnail"
                                                  style="width: 100px; height: 70px; object-fit: cover;" />

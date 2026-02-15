@@ -1,4 +1,4 @@
-﻿using DATripster.Entities;
+using DATripster.Entities;
 using System.Collections.Generic;
 
 namespace BLTripster.IServices
@@ -11,8 +11,9 @@ namespace BLTripster.IServices
         void Add(Room room);
         void Update(Room room);
         void Delete(int id);
-
         void Save();
+        void AddImageForRoom(int roomId, string imageUrl);
+        void SetFirstImageForRoom(int roomId, string imageUrl);
     }
 }
 

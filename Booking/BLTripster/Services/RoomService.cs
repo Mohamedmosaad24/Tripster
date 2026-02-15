@@ -1,12 +1,8 @@
-﻿using BLTripster.IServices;
+using BLTripster.IServices;
 using BLTripster.ViewModels;
 using DALTripster.IRepos;
 using DATripster.Entities;
 using System.Collections.Generic;
-<<<<<<< Updated upstream
-using System.ComponentModel.DataAnnotations;
-=======
->>>>>>> Stashed changes
 
 namespace BLTripster.Services
 {
@@ -39,18 +35,25 @@ namespace BLTripster.Services
             _roomRepository.Update(room);
         }
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
         public void Delete(int id)
         {
             _roomRepository.Delete(id);
         }
 
+      
         public void Save()
         {
             _roomRepository.Save();
+        }
+
+        public void AddImageForRoom(int roomId, string imageUrl)
+        {
+            _roomRepository.AddImageForRoom(roomId, imageUrl);
+        }
+
+        public void SetFirstImageForRoom(int roomId, string imageUrl)
+        {
+            _roomRepository.SetFirstImageForRoom(roomId, imageUrl);
         }
     }
 }

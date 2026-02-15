@@ -1,4 +1,4 @@
-﻿using DATripster.Entities;
+using DATripster.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +10,9 @@ namespace BLTripster.IServices
     public interface IBookingService
     {
 
-        Task<bool> CreateBookingAsync(Booking booking);
-        Task<Booking> GetBookingDetailsAsync(int bookingId);
+        Task<int> CreateBookingAsync(Booking booking);
+
+        Task<Booking?> GetBookingDetailsAsync(int bookingId);
         Task<IEnumerable<Booking>> GetAllBookings();
     }
 }

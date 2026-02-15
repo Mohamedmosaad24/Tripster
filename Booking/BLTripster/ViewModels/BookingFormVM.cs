@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
-namespace WebTripster.ViewModels
+namespace BLTripster.ViewModels
 {
     public class BookingFormVM
     {
-      
+
         [Required(ErrorMessage = "Please select a check-in date")]
         public DateTime? CheckIn { get; set; }
 
@@ -14,19 +14,18 @@ namespace WebTripster.ViewModels
         public int RoomId { get; set; }
         public int UserId { get; set; }
 
-     
+
         [Required]
         public string GuestFullName { get; set; } = default!;
         [EmailAddress]
         public string GuestEmail { get; set; } = default!;
         public string GuestPhone { get; set; } = default!;
 
-
-       
-        public string HotelName { get; set; } = "Hotel Norrebro";
-        public string RoomTypeName { get; set; } = "Standard double room";
-        public decimal PricePerNight { get; set; } = 180.00m;
-        public string MainImageUrl { get; set; } = default!;
+        // Display-only; not posted with the form — leave optional so POST validation does not require them
+        public string? HotelName { get; set; }
+        public string? RoomTypeName { get; set; }
+        public decimal PricePerNight { get; set; }
+        public string? MainImageUrl { get; set; }
 
 
         public decimal CityTax => 40.00m;

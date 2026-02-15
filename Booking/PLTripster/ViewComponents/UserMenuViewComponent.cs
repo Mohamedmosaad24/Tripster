@@ -19,6 +19,7 @@ namespace PLTripster.ViewComponents
                 return View("Default", (ApplicationUser?)null);
 
             var user = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.IsAdmin = user != null && await _userManager.IsInRoleAsync(user, "Admin");
             return View("Default", user);
         }
     }

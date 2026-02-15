@@ -7,37 +7,37 @@
         <!-- Sidebar -->
         <aside id="Sidebar">
             <div id="SideTop">
-                <a id="BackArrow" href="#"><i class="fa-solid fa-arrow-left"></i></a>
+                <a id="BackArrow" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-arrow-left"></i></a>
                 <div id="SideTitle">Profile settings</div>
             </div>
 
             <nav id="Menu">
-                <a id="MenuItemActive" href="#">
+                <a id="MenuItemActive" asp-controller="User" asp-action="Index">
                     <span class="IconDot"><i class="fa-solid fa-user"></i></span>
                     <span id="MenuText">Personal details</span>
                 </a>
 
-                <a id="MenuItem" href="#">
+                <a id="MenuItem" href="#" onclick="showComingSoon('Payment information'); return false;">
                     <span class="IconDot"><i class="fa-solid fa-credit-card"></i></span>
                     <span id="MenuText">Payment information</span>
                 </a>
 
-                <a id="MenuItem" href="#">
+                <a id="MenuItem" href="#" onclick="showComingSoon('Safety settings'); return false;">
                     <span class="IconDot"><i class="fa-solid fa-shield-halved"></i></span>
                     <span id="MenuText">Safety</span>
                 </a>
 
-                <a id="MenuItem" href="#">
+                <a id="MenuItem" href="#" onclick="showComingSoon('Preferences'); return false;">
                     <span class="IconDot"><i class="fa-solid fa-gear"></i></span>
                     <span id="MenuText">Preferences</span>
                 </a>
 
-                <a id="MenuItem" href="#">
+                <a id="MenuItem" href="#" onclick="showComingSoon('Notifications'); return false;">
                     <span class="IconDot"><i class="fa-solid fa-bell"></i></span>
                     <span id="MenuText">Notifications</span>
                 </a>
 
-                <a id="MenuItem" href="#">
+                <a id="MenuItem" href="#" onclick="showComingSoon('Add passengers'); return false;">
                     <span class="IconDot"><i class="fa-solid fa-user-plus"></i></span>
                     <span id="MenuText">Add other passengers</span>
                 </a>
@@ -63,7 +63,14 @@
                 <!-- Center panel -->
                 <section id="DetailsPanel">
                     <div id="AvatarRow">
-                        <div id="Avatar"></div>
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <img src="@Model.ImageUrl" alt="Profile" id="Avatar" style="object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <div id="Avatar"></div>
+                        }
                     </div>
 
                     <div id="Table">
@@ -134,7 +141,7 @@
                         Sign up to join our Travel Club!
                     </div>
 
-                    <a id="PromoBtn" href="#">Sign up now</a>
+                    <a id="PromoBtn" href="#" onclick="handlePromoSignup(); return false;">Sign up now</a>
                 </aside>
 
             </div>
@@ -142,4 +149,16 @@
         </main>
 
     </div>
+
+    <script>
+        function showComingSoon(feature) {
+            alert(`${feature} feature coming soon! We're working hard to bring you this functionality.`);
+        }
+
+        function handlePromoSignup() {
+            if (confirm('Join our Travel Club to get secret offers and best prices!\n\nWould you like to sign up for exclusive deals?')) {
+                alert('Thank you for joining our Travel Club! Check your email for exclusive offers.');
+            }
+        }
+    </script>
 </body>

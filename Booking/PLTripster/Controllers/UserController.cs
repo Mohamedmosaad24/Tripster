@@ -59,13 +59,57 @@ namespace PLTripster.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(ProfileVM profile)
+        public async Task<IActionResult> Edit(ProfileVM profile, IFormFile? ProfileImage)
         {
             if (profile == null)
                 return BadRequest("Profile is null.");
 
             if (!ModelState.IsValid)
                 return View("EditView", profile);
+
+            // Handle image upload
+            if (ProfileImage != null && ProfileImage.Length > 0)
+            {
+                // Validate file type
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                var extension = Path.GetExtension(ProfileImage.FileName).ToLowerInvariant();
+                
+                if (!allowedExtensions.Contains(extension))
+                {
+                    ModelState.AddModelError("ProfileImage", "Please upload a valid image file (JPG, PNG, GIF).");
+                    return View("EditView", profile);
+                }
+
+                // Validate file size (max 5MB)
+                if (ProfileImage.Length > 5 * 1024 * 1024)
+                {
+                    ModelState.AddModelError("ProfileImage", "File size must be less than 5MB.");
+                    return View("EditView", profile);
+                }
+
+                // Generate unique filename
+                var fileName = $"profile_{profile.Id}_{Guid.NewGuid()}{extension}";
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "profiles");
+                Directory.CreateDirectory(uploadsFolder);
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                // Delete old profile image if it exists
+                if (!string.IsNullOrEmpty(profile.ImageUrl))
+                {
+                    var oldPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", profile.ImageUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+                    if (System.IO.File.Exists(oldPath))
+                        System.IO.File.Delete(oldPath);
+                }
+
+                // Save file
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await ProfileImage.CopyToAsync(stream);
+                }
+
+                // Update profile image URL
+                profile.ImageUrl = $"/uploads/profiles/{fileName}";
+            }
 
             User user = UserProfileMapping.ToUser(profile);
             userService.UpdateUser(user);

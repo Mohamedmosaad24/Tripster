@@ -1,4 +1,4 @@
-﻿using DALTripster.IRepos;
+using DALTripster.IRepos;
 using DATripster.Data;
 using DATripster.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -20,10 +20,24 @@ namespace DALTripster.Repos
         }
 
         public IEnumerable<Room> GetAll()
-            => _context.Rooms.ToList();
+        {
+            return _context.Rooms
+                .Include(r => r.Hotel)
+                .Include(r => r.Images)
+                .ToList();
+        }
+
 
         public Room? GetById(int id)
-            => _context.Rooms.FirstOrDefault(r => r.Id == id);
+        {
+            return _context.Rooms
+                .Include(r => r.Hotel)
+                .Include(r => r.Images)
+                .FirstOrDefault(r => r.Id == id);
+        }
+
+
+
 
         public void Add(Room entity)
             => _context.Rooms.Add(entity);
@@ -43,6 +57,31 @@ namespace DALTripster.Repos
 
         public void Save()
             => _context.SaveChanges();
+
+        public void AddImageForRoom(int roomId, string imageUrl)
+        {
+            if (string.IsNullOrWhiteSpace(imageUrl)) return;
+            var room = _context.Rooms.Find(roomId);
+            if (room == null) return;
+            _context.Images.Add(new Image { RoomId = roomId, HotelId = room.HotelId, ImageUrl = imageUrl.Trim() });
+        }
+
+        public void SetFirstImageForRoom(int roomId, string imageUrl)
+        {
+            if (string.IsNullOrWhiteSpace(imageUrl)) return;
+            var existing = _context.Images.FirstOrDefault(i => i.RoomId == roomId);
+            if (existing != null)
+            {
+                existing.ImageUrl = imageUrl.Trim();
+                _context.Entry(existing).State = EntityState.Modified;
+            }
+            else
+            {
+                var room = _context.Rooms.Find(roomId);
+                if (room != null)
+                    _context.Images.Add(new Image { RoomId = roomId, HotelId = room.HotelId, ImageUrl = imageUrl.Trim() });
+            }
+        }
     }
 }
 

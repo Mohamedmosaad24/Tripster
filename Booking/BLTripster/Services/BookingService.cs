@@ -1,4 +1,4 @@
-﻿using BLTripster.IServices;
+using BLTripster.IServices;
 using DALTripster.IRepos;
 using DATripster.Entities;
 using System;
@@ -10,10 +10,12 @@ namespace BLTripster.Services
     public class BookingService : IBookingService
     {
         private readonly IBookingRepository _bookingRepo;
+        private readonly IRoomRepository _roomRepo;
 
-        public BookingService(IBookingRepository bookingRepo)
+        public BookingService(IBookingRepository bookingRepo, IRoomRepository roomRepo)
         {
             _bookingRepo = bookingRepo;
+            _roomRepo = roomRepo;
         }
 
         public async Task<IEnumerable<Booking>> GetAllBookings()
@@ -21,28 +23,31 @@ namespace BLTripster.Services
             return await _bookingRepo.GetAllWithDetailsAsync();
         }
 
-        public async Task<bool> CreateBookingAsync(Booking booking)
+        public async Task<int> CreateBookingAsync(Booking booking)
         {
             if (!booking.CheckIn.HasValue || !booking.CheckOut.HasValue)
-                return false;
+                return 0;
 
             if (booking.CheckIn.Value < DateTime.Now.Date)
-                return false;
+                return 0;
 
             if (booking.CheckIn.Value >= booking.CheckOut.Value)
-                return false;
+                return 0;
+
+            var room = _roomRepo.GetById(booking.RoomId);
+            if (room == null)
+                return 0;
 
             int totalNights = (booking.CheckOut.Value - booking.CheckIn.Value).Days;
-            decimal pricePerNight = 180m;
+            decimal pricePerNight = room.Price;
             decimal cityTax = 40m;
             decimal serviceFee = 20m;
 
             booking.TotalPrice = (totalNights * pricePerNight) + cityTax + serviceFee;
 
-            int resultId = await _bookingRepo.AddBookingAsync(booking);
-
-            return resultId > 0;
+            return await _bookingRepo.AddBookingAsync(booking);
         }
+
 
         public async Task<Booking?> GetBookingDetailsAsync(int bookingId)
         {

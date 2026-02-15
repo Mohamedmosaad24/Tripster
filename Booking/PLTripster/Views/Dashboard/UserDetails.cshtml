@@ -1,8 +1,32 @@
-﻿@model DATripster.Entities.User
+@model DATripster.Entities.User
+@{
+    Layout = "_DashLayout";
+    ViewData["Title"] = "User Details";
+}
 
-<h2>User Details</h2>
-<p>ID: @Model.Id</p>
-<p>Name: @Model.Name</p>
-<p>Email: @Model.Email</p>
-
-<a asp-action="AllUsers" class="btn btn-primary">Back</a>
+<div class="container-fluid px-4">
+    <h2 class="mb-4">User Details</h2>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3 text-center">
+                    <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "/images/default-user.png" : Model.ImageUrl)"
+                         alt="@Model.Name" class="rounded-circle img-fluid" width="150" height="150" style="object-fit:cover;" />
+                </div>
+                <div class="col-md-9">
+                    <p><strong>ID:</strong> @Model.Id</p>
+                    <p><strong>Name:</strong> @Model.Name</p>
+                    <p><strong>Email:</strong> @(Model.Email ?? "N/A")</p>
+                    <p><strong>Location:</strong> @(Model.Location ?? "N/A")</p>
+                    <p><strong>Nationality:</strong> @(Model.Nationality ?? "N/A")</p>
+                    <p><strong>Date of Birth:</strong> @(Model.DateOfBirth?.ToString("yyyy-MM-dd") ?? "N/A")</p>
+                    <p><strong>Bookings:</strong> <span class="badge bg-primary">@(Model.Bookings?.Count ?? 0)</span></p>
+                </div>
+            </div>
+            <hr />
+            <a asp-action="Edit" asp-controller="Dashboard" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+            <a asp-action="Delete" asp-controller="Dashboard" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+            <a asp-action="AllUsers" asp-controller="Dashboard" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

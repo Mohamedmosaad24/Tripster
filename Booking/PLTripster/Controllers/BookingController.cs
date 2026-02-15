@@ -1,82 +1,27 @@
-﻿
 using BLTripster.IServices;
-using BLTripster.Services;
 using BLTripster.ViewModels;
 using DATripster.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using System.Threading.Tasks;
-using WebTripster.ViewModels;
 
-namespace WebTripster.Controllers
+namespace PLTripster.Controllers
 {
     public class BookingController : Controller
     {
-        public readonly IRoomService RoomService;
-
+        private readonly IRoomService _roomService;
         private readonly IBookingService _bookingService;
 
-       
         public BookingController(IBookingService bookingService, IRoomService roomService)
         {
             _bookingService = bookingService;
-            RoomService = roomService;
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ConfirmBooking(Booking model)
-        {
-          
-            if (!ModelState.IsValid)
-            {
-                return View("Error");
-            }
-
-     
-            bool success = await _bookingService.CreateBookingAsync(model);
-
-            if (success)
-            {
-                
-                return RedirectToAction("BookingConfirmed");
-            }
-
-            return View("Error");
+            _roomService = roomService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> BookingConfirmed(int bookingId)
+        public IActionResult Index(int roomId)
         {
-          
-            var booking = await _bookingService.GetBookingDetailsAsync(bookingId);
-
-            if (booking == null) return NotFound();
-
-         
-            var viewModel = new BookingSuccessVM
-            {
-                HotelName = booking.Room.Hotel.Name,
-                HotelAddress = booking.Room.Hotel.Address,
-                RoomType = booking.Room.RoomType,
-                CheckIn = booking.CheckIn ?? DateTime.Now,
-                CheckOut = booking.CheckOut ?? DateTime.Now.AddDays(1),
-                TotalPrice = booking.TotalPrice,
-             
-                MainImageUrl = booking.Room.Images?.FirstOrDefault()?.ImageUrl
-                               ?? "/images/default-room.jpg"
-            };
-
-            return View(viewModel);
-        }
-
-
-        [HttpGet]
-public IActionResult Index(int roomId)
-{
-            var room = RoomService.GetById(roomId);
-
+            var room = _roomService.GetById(roomId);
             if (room == null)
-                return NotFound("Room not found");
+                return NotFound();
 
             if (room.Hotel == null)
                 return NotFound("Hotel not found for this room");
@@ -86,12 +31,7 @@ public IActionResult Index(int roomId)
                 HotelName = room.Hotel.Name,
                 RoomTypeName = room.RoomType,
                 PricePerNight = room.Price,
-
-            
-                MainImageUrl = room.Images?
-                    .FirstOrDefault()?.ImageUrl
-                    ?? "/assets/Booking/1.jpg",
-
+                MainImageUrl = room.Images?.FirstOrDefault()?.ImageUrl ?? "/assets/Booking/1.jpg",
                 Form = new BookingFormVM
                 {
                     RoomId = room.Id,
@@ -102,5 +42,73 @@ public IActionResult Index(int roomId)
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmBooking(BookingFormVM form)
+        {
+            if (!ModelState.IsValid)
+            {
+                var pageVm = BuildBookingPageVm(form);
+                return View("Index", pageVm);
+            }
+
+            var booking = new Booking
+            {
+                RoomId = form.RoomId,
+                UserId = form.UserId,
+                CheckIn = form.CheckIn,
+                CheckOut = form.CheckOut,
+                GuestFullName = form.GuestFullName ?? "",
+                GuestEmail = form.GuestEmail ?? "",
+                GuestPhone = form.GuestPhone ?? ""
+            };
+
+            var bookingId = await _bookingService.CreateBookingAsync(booking);
+            if (bookingId <= 0)
+            {
+                ModelState.AddModelError("", "Unable to complete booking. Please check dates and try again.");
+                var pageVm = BuildBookingPageVm(form);
+                return View("Index", pageVm);
+            }
+
+            return RedirectToAction(nameof(BookingConfirmed), new { bookingId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> BookingConfirmed(int bookingId)
+        {
+            var booking = await _bookingService.GetBookingDetailsAsync(bookingId);
+            if (booking == null)
+                return NotFound();
+
+            var viewModel = new BookingSuccessVM
+            {
+                HotelName = booking.Room.Hotel.Name,
+                HotelAddress = booking.Room.Hotel.Address,
+                RoomType = booking.Room.RoomType,
+                CheckIn = booking.CheckIn ?? DateTime.Now,
+                CheckOut = booking.CheckOut ?? DateTime.Now.AddDays(1),
+                TotalPrice = booking.TotalPrice,
+                MainImageUrl = booking.Room.Images?.FirstOrDefault()?.ImageUrl ?? "/images/default-room.jpg"
+            };
+
+            return View(viewModel);
+        }
+
+        private BookingPageVM BuildBookingPageVm(BookingFormVM form)
+        {
+            var room = _roomService.GetById(form.RoomId);
+            if (room == null)
+                return new BookingPageVM { Form = form };
+
+            return new BookingPageVM
+            {
+                HotelName = room.Hotel?.Name ?? "",
+                RoomTypeName = room.RoomType,
+                PricePerNight = room.Price,
+                MainImageUrl = room.Images?.FirstOrDefault()?.ImageUrl ?? "/assets/Booking/1.jpg",
+                Form = form
+            };
+        }
     }
 }

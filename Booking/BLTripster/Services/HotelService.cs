@@ -66,7 +66,7 @@ namespace BLTripster.Services
 
                 hotel.Images.Add(new Image
                 {
-                    ImageUrl = fileName
+                    ImageUrl = "/assets/hotelImg/" + fileName
                 });
             }
 
@@ -121,7 +121,7 @@ namespace BLTripster.Services
                 using var stream = new FileStream(path, FileMode.Create);
                 file.CopyTo(stream);
 
-                hotel.Images.Add(new Image { ImageUrl = fileName });
+                hotel.Images.Add(new Image { ImageUrl = "/assets/hotelImg/" + fileName });
             }
         }
 

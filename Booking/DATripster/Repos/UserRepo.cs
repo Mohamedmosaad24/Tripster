@@ -1,6 +1,7 @@
-﻿using DALTripster.IRepos;
+using DALTripster.IRepos;
 using DATripster.Data;
 using DATripster.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace DALTripster.Repos
 
         public IEnumerable<User> GetAll()
         {
-            return _context.Users.ToList();
+            return _context.Users.Include(u => u.Bookings).ToList();
         }
 
         public User? GetByEmail(string email)
@@ -39,7 +40,7 @@ namespace DALTripster.Repos
 
         public User? GetById(int id)
         {
-           return _context.Users.FirstOrDefault(u => u.Id == id);
+           return _context.Users.Include(u => u.Bookings).FirstOrDefault(u => u.Id == id);
         }
 
         public User? GetByName(string name)
@@ -54,10 +55,15 @@ namespace DALTripster.Repos
 
         public void Update(User entity)
         {
-            //_context.Users.Update(entity);
-            User DBUser = GetById(entity.Id);    
-            DBUser.Email = entity.Email;
-            DBUser.Name = entity.Name;
+            var dbUser = GetById(entity.Id);
+            if (dbUser == null) return;
+            dbUser.Name = entity.Name;
+            dbUser.Email = entity.Email;
+            dbUser.Location = entity.Location;
+            dbUser.Nationality = entity.Nationality;
+            dbUser.DateOfBirth = entity.DateOfBirth;
+            dbUser.ImageUrl = entity.ImageUrl;
+            _context.Entry(dbUser).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,6 +22,8 @@ namespace BLTripster.ViewModels
 
             [Required]
             public int HotelId { get; set; }
+            /// <summary>Optional image URL for the room (e.g. https://... or /assets/room.jpg)</summary>
+            public string? ImageUrl { get; set; }
         }
     }
 

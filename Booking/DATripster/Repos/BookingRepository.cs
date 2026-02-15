@@ -1,9 +1,9 @@
-﻿using DALTripster.IRepos;
+using DALTripster.IRepos;
 using DATripster.Data;
 using DATripster.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace DATripster.Repositories
+namespace DALTripster.Repos
 {
     public class BookingRepository : IBookingRepository
     {
@@ -12,11 +12,12 @@ namespace DATripster.Repositories
         {
             _context = context;
         }
+
         public async Task<int> AddBookingAsync(Booking booking)
         {
-
-
-            return await Task.FromResult(1);
+            _context.Bookings.Add(booking);
+            await _context.SaveChangesAsync();
+            return booking.Id;
         }
 
         public async Task<IEnumerable<Booking>> GetAllWithDetailsAsync()
@@ -29,15 +30,20 @@ namespace DATripster.Repositories
                                 .ToListAsync();
         }
 
-        public async Task<Booking> GetBookingByIdAsync(int id)
+        public async Task<Booking?> GetBookingByIdAsync(int id)
         {
-            return await Task.FromResult(new Booking());
+            return await _context.Bookings
+                .Include(b => b.Room)
+                    .ThenInclude(r => r.Hotel)
+                .Include(b => b.Room)
+                    .ThenInclude(r => r.Images)
+                .FirstOrDefaultAsync(b => b.Id == id);
         }
+
 
         public async Task<IEnumerable<Booking>> GetUserBookingsAsync(int userId)
         {
             return await Task.FromResult(new List<Booking>());
         }
-
     }
 }

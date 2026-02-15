@@ -105,10 +105,23 @@ namespace DALTripster.Migrations
                     b.Property<DateTime?>("CheckOut")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("GuestEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GuestFullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GuestPhone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalPrice")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserId")
@@ -121,53 +134,6 @@ namespace DALTripster.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CheckIn = new DateTime(2025, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CheckOut = new DateTime(2025, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoomId = 1,
-                            TotalPrice = 11000.00m,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CheckIn = new DateTime(2026, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CheckOut = new DateTime(2026, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoomId = 2,
-                            TotalPrice = 11000.00m,
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CheckIn = new DateTime(2026, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CheckOut = new DateTime(2026, 2, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoomId = 3,
-                            TotalPrice = 16000.00m,
-                            UserId = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CheckIn = new DateTime(2026, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CheckOut = new DateTime(2026, 3, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoomId = 4,
-                            TotalPrice = 15000.00m,
-                            UserId = 4
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CheckIn = new DateTime(2026, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CheckOut = new DateTime(2026, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoomId = 5,
-                            TotalPrice = 9500.00m,
-                            UserId = 5
-                        });
                 });
 
             modelBuilder.Entity("DATripster.Entities.Hotel", b =>
@@ -204,46 +170,46 @@ namespace DALTripster.Migrations
                         new
                         {
                             Id = 1,
-                            Address = "Nile Corniche, Cairo, Egypt",
-                            Description = "Luxury 5-star hotel overlooking the Nile River with stunning views and world-class facilities",
-                            Latitude = 30.0444,
-                            Longitude = 31.235700000000001,
+                            Address = "Cairo",
+                            Description = "Luxury 5-star hotel",
+                            Latitude = 0.0,
+                            Longitude = 0.0,
                             Name = "Golden Nile Hotel"
                         },
                         new
                         {
                             Id = 2,
-                            Address = "KM 120, North Coast, Egypt",
-                            Description = "Elegant beachfront resort on the Mediterranean Sea offering an unforgettable relaxation experience",
-                            Latitude = 30.891300000000001,
-                            Longitude = 29.743400000000001,
+                            Address = "North Coast",
+                            Description = "Beachfront resort",
+                            Latitude = 0.0,
+                            Longitude = 0.0,
                             Name = "North Coast Resort"
                         },
                         new
                         {
                             Id = 3,
-                            Address = "Pyramid Street, Giza, Egypt",
-                            Description = "Historic hotel near the Pyramids combining authenticity with modern comfort",
-                            Latitude = 29.979199999999999,
-                            Longitude = 31.1342,
+                            Address = "Giza",
+                            Description = "Historic hotel",
+                            Latitude = 0.0,
+                            Longitude = 0.0,
                             Name = "Royal Pyramids Hotel"
                         },
                         new
                         {
                             Id = 4,
-                            Address = "Tourist Promenade, Sharm El Sheikh, Egypt",
-                            Description = "World-class diving resort on the Red Sea with spectacular coral reefs",
-                            Latitude = 27.257899999999999,
-                            Longitude = 33.811599999999999,
+                            Address = "Sharm El Sheikh",
+                            Description = "Diving resort",
+                            Latitude = 0.0,
+                            Longitude = 0.0,
                             Name = "Red Sea Resort"
                         },
                         new
                         {
                             Id = 5,
-                            Address = "Alexandria Corniche, Alexandria, Egypt",
-                            Description = "Luxury boutique hotel on the Mediterranean coast with rich historical heritage",
-                            Latitude = 31.200099999999999,
-                            Longitude = 29.918700000000001,
+                            Address = "Alexandria",
+                            Description = "Boutique hotel",
+                            Latitude = 0.0,
+                            Longitude = 0.0,
                             Name = "Alexandria Palace"
                         });
                 });
@@ -261,103 +227,6 @@ namespace DALTripster.Migrations
                     b.HasIndex("ServiceId");
 
                     b.ToTable("HotelServices", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            HotelId = 1,
-                            ServiceId = 1
-                        },
-                        new
-                        {
-                            HotelId = 1,
-                            ServiceId = 2
-                        },
-                        new
-                        {
-                            HotelId = 1,
-                            ServiceId = 3
-                        },
-                        new
-                        {
-                            HotelId = 1,
-                            ServiceId = 4
-                        },
-                        new
-                        {
-                            HotelId = 1,
-                            ServiceId = 5
-                        },
-                        new
-                        {
-                            HotelId = 2,
-                            ServiceId = 1
-                        },
-                        new
-                        {
-                            HotelId = 2,
-                            ServiceId = 2
-                        },
-                        new
-                        {
-                            HotelId = 2,
-                            ServiceId = 3
-                        },
-                        new
-                        {
-                            HotelId = 2,
-                            ServiceId = 5
-                        },
-                        new
-                        {
-                            HotelId = 3,
-                            ServiceId = 1
-                        },
-                        new
-                        {
-                            HotelId = 3,
-                            ServiceId = 2
-                        },
-                        new
-                        {
-                            HotelId = 3,
-                            ServiceId = 4
-                        },
-                        new
-                        {
-                            HotelId = 3,
-                            ServiceId = 5
-                        },
-                        new
-                        {
-                            HotelId = 4,
-                            ServiceId = 1
-                        },
-                        new
-                        {
-                            HotelId = 4,
-                            ServiceId = 2
-                        },
-                        new
-                        {
-                            HotelId = 4,
-                            ServiceId = 3
-                        },
-                        new
-                        {
-                            HotelId = 5,
-                            ServiceId = 1
-                        },
-                        new
-                        {
-                            HotelId = 5,
-                            ServiceId = 3
-                        },
-                        new
-                        {
-                            HotelId = 5,
-                            ServiceId = 5
-                        });
                 });
 
             modelBuilder.Entity("DATripster.Entities.Image", b =>
@@ -390,32 +259,136 @@ namespace DALTripster.Migrations
                         {
                             Id = 1,
                             HotelId = 1,
-                            ImageUrl = "https://example.com/hotels/golden-nile/exterior.jpg"
+                            ImageUrl = "/assets/hotelImg/hotel1.jpg"
                         },
                         new
                         {
                             Id = 2,
-                            HotelId = 1,
-                            ImageUrl = "https://example.com/hotels/golden-nile/royal-suite.jpg",
-                            RoomId = 1
+                            HotelId = 2,
+                            ImageUrl = "/assets/hotelImg/hotel2.jpg"
                         },
                         new
                         {
                             Id = 3,
-                            HotelId = 2,
-                            ImageUrl = "https://example.com/hotels/north-coast/beach-view.jpg"
+                            HotelId = 3,
+                            ImageUrl = "/assets/hotelImg/hotel3.jpg"
                         },
                         new
                         {
                             Id = 4,
-                            HotelId = 3,
-                            ImageUrl = "https://example.com/hotels/pyramids/pyramid-view.jpg"
+                            HotelId = 4,
+                            ImageUrl = "/assets/hotelImg/hotel4.jpg"
                         },
                         new
                         {
                             Id = 5,
+                            HotelId = 5,
+                            ImageUrl = "/assets/hotelImg/hotel6.jpg"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            HotelId = 1,
+                            ImageUrl = "/assets/roomImg/room-1.jpg",
+                            RoomId = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            HotelId = 1,
+                            ImageUrl = "/assets/roomImg/room-2.jpg",
+                            RoomId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            HotelId = 1,
+                            ImageUrl = "/assets/roomImg/room-3.jpg",
+                            RoomId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            HotelId = 2,
+                            ImageUrl = "/assets/roomImg/room-4.jpg",
+                            RoomId = 4
+                        },
+                        new
+                        {
+                            Id = 10,
+                            HotelId = 2,
+                            ImageUrl = "/assets/roomImg/room-5.jpg",
+                            RoomId = 5
+                        },
+                        new
+                        {
+                            Id = 11,
+                            HotelId = 2,
+                            ImageUrl = "/assets/roomImg/room-6.jpg",
+                            RoomId = 6
+                        },
+                        new
+                        {
+                            Id = 12,
+                            HotelId = 3,
+                            ImageUrl = "/assets/roomImg/room-7.jpg",
+                            RoomId = 7
+                        },
+                        new
+                        {
+                            Id = 13,
+                            HotelId = 3,
+                            ImageUrl = "/assets/roomImg/room-1.jpg",
+                            RoomId = 8
+                        },
+                        new
+                        {
+                            Id = 14,
+                            HotelId = 3,
+                            ImageUrl = "/assets/roomImg/room-2.jpg",
+                            RoomId = 9
+                        },
+                        new
+                        {
+                            Id = 15,
                             HotelId = 4,
-                            ImageUrl = "https://example.com/hotels/red-sea/diving-center.jpg"
+                            ImageUrl = "/assets/roomImg/room-3.jpg",
+                            RoomId = 10
+                        },
+                        new
+                        {
+                            Id = 16,
+                            HotelId = 4,
+                            ImageUrl = "/assets/roomImg/room-4.jpg",
+                            RoomId = 11
+                        },
+                        new
+                        {
+                            Id = 17,
+                            HotelId = 4,
+                            ImageUrl = "/assets/roomImg/room-5.jpg",
+                            RoomId = 12
+                        },
+                        new
+                        {
+                            Id = 18,
+                            HotelId = 5,
+                            ImageUrl = "/assets/roomImg/room-6.jpg",
+                            RoomId = 13
+                        },
+                        new
+                        {
+                            Id = 19,
+                            HotelId = 5,
+                            ImageUrl = "/assets/roomImg/room-7.jpg",
+                            RoomId = 14
+                        },
+                        new
+                        {
+                            Id = 20,
+                            HotelId = 5,
+                            ImageUrl = "/assets/roomImg/room-1.jpg",
+                            RoomId = 15
                         });
                 });
 
@@ -446,48 +419,6 @@ namespace DALTripster.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Comment = "Excellent hotel! Outstanding service and the Nile view is fantastic. Highly recommended.",
-                            HotelId = 1,
-                            Rate = 5,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Comment = "Good hotel with excellent location. Rooms are clean but breakfast needs improvement.",
-                            HotelId = 1,
-                            Rate = 4,
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Comment = "Amazing beach resort! Clean beach and modern facilities. Unforgettable experience.",
-                            HotelId = 2,
-                            Rate = 5,
-                            UserId = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Comment = "Perfect location next to the Pyramids. Historic and luxurious hotel. Exceptional service.",
-                            HotelId = 3,
-                            Rate = 5,
-                            UserId = 4
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Comment = "Great hotel for diving. Excellent facilities but rooms need renovation.",
-                            HotelId = 4,
-                            Rate = 4,
-                            UserId = 5
-                        });
                 });
 
             modelBuilder.Entity("DATripster.Entities.Room", b =>
@@ -511,6 +442,7 @@ namespace DALTripster.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("RoomType")
@@ -533,14 +465,14 @@ namespace DALTripster.Migrations
                         new
                         {
                             Id = 1,
-                            Capacity = 4,
+                            Capacity = 2,
                             HotelId = 1,
                             IsAvailable = true,
-                            NumberOFBathRoom = 2,
-                            Price = 3500.00m,
-                            RoomType = "Royal Suite",
-                            Sqm = 85.5f,
-                            TypeOfBed = 1
+                            NumberOFBathRoom = 1,
+                            Price = 1200m,
+                            RoomType = "Standard",
+                            Sqm = 28f,
+                            TypeOfBed = 0
                         },
                         new
                         {
@@ -549,46 +481,166 @@ namespace DALTripster.Migrations
                             HotelId = 1,
                             IsAvailable = true,
                             NumberOFBathRoom = 1,
-                            Price = 2200.00m,
-                            RoomType = "Deluxe Nile View Room",
-                            Sqm = 45f,
-                            TypeOfBed = 1
+                            Price = 1800m,
+                            RoomType = "Deluxe",
+                            Sqm = 38f,
+                            TypeOfBed = 0
                         },
                         new
                         {
                             Id = 3,
                             Capacity = 4,
-                            HotelId = 2,
+                            HotelId = 1,
                             IsAvailable = true,
                             NumberOFBathRoom = 2,
-                            Price = 3200.00m,
-                            RoomType = "Beach Front Chalet",
-                            Sqm = 75f,
-                            TypeOfBed = 1
+                            Price = 2800m,
+                            RoomType = "Suite",
+                            Sqm = 55f,
+                            TypeOfBed = 0
                         },
                         new
                         {
                             Id = 4,
                             Capacity = 2,
-                            HotelId = 3,
+                            HotelId = 2,
                             IsAvailable = true,
                             NumberOFBathRoom = 1,
-                            Price = 2500.00m,
-                            RoomType = "Pyramid View Room",
-                            Sqm = 50f,
-                            TypeOfBed = 2
+                            Price = 1300m,
+                            RoomType = "Standard",
+                            Sqm = 30f,
+                            TypeOfBed = 0
                         },
                         new
                         {
                             Id = 5,
                             Capacity = 2,
+                            HotelId = 2,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 1,
+                            Price = 2000m,
+                            RoomType = "Deluxe",
+                            Sqm = 42f,
+                            TypeOfBed = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Capacity = 4,
+                            HotelId = 2,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 2,
+                            Price = 3200m,
+                            RoomType = "Suite",
+                            Sqm = 65f,
+                            TypeOfBed = 0
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Capacity = 2,
+                            HotelId = 3,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 1,
+                            Price = 1100m,
+                            RoomType = "Standard",
+                            Sqm = 26f,
+                            TypeOfBed = 0
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Capacity = 2,
+                            HotelId = 3,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 1,
+                            Price = 1700m,
+                            RoomType = "Deluxe",
+                            Sqm = 40f,
+                            TypeOfBed = 0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Capacity = 4,
+                            HotelId = 3,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 2,
+                            Price = 2600m,
+                            RoomType = "Suite",
+                            Sqm = 52f,
+                            TypeOfBed = 0
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Capacity = 2,
                             HotelId = 4,
                             IsAvailable = true,
                             NumberOFBathRoom = 1,
-                            Price = 1900.00m,
-                            RoomType = "Divers Room",
-                            Sqm = 40f,
-                            TypeOfBed = 2
+                            Price = 1400m,
+                            RoomType = "Standard",
+                            Sqm = 32f,
+                            TypeOfBed = 0
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Capacity = 2,
+                            HotelId = 4,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 1,
+                            Price = 2100m,
+                            RoomType = "Deluxe",
+                            Sqm = 45f,
+                            TypeOfBed = 0
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Capacity = 4,
+                            HotelId = 4,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 2,
+                            Price = 3500m,
+                            RoomType = "Suite",
+                            Sqm = 70f,
+                            TypeOfBed = 0
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Capacity = 2,
+                            HotelId = 5,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 1,
+                            Price = 1000m,
+                            RoomType = "Standard",
+                            Sqm = 25f,
+                            TypeOfBed = 0
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Capacity = 2,
+                            HotelId = 5,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 1,
+                            Price = 1600m,
+                            RoomType = "Deluxe",
+                            Sqm = 36f,
+                            TypeOfBed = 0
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Capacity = 4,
+                            HotelId = 5,
+                            IsAvailable = true,
+                            NumberOFBathRoom = 2,
+                            Price = 2400m,
+                            RoomType = "Suite",
+                            Sqm = 50f,
+                            TypeOfBed = 0
                         });
                 });
 
@@ -607,33 +659,6 @@ namespace DALTripster.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Services");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Free WiFi"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Outdoor Pool"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Spa & Wellness Center"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Fitness Center"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Fine Dining Restaurant"
-                        });
                 });
 
             modelBuilder.Entity("DATripster.Entities.User", b =>
@@ -672,19 +697,19 @@ namespace DALTripster.Migrations
                         {
                             Id = 1,
                             DateOfBirth = new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "ahmed.mohamed@email.com",
-                            ImageUrl = "https://example.com/images/users/ahmed.jpg",
-                            Location = "Cairo, Egypt",
-                            Name = "Ahmed Mohamed Ali",
+                            Email = "ahmed@email.com",
+                            ImageUrl = "/assets/userImgs/user1.jpg",
+                            Location = "Cairo",
+                            Name = "Ahmed Mohamed",
                             Nationality = "Egyptian"
                         },
                         new
                         {
                             Id = 2,
                             DateOfBirth = new DateTime(1988, 8, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "fatima.hassan@email.com",
-                            ImageUrl = "https://example.com/images/users/fatima.jpg",
-                            Location = "Alexandria, Egypt",
+                            Email = "fatima@email.com",
+                            ImageUrl = "/assets/userImgs/user2.jpg",
+                            Location = "Alexandria",
                             Name = "Fatima Hassan",
                             Nationality = "Egyptian"
                         },
@@ -692,31 +717,11 @@ namespace DALTripster.Migrations
                         {
                             Id = 3,
                             DateOfBirth = new DateTime(1992, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "mahmoud.abdullah@email.com",
-                            ImageUrl = "https://example.com/images/users/mahmoud.jpg",
-                            Location = "Giza, Egypt",
+                            Email = "mahmoud@email.com",
+                            ImageUrl = "/assets/userImgs/user3.jpg",
+                            Location = "Giza",
                             Name = "Mahmoud Abdullah",
                             Nationality = "Egyptian"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            DateOfBirth = new DateTime(1985, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "nour.aldeen@email.com",
-                            ImageUrl = "https://example.com/images/users/nour.jpg",
-                            Location = "Dubai, UAE",
-                            Name = "Nour Al-Din",
-                            Nationality = "Emirati"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            DateOfBirth = new DateTime(1995, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "sara.ahmed@email.com",
-                            ImageUrl = "https://example.com/images/users/sara.jpg",
-                            Location = "Riyadh, Saudi Arabia",
-                            Name = "Sara Ahmed",
-                            Nationality = "Saudi"
                         });
                 });
 
@@ -899,8 +904,7 @@ namespace DALTripster.Migrations
 
                     b.HasOne("DATripster.Entities.Room", "Room")
                         .WithMany("Images")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RoomId");
 
                     b.Navigation("Hotel");
 

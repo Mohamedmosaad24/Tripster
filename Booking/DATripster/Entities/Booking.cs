@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +12,10 @@ namespace DATripster.Entities
         public DateTime? CheckIn { get; set; }
         public DateTime? CheckOut { get; set; }
         public decimal TotalPrice { get; set; }
+
+        public string GuestFullName { get; set; } = string.Empty;
+        public string GuestEmail { get; set; } = string.Empty;
+        public string GuestPhone { get; set; } = string.Empty;
 
         public int RoomId { get; set; }
         public Room Room { get; set; } = default!;

@@ -134,7 +134,7 @@
                                 <span class="badge-rating">@averageRating.Value.ToString("0.0")</span>
                             }
 
-                            <button type="button" class="wishlist-btn" title="Add to wishlist">
+                            <button type="button" class="wishlist-btn" title="Add to wishlist" onclick="toggleWishlist(this, @hotel.Id)">
                                 <i class="bi bi-heart"></i>
                             </button>
                         </div>
@@ -184,10 +184,110 @@
                 </p>
             </div>
         </div>
-        <button class="btn btn-outline-primary rounded-pill px-4">
+        <button class="btn btn-outline-primary rounded-pill px-4" onclick="handleNewsletterSignup()">
             Sign up for newsletter
         </button>
     </div>
 </div>
+
+<script>
+    // Wishlist functionality
+    function toggleWishlist(button, hotelId) {
+        const icon = button.querySelector('i');
+        const isWishlisted = icon.classList.contains('bi-heart-fill');
+        
+        if (isWishlisted) {
+            icon.classList.remove('bi-heart-fill');
+            icon.classList.add('bi-heart');
+            button.style.color = '#555';
+            // Remove from wishlist
+            removeFromWishlist(hotelId);
+        } else {
+            icon.classList.remove('bi-heart');
+            icon.classList.add('bi-heart-fill');
+            button.style.color = '#ff4d4d';
+            // Add to wishlist
+            addToWishlist(hotelId);
+        }
+    }
+
+    function addToWishlist(hotelId) {
+        let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        if (!wishlist.includes(hotelId)) {
+            wishlist.push(hotelId);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            showNotification('Added to wishlist!', 'success');
+        }
+    }
+
+    function removeFromWishlist(hotelId) {
+        let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        wishlist = wishlist.filter(id => id !== hotelId);
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        showNotification('Removed from wishlist', 'info');
+    }
+
+    // Newsletter signup functionality
+    function handleNewsletterSignup() {
+        @if (User.Identity?.IsAuthenticated ?? false)
+        {
+            <text>
+            // User is authenticated
+            const email = '@User.Identity.Name';
+            if (confirm('Sign up for our newsletter to receive exclusive offers and updates?')) {
+                // Here you would typically make an API call to subscribe
+                showNotification('Thank you for subscribing to our newsletter!', 'success');
+            }
+            </text>
+        }
+        else
+        {
+            <text>
+            // User is not authenticated
+            if (confirm('Please log in to subscribe to our newsletter. Would you like to go to the login page?')) {
+                window.location.href = '@Url.Action("Login", "Account")';
+            }
+            </text>
+        }
+    }
+
+    // Notification helper
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `alert alert-${type} position-fixed top-0 end-0 m-3 fade show`;
+        notification.style.zIndex = '9999';
+        notification.style.minWidth = '300px';
+        notification.innerHTML = `
+            <div class="d-flex align-items-center justify-content-between">
+                <span>${message}</span>
+                <button type="button" class="btn-close" onclick="this.parentElement.parentElement.remove()"></button>
+            </div>
+        `;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 150);
+        }, 3000);
+    }
+
+    // Initialize wishlist hearts on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        document.querySelectorAll('.wishlist-btn').forEach(button => {
+            const onClick = button.getAttribute('onclick');
+            if (onClick) {
+                const hotelId = parseInt(onClick.match(/\d+/)[0]);
+                if (wishlist.includes(hotelId)) {
+                    const icon = button.querySelector('i');
+                    icon.classList.remove('bi-heart');
+                    icon.classList.add('bi-heart-fill');
+                    button.style.color = '#ff4d4d';
+                }
+            }
+        });
+    });
+</script>
+
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

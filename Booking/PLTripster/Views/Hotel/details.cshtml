@@ -1,4 +1,4 @@
-﻿@using DATripster.Entities
+@using DATripster.Entities
 @model Hotel
 
 @{
@@ -20,11 +20,11 @@
                 @for (int i = 0; i < 5; i++)
                 {
                     var imageUrl = (i < images.Count && !string.IsNullOrEmpty(images[i].ImageUrl))
-                    ? Url.Content(images[i].ImageUrl)
-                    : Url.Content("~/assets/hotelImg/hotel1.jpg");
+                    ? images[i].ImageUrl
+                    : "/assets/hotelImg/hotel1.jpg";
 
                     <div class="pic@(i + 1)">
-                        <img src="~/assets/hotelImg/@imageUrl" />
+                        <img src="@imageUrl" alt="Hotel Image" />
                     </div>
                 }
             </div>
@@ -60,7 +60,7 @@
                     }
                 }
                 <h4 class="fs-5" style="color:@rateColor">
-                    Excellent <span class="badge exc-badge rounded-pill opacity-75 fw-medium" style="color:@rateColor">@avgRate</span>
+                    @rateText <span class="badge exc-badge rounded-pill opacity-75 fw-medium" style="color:@rateColor">@avgRate</span>
                     <small class="d-block fs-6 text-black-50">@numRev reviews</small>
                 </h4>
             </div>
@@ -121,13 +121,12 @@
                 <div class="row g-4">
                     @foreach (var room in Model.Rooms.Where(r => r.IsAvailable))
                     {
-                        var roomImage = room.Images?.FirstOrDefault()?.ImageUrl
-                        ?? "~/assets/roomImg/pic1.jpg";
+                        var roomImageUrl = room.Images?.FirstOrDefault()?.ImageUrl ?? "/assets/roomImg/pic1.jpg";
 
                         <div class="col-md-3">
                             <div class="room-card">
                                 <div class="room-img-wrapper">
-                                    <img src="~/assets/roomImg/@roomImage" class="room-img img-fluid">
+                                    <img src="@roomImageUrl" class="room-img img-fluid" alt="@room.RoomType">
 
                                     <div class="room-body">
                                         <h6 class="room-title">@room.RoomType room</h6>
@@ -142,8 +141,9 @@
                                             @(room.IsAvailable ? "Available" : "Not Available")
                                         </p>
 
-                                        @*add controller and action*@
-                                        <a class="btn btn-primary rounded-pill room-btn">
+                                        <a href="@Url.Action("Index", "Booking", new { roomId = room.Id })"
+                                           class="btn btn-primary rounded-pill room-btn"
+                                           title="Book this room">
                                             Book now for @room.Price $
                                         </a>
                                     </div>

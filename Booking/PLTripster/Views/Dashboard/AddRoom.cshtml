@@ -1,86 +1,9 @@
-﻿@model BLTripster.ViewModels.RoomVM
+@model BLTripster.ViewModels.RoomVM
 @{
     Layout = "_DashLayout";
     ViewData["Title"] = "Add Room";
 }
 
-<<<<<<< HEAD
-<div class="container py-5">
-
-    <div class="row justify-content-center">
-        <div class="col-lg-6">
-
-            <div class="card shadow-lg border-0 rounded-4">
-
-                <div class="card-header bg-primary text-white rounded-top-4 py-3">
-                    <h4 class="mb-0">
-                        <i class="fa-solid fa-bed me-2"></i>
-                        Add New Room
-                    </h4>
-                </div>
-
-                <div class="card-body p-4">
-
-                    <form method="post">
-
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Room Type</label>
-                            <input asp-for="RoomType" class="form-control rounded-3" placeholder="Enter room type" />
-                            <span asp-validation-for="RoomType" class="text-danger small"></span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Capacity</label>
-                            <input asp-for="Capacity" class="form-control rounded-3" placeholder="Number of guests" />
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Price</label>
-                            <div class="input-group">
-                                <span class="input-group-text">$</span>
-                                <input asp-for="Price" class="form-control rounded-end-3" placeholder="Enter price" />
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label fw-semibold">Hotel Id</label>
-                            <input asp-for="HotelId" class="form-control rounded-3" placeholder="Enter hotel ID" />
-                        </div>
-
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary rounded-pill py-2 fw-semibold">
-                                <i class="fa-solid fa-check me-1"></i> Save Room
-                            </button>
-                        </div>
-
-                    </form>
-
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-
-</div>
-
-
-
-@section Scripts {
-    <script>
-        document.querySelectorAll('.form-control').forEach(input => {
-            input.addEventListener('focus', function() {
-                this.style.boxShadow = "0 0 0 0.2rem rgba(13,110,253,.25)";
-            });
-            input.addEventListener('blur', function() {
-                this.style.boxShadow = "none";
-            });
-        });
-    </script>
-}
-
-
-=======
 <div class="container-fluid px-4">
 
     <!-- Page Heading -->
@@ -104,7 +27,7 @@
 
             <form asp-action="AddRoom"
                   asp-controller="Dashboard"
-                  method="post">
+                  method="post" enctype="multipart/form-data">
 
                 @Html.AntiForgeryToken()
 
@@ -127,10 +50,21 @@
                     <input asp-for="Price" class="form-control" />
                 </div>
 
-                <!-- Hotel Id -->
+                <!-- Room Image -->
+                <div class="form-group">
+                    <label class="font-weight-bold">Room Image</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <img id="roomAddPreview" alt="Preview" class="rounded" width="80" height="80" style="object-fit:cover; border: 2px solid #e2e8f0; display:none;" />
+                        <input type="file" name="RoomImage" class="form-control" accept="image/*" onchange="previewImg(this, 'roomAddPreview')" />
+                    </div>
+                    <small class="text-muted">Choose a room image from your computer (JPG, PNG, GIF)</small>
+                </div>
+
+                <!-- Hotel -->
                 <div class="form-group">
                     <label asp-for="HotelId" class="font-weight-bold"></label>
-                    <input asp-for="HotelId" class="form-control" />
+                    <select asp-for="HotelId" asp-items="ViewBag.Hotels" class="form-control"></select>
+                    <span asp-validation-for="HotelId" class="text-danger small"></span>
                 </div>
 
                 <!-- Buttons -->
@@ -142,8 +76,7 @@
                         Save
                     </button>
 
-                    <a asp-action="Rooms"
-                       asp-controller="Dashboard"
+                    <a asp-action="Rooms" asp-controller="Dashboard"
                        class="btn btn-secondary px-4 ml-2">
                         <i class="fas fa-arrow-left mr-1"></i>
                         Back
@@ -157,4 +90,18 @@
     </div>
 
 </div>
->>>>>>> fixRoomAgain
+
+<script>
+    function previewImg(input, previewId) {
+        var preview = document.getElementById(previewId);
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+

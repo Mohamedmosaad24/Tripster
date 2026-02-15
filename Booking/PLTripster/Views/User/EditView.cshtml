@@ -9,9 +9,35 @@
             <h4 class="fw-bold mb-1">Personal details</h4>
             <p class="text-muted mb-4">Edit your personal details</p>
 
-            <form asp-action="Edit" method="post" class="bg-white p-4 rounded shadow-sm">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm">
                 @Html.AntiForgeryToken()
                 <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="ImageUrl" />
+
+                <div class="mb-3">
+                    <label class="form-label">Profile Image</label>
+                    <div class="d-flex align-items-center gap-3 mb-2">
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <img id="profilePreview" src="@Model.ImageUrl" alt="Profile" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover; border: 3px solid #e2e8f0;" />
+                        }
+                        else
+                        {
+                            <div id="profilePreview" class="rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background: linear-gradient(135deg,#c7d2fe,#60a5fa,#a78bfa); border: 3px solid #e2e8f0;">
+                                <i class="fa-solid fa-user text-white fs-3"></i>
+                            </div>
+                        }
+                        <div class="flex-grow-1">
+                            <input type="file" 
+                                   name="ProfileImage" 
+                                   id="profileImageInput" 
+                                   class="form-control" 
+                                   accept="image/*"
+                                   onchange="previewImage(this)" />
+                            <small class="text-muted">Upload a profile picture (JPG, PNG, GIF)</small>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="mb-3">
                     <label class="form-label">Full name</label>
@@ -66,7 +92,7 @@
                         Sign up to join our Travel Club!
                     </p>
 
-                    <a href="#" class="btn btn-outline-primary w-100">
+                    <a href="#" class="btn btn-outline-primary w-100" onclick="handlePromoSignup(); return false;">
                         Sign up now
                     </a>
                 </div>
@@ -74,3 +100,33 @@
         </div>
     </div>
 </div>
+
+<script>
+    function previewImage(input) {
+        const preview = document.getElementById('profilePreview');
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                if (preview.tagName === 'IMG') {
+                    preview.src = e.target.result;
+                } else {
+                    // Replace the div with an img
+                    const img = document.createElement('img');
+                    img.id = 'profilePreview';
+                    img.src = e.target.result;
+                    img.alt = 'Profile';
+                    img.className = 'rounded-circle';
+                    img.style.cssText = 'width: 80px; height: 80px; object-fit: cover; border: 3px solid #e2e8f0;';
+                    preview.parentNode.replaceChild(img, preview);
+                }
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+    function handlePromoSignup() {
+        if (confirm('Join our Travel Club to get secret offers and best prices!\n\nWould you like to sign up for exclusive deals?')) {
+            alert('Thank you for joining our Travel Club! Check your email for exclusive offers.');
+        }
+    }
+</script>

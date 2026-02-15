@@ -1,6 +1,6 @@
-﻿@model IEnumerable<DATripster.Entities.User>
-
+@model IEnumerable<DATripster.Entities.User>
 @{
+    Layout = "_DashLayout";
     ViewData["Title"] = "Users";
 }
 
@@ -11,7 +11,7 @@
     <div class="d-flex justify-content-between mb-3">
         <h2 class="fw-bold">Users List</h2>
 
-        <a asp-action="AddUser" class="btn btn-success">
+        <a asp-action="AddUser" asp-controller="Dashboard" class="btn btn-success">
             + Add New User
         </a>
     </div>
@@ -75,20 +75,12 @@
 
                             <!-- Actions -->
                             <td>
-                                <a asp-action="Details" asp-route-id="@user.Id"
-                                   class="btn btn-info btn-sm">
-                                    Details
-                                </a>
-
-                                <a asp-action="Edit" asp-route-id="@user.Id"
-                                   class="btn btn-warning btn-sm">
-                                    Edit
-                                </a>
-
-                                <a asp-action="Delete" asp-route-id="@user.Id"
-                                   class="btn btn-danger btn-sm">
-                                    Delete
-                                </a>
+                                <a asp-action="Details" asp-controller="Dashboard" asp-route-id="@user.Id"
+                                   class="btn btn-info btn-sm">Details</a>
+                                <a asp-action="Edit" asp-controller="Dashboard" asp-route-id="@user.Id"
+                                   class="btn btn-warning btn-sm">Edit</a>
+                                <a asp-action="Delete" asp-controller="Dashboard" asp-route-id="@user.Id"
+                                   class="btn btn-danger btn-sm">Delete</a>
                             </td>
 
                         </tr>

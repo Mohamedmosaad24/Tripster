@@ -1,10 +1,24 @@
-﻿@model DATripster.Entities.User
+@model DATripster.Entities.User
+@{
+    Layout = "_DashLayout";
+    ViewData["Title"] = "Delete User";
+}
 
-<h2>Confirm Delete</h2>
-<p>Are you sure you want to delete @Model.Name?</p>
-
-<form asp-action="Delete" method="post">
-    <input type="hidden" asp-for="Id" />
-    <button type="submit" class="btn btn-danger">Delete</button>
-    <a asp-action="AllUsers" class="btn btn-secondary">Cancel</a>
-</form>
+<div class="container-fluid px-4">
+    <h2 class="mb-4">Confirm Delete</h2>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <p>Are you sure you want to delete <strong>@Model.Name</strong>?</p>
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <p class="mb-2"><img src="@Model.ImageUrl" alt="" class="rounded" width="60" height="60" style="object-fit:cover;" /></p>
+            }
+            <form asp-action="Delete" asp-controller="Dashboard" method="post">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a asp-action="AllUsers" asp-controller="Dashboard" class="btn btn-secondary">Cancel</a>
+                <a asp-action="Details" asp-controller="Dashboard" asp-route-id="@Model.Id" class="btn btn-info">Details</a>
+            </form>
+        </div>
+    </div>
+</div>

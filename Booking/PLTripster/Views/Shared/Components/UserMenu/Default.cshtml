@@ -34,6 +34,14 @@
                 <i class="fa-solid fa-chart-line mr-2 text-secondary" style="width:18px;"></i>
                 <span class="text-body">Activity Log</span>
             </a>
+            @if (ViewBag.IsAdmin == true)
+            {
+                <div class="dropdown-divider my-0"></div>
+                <a class="dropdown-item py-2 px-3 user-menu-item" asp-controller="Dashboard" asp-action="Index" style="background: linear-gradient(135deg, #fff7ed, #ffedd5);">
+                    <i class="fa-solid fa-gauge-high mr-2 text-warning" style="width:18px;"></i>
+                    <span class="fw-bold text-warning">Dashboard</span>
+                </a>
+            }
             <div class="dropdown-divider my-0"></div>
             <a class="dropdown-item py-2 px-3 user-menu-item text-danger" asp-controller="Account" asp-action="Logout">
                 <i class="fa-solid fa-right-from-bracket mr-2" style="width:18px;"></i>
