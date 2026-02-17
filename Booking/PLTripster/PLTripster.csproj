@@ -28,6 +28,9 @@
 
 
     <Folder Include="wwwroot\assets\Booking\" />
+
+
+    <Folder Include="wwwroot\assets\userImgs\" />
   </ItemGroup>
 
 </Project>

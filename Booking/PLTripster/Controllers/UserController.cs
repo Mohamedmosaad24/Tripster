@@ -1,11 +1,13 @@
+using System.Security.Claims;
 using BLTripster.IServices;
 using BLTripster.Mapping;
+using BLTripster.Services;
 using BLTripster.ViewModels;
 using DALTripster.Entities;
 using DATripster.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace PLTripster.Controllers
 {
@@ -15,9 +17,12 @@ namespace PLTripster.Controllers
         private readonly IUserService userService;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserController(IUserService userService, UserManager<ApplicationUser> userManager)
+        public IBookingService BookingService { get; }
+
+        public UserController(IUserService userService, IBookingService bookingService, UserManager<ApplicationUser> userManager)
         {
             this.userService = userService;
+            BookingService = bookingService;
             _userManager = userManager;
         }
 
@@ -116,5 +121,47 @@ namespace PLTripster.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        //get bookings
+        [Authorize]
+        public async Task<IActionResult> MyBookings()
+        {
+            var appUser = await _userManager.GetUserAsync(User);
+
+            if (appUser == null)
+                return RedirectToAction("Login", "Account");
+
+            var user = userService.GetUserByEmail(appUser.Email ?? "");
+
+            if (user == null)
+                return NotFound("User not found.");
+
+            var bookings = await BookingService.GetUserBookingsAsync(user.Id);
+
+            return View(bookings);
+        }
+
+        //cancel
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelBooking(int bookingId)
+        {
+            var appUser = await _userManager.GetUserAsync(User);
+            if (appUser == null)
+                return RedirectToAction("Login", "Account");
+
+            var user = userService.GetUserByEmail(appUser.Email ?? "");
+            if (user == null)
+                return NotFound("User not found.");
+
+            var success = await BookingService.CancelBookingAsync(user.Id, bookingId);
+
+            if (!success)
+                TempData["Error"] = "Unable to cancel booking.";
+
+            return RedirectToAction(nameof(MyBookings));
+        }
+
     }
 }

@@ -5,20 +5,20 @@
 namespace DALTripster.Migrations
 {
     /// <inheritdoc />
-    public partial class FixCascadeImage : Migration
+    public partial class editdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Images_Rooms_RoomId",
+                name: "FK_Images_Hotels_HotelId",
                 table: "Images");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Images_Rooms_RoomId",
+                name: "FK_Images_Hotels_HotelId",
                 table: "Images",
-                column: "RoomId",
-                principalTable: "Rooms",
+                column: "HotelId",
+                principalTable: "Hotels",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -27,14 +27,14 @@ namespace DALTripster.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Images_Rooms_RoomId",
+                name: "FK_Images_Hotels_HotelId",
                 table: "Images");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Images_Rooms_RoomId",
+                name: "FK_Images_Hotels_HotelId",
                 table: "Images",
-                column: "RoomId",
-                principalTable: "Rooms",
+                column: "HotelId",
+                principalTable: "Hotels",
                 principalColumn: "Id");
         }
     }

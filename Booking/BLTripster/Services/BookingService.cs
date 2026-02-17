@@ -40,10 +40,15 @@ namespace BLTripster.Services
 
             int totalNights = (booking.CheckOut.Value - booking.CheckIn.Value).Days;
             decimal pricePerNight = room.Price;
-            decimal cityTax = 40m;
-            decimal serviceFee = 20m;
 
-            booking.TotalPrice = (totalNights * pricePerNight) + cityTax + serviceFee;
+            decimal cityTax = 0.12m;     
+            decimal serviceFee = 0.10m;  
+
+            decimal basePrice = totalNights * pricePerNight;
+            decimal taxAmount = basePrice * cityTax;
+            decimal serviceAmount = basePrice * serviceFee;
+
+            booking.TotalPrice = basePrice + taxAmount + serviceAmount;
 
             return await _bookingRepo.AddBookingAsync(booking);
         }
@@ -52,6 +57,16 @@ namespace BLTripster.Services
         public async Task<Booking?> GetBookingDetailsAsync(int bookingId)
         {
             return await _bookingRepo.GetBookingByIdAsync(bookingId);
+        }
+        public async Task<List<Booking>> GetUserBookingsAsync(int userId)
+        {
+            var bookings = await _bookingRepo.GetUserBookingsAsync(userId);
+            return bookings;
+        }
+
+        public async Task<bool> CancelBookingAsync(int userId, int bookingId)
+        {
+            return await _bookingRepo.CancelBookingAsync(userId, bookingId);
         }
     }
 }

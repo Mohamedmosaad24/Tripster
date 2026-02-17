@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace DALTripster.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -213,7 +215,7 @@ namespace DALTripster.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoomType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Capacity = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     IsAvailable = table.Column<bool>(type: "bit", nullable: false),
                     Sqm = table.Column<float>(type: "real", nullable: true),
                     NumberOFBathRoom = table.Column<int>(type: "int", nullable: true),
@@ -291,7 +293,10 @@ namespace DALTripster.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CheckIn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CheckOut = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    GuestFullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GuestEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GuestPhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RoomId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -335,6 +340,84 @@ namespace DALTripster.Migrations
                         column: x => x.RoomId,
                         principalTable: "Rooms",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "Hotels",
+                columns: new[] { "Id", "Address", "Description", "Latitude", "Longitude", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Cairo", "Luxury 5-star hotel", 0.0, 0.0, "Golden Nile Hotel" },
+                    { 2, "North Coast", "Beachfront resort", 0.0, 0.0, "North Coast Resort" },
+                    { 3, "Giza", "Historic hotel", 0.0, 0.0, "Royal Pyramids Hotel" },
+                    { 4, "Sharm El Sheikh", "Diving resort", 0.0, 0.0, "Red Sea Resort" },
+                    { 5, "Alexandria", "Boutique hotel", 0.0, 0.0, "Alexandria Palace" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "DateOfBirth", "Email", "ImageUrl", "Location", "Name", "Nationality" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "ahmed@email.com", "/assets/userImgs/user1.jpg", "Cairo", "Ahmed Mohamed", "Egyptian" },
+                    { 2, new DateTime(1988, 8, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "fatima@email.com", "/assets/userImgs/user2.jpg", "Alexandria", "Fatima Hassan", "Egyptian" },
+                    { 3, new DateTime(1992, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "mahmoud@email.com", "/assets/userImgs/user3.jpg", "Giza", "Mahmoud Abdullah", "Egyptian" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl", "RoomId" },
+                values: new object[,]
+                {
+                    { 1, 1, "/assets/hotelImg/hotel1.jpg", null },
+                    { 2, 2, "/assets/hotelImg/hotel2.jpg", null },
+                    { 3, 3, "/assets/hotelImg/hotel3.jpg", null },
+                    { 4, 4, "/assets/hotelImg/hotel4.jpg", null },
+                    { 5, 5, "/assets/hotelImg/hotel6.jpg", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Rooms",
+                columns: new[] { "Id", "Capacity", "HotelId", "IsAvailable", "NumberOFBathRoom", "Price", "RoomType", "Sqm", "TypeOfBed" },
+                values: new object[,]
+                {
+                    { 1, 2, 1, true, 1, 1200m, "Standard", 28f, 0 },
+                    { 2, 2, 1, true, 1, 1800m, "Deluxe", 38f, 0 },
+                    { 3, 4, 1, true, 2, 2800m, "Suite", 55f, 0 },
+                    { 4, 2, 2, true, 1, 1300m, "Standard", 30f, 0 },
+                    { 5, 2, 2, true, 1, 2000m, "Deluxe", 42f, 0 },
+                    { 6, 4, 2, true, 2, 3200m, "Suite", 65f, 0 },
+                    { 7, 2, 3, true, 1, 1100m, "Standard", 26f, 0 },
+                    { 8, 2, 3, true, 1, 1700m, "Deluxe", 40f, 0 },
+                    { 9, 4, 3, true, 2, 2600m, "Suite", 52f, 0 },
+                    { 10, 2, 4, true, 1, 1400m, "Standard", 32f, 0 },
+                    { 11, 2, 4, true, 1, 2100m, "Deluxe", 45f, 0 },
+                    { 12, 4, 4, true, 2, 3500m, "Suite", 70f, 0 },
+                    { 13, 2, 5, true, 1, 1000m, "Standard", 25f, 0 },
+                    { 14, 2, 5, true, 1, 1600m, "Deluxe", 36f, 0 },
+                    { 15, 4, 5, true, 2, 2400m, "Suite", 50f, 0 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl", "RoomId" },
+                values: new object[,]
+                {
+                    { 6, 1, "/assets/roomImg/room-1.jpg", 1 },
+                    { 7, 1, "/assets/roomImg/room-2.jpg", 2 },
+                    { 8, 1, "/assets/roomImg/room-3.jpg", 3 },
+                    { 9, 2, "/assets/roomImg/room-4.jpg", 4 },
+                    { 10, 2, "/assets/roomImg/room-5.jpg", 5 },
+                    { 11, 2, "/assets/roomImg/room-6.jpg", 6 },
+                    { 12, 3, "/assets/roomImg/room-7.jpg", 7 },
+                    { 13, 3, "/assets/roomImg/room-1.jpg", 8 },
+                    { 14, 3, "/assets/roomImg/room-2.jpg", 9 },
+                    { 15, 4, "/assets/roomImg/room-3.jpg", 10 },
+                    { 16, 4, "/assets/roomImg/room-4.jpg", 11 },
+                    { 17, 4, "/assets/roomImg/room-5.jpg", 12 },
+                    { 18, 5, "/assets/roomImg/room-6.jpg", 13 },
+                    { 19, 5, "/assets/roomImg/room-7.jpg", 14 },
+                    { 20, 5, "/assets/roomImg/room-1.jpg", 15 }
                 });
 
             migrationBuilder.CreateIndex(

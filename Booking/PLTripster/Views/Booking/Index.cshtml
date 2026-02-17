@@ -1,78 +1,96 @@
-@using BLTripster.ViewModels
-@model BookingPageVM
+@model BLTripster.ViewModels.BookingPageVM
 @{
     ViewData["Title"] = "Book Room";
     Layout = "_Layout";
 }
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <main class="container my-5">
     <div class="row g-5">
 
-        <!-- LEFT SIDE -->
+        <!-- LEFT SIDE - Booking Form -->
         <div class="col-lg-7">
-            <h2 class="fw-bold mb-4">
-                Book @Model.HotelName
-            </h2>
+            <h2 class="fw-bold mb-4">Book @Model.HotelName</h2>
 
+            <!-- Step 1 -->
+            <h5 class="mb-4">Step 1: Property & Bed Options</h5>
+            <div class="mb-5">
+                <div class="d-flex gap-3 flex-wrap mb-2">
+                    @* Amenities icons *@
+                    <span><i class="bi bi-wifi"></i> Free Wifi</span>
+                    <span><i class="bi bi-car-front"></i> Free parking</span>
+                    <span><i class="bi bi-key"></i> Key card access</span>
+                    <span><i class="bi bi-snow"></i> Air conditioning</span>
+                </div>
+                <p class="mb-3"><strong>Breakfast included</strong></p>
+
+                <label for="BedOption" class="form-label">Choose bed option</label>
+                <select id="BedOption" class="form-select">
+                    <option>1 king bed</option>
+                    <option>2 separate beds</option>
+                    <option>1 queen bed</option>
+                </select>
+            </div>
+
+            <!-- Step 2 -->
+            <h5 class="mb-3">Step 2: Personal Data</h5>
             <form asp-action="ConfirmBooking" asp-controller="Booking" method="post" id="booking-form">
                 <input type="hidden" asp-for="Form.RoomId" />
                 <input type="hidden" asp-for="Form.UserId" />
-
-                <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
-
-                <!-- Dates -->
-                <div class="mb-3">
-                    <label asp-for="Form.CheckIn" class="form-label"></label>
+             <!-- Dates --> <div class="mb-3">
+                    <label asp-for="Form.CheckIn" class="form-label"></label> 
                     <input asp-for="Form.CheckIn" type="date" class="form-control" required />
                     <span asp-validation-for="Form.CheckIn" class="text-danger"></span>
                 </div>
-
                 <div class="mb-3">
-                    <label asp-for="Form.CheckOut" class="form-label"></label>
-                    <input asp-for="Form.CheckOut" type="date" class="form-control" required />
-                    <span asp-validation-for="Form.CheckOut" class="text-danger"></span>
+                        <label asp-for="Form.CheckOut" class="form-label"></label>
+                        <input asp-for="Form.CheckOut" type="date" class="form-control" required />
+                        <span asp-validation-for="Form.CheckOut" class="text-danger"></span>
                 </div>
-
-                <!-- Guest -->
-                <div class="mb-3">
+                <!-- Guest --> <div class="mb-3">
                     <label asp-for="Form.GuestFullName" class="form-label"></label>
                     <input asp-for="Form.GuestFullName" class="form-control" placeholder="Full name" required />
                     <span asp-validation-for="Form.GuestFullName" class="text-danger"></span>
                 </div>
-
-                <div class="mb-3">
-                    <label asp-for="Form.GuestEmail" class="form-label"></label>
+                <div class="mb-3"> <label asp-for="Form.GuestEmail" class="form-label"></label>
                     <input asp-for="Form.GuestEmail" type="email" class="form-control" placeholder="email@example.com" required />
                     <span asp-validation-for="Form.GuestEmail" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3">
-                    <label asp-for="Form.GuestPhone" class="form-label"></label>
+                </div> <div class="mb-3"> <label asp-for="Form.GuestPhone" class="form-label"></label>
                     <input asp-for="Form.GuestPhone" class="form-control" placeholder="Phone number" />
                     <span asp-validation-for="Form.GuestPhone" class="text-danger"></span>
                 </div>
-
-                <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill fw-bold" id="book-now-btn">
-                    Book now
-                </button>
+                <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill fw-bold" id="book-now-btn"> Book now </button>
             </form>
         </div>
 
-        <!-- RIGHT SIDE -->
+        <!-- RIGHT SIDE - Booking Summary Card -->
         <div class="col-lg-5">
-            <div class="card shadow-sm rounded-4 sticky-top" style="top:2rem">
-
-                <img src="@Model.MainImageUrl"
-                     class="card-img-top rounded-4"
-                     alt="Room Image" />
+            <div class="card shadow-sm rounded-4  mt-4" style="top:2rem">
+                <img src="@Model.MainImageUrl" class="card-img rounded-4" alt="Room Image" />
 
                 <div class="card-body">
                     <h5 class="fw-bold">@Model.HotelName</h5>
                     <p class="text-muted">@Model.RoomTypeName</p>
 
-                    <div class="d-flex justify-content-between">
+                    <hr>
+
+                    <div class="d-flex justify-content-between small mb-1">
                         <span>Price per night</span>
-                        <strong>$@Model.PricePerNight</strong>
+                        <span>$@Model.PricePerNight</span>
+                    </div>
+                    <div class="d-flex justify-content-between small mb-1">
+                        <span>City tax</span>
+                        <span>10%</span>
+                    </div>
+                    <div class="d-flex justify-content-between small mb-3">
+                        <span>Service fee</span>
+                        <span>12%</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between fw-bold fs-5">
+                        <span>TOTAL</span>
+						<span>($@Model.PricePerNight) " + Taxes"</span>
                     </div>
                 </div>
             </div>

@@ -29,7 +29,30 @@ namespace DATripster.Data
             modelBuilder.Entity<Booking>().Property(b => b.TotalPrice).HasPrecision(18, 2);
 
             base.OnModelCreating(modelBuilder);
+            //////////////////////
+            modelBuilder.Entity<Room>()
+        .HasOne(r => r.Hotel)
+        .WithMany(h => h.Rooms)
+        .HasForeignKey(r => r.HotelId)
+        .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Image>()
+                .HasOne(i => i.Hotel)
+                .WithMany(h => h.Images)
+                .HasForeignKey(i => i.HotelId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Review>()
+                .HasOne(r => r.Hotel)
+                .WithMany(h => h.Reviews)
+                .HasForeignKey(r => r.HotelId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<HotelService>()
+                .HasOne(hs => hs.Hotel)
+                .WithMany(h => h.HotelServices)
+                .HasForeignKey(hs => hs.HotelId)
+                .OnDelete(DeleteBehavior.Cascade);
             // ============================================
             // SEED DATA (Cleaned & Organized)
             // ============================================

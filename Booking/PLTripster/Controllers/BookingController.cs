@@ -1,6 +1,10 @@
+using System.Threading.Tasks;
 using BLTripster.IServices;
+using BLTripster.Services;
 using BLTripster.ViewModels;
+using DALTripster.Entities;
 using DATripster.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PLTripster.Controllers
@@ -10,14 +14,20 @@ namespace PLTripster.Controllers
         private readonly IRoomService _roomService;
         private readonly IBookingService _bookingService;
 
-        public BookingController(IBookingService bookingService, IRoomService roomService)
+        public IUserService UserService { get; }
+        public UserManager<ApplicationUser> UserManager { get; }
+
+        public BookingController(IBookingService bookingService, IRoomService roomService, IUserService userService,
+             UserManager<ApplicationUser> userManager)
         {
             _bookingService = bookingService;
             _roomService = roomService;
+            UserService = userService;
+            UserManager = userManager;
         }
 
         [HttpGet]
-        public IActionResult Index(int roomId)
+        public async Task<IActionResult> Index(int roomId)
         {
             var room = _roomService.GetById(roomId);
             if (room == null)
@@ -25,6 +35,12 @@ namespace PLTripster.Controllers
 
             if (room.Hotel == null)
                 return NotFound("Hotel not found for this room");
+            var appUser = await UserManager.GetUserAsync(User);
+
+            if (appUser == null)
+                return RedirectToAction("Login", "Account");
+
+            var user = UserService.GetUserByEmail(appUser.Email ?? "");
 
             var model = new BookingPageVM
             {
@@ -35,7 +51,7 @@ namespace PLTripster.Controllers
                 Form = new BookingFormVM
                 {
                     RoomId = room.Id,
-                    UserId = 1
+                    UserId = user.Id
                 }
             };
 
@@ -110,5 +126,6 @@ namespace PLTripster.Controllers
                 Form = form
             };
         }
+
     }
 }

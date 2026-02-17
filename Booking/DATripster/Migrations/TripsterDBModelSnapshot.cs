@@ -900,7 +900,8 @@ namespace DALTripster.Migrations
                 {
                     b.HasOne("DATripster.Entities.Hotel", "Hotel")
                         .WithMany("Images")
-                        .HasForeignKey("HotelId");
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DATripster.Entities.Room", "Room")
                         .WithMany("Images")

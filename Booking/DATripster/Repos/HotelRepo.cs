@@ -42,8 +42,11 @@ namespace DALTripster.Repos
 
         public void Delete(int id)
         {
-            var hotel = GetById(id);
+            var hotel = new Hotel { Id = id };
+
+            db.Hotels.Attach(hotel);
             db.Hotels.Remove(hotel);
+
             db.SaveChanges();
         }
 

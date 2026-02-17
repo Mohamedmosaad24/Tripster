@@ -41,9 +41,33 @@ namespace DALTripster.Repos
         }
 
 
-        public async Task<IEnumerable<Booking>> GetUserBookingsAsync(int userId)
+        public async Task<List<Booking>> GetUserBookingsAsync(int userId)
         {
-            return await Task.FromResult(new List<Booking>());
+            {
+                var bookings= await _context.Bookings
+                    .Where(b => b.UserId == userId)
+                    .Include(b => b.Room)
+                    .ThenInclude(r => r.Hotel)
+                    .ThenInclude(h=>h.Images)
+                    .AsNoTracking()
+                    .ToListAsync();
+                return bookings;
+            }
         }
+        //cancel book
+        public async Task<bool> CancelBookingAsync(int userId, int bookingId)
+        {
+            
+            var booking = await _context.Bookings
+                .FirstOrDefaultAsync(b => b.Id == bookingId && b.UserId == userId);
+
+            if (booking == null)
+                return false;
+
+            _context.Bookings.Remove(booking);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
     }
 }

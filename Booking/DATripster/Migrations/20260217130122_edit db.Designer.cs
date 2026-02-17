@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DALTripster.Migrations
 {
     [DbContext(typeof(TripsterDB))]
-    [Migration("20260213042104_seedingdata")]
-    partial class seedingdata
+    [Migration("20260217130122_edit db")]
+    partial class editdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -903,7 +903,8 @@ namespace DALTripster.Migrations
                 {
                     b.HasOne("DATripster.Entities.Hotel", "Hotel")
                         .WithMany("Images")
-                        .HasForeignKey("HotelId");
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DATripster.Entities.Room", "Room")
                         .WithMany("Images")

@@ -22,10 +22,13 @@
                     <span id="MenuText">Payment information</span>
                 </a>
 
-                <a id="MenuItem" href="#" onclick="showComingSoon('Safety settings'); return false;">
-                    <span class="IconDot"><i class="fa-solid fa-shield-halved"></i></span>
-                    <span id="MenuText">Safety</span>
+                <a id="MenuItem" asp-controller="User" asp-action="MyBookings">
+                    <span class="IconDot">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </span>
+                    <span id="MenuText">My Bookings</span>
                 </a>
+
 
                 <a id="MenuItem" href="#" onclick="showComingSoon('Preferences'); return false;">
                     <span class="IconDot"><i class="fa-solid fa-gear"></i></span>

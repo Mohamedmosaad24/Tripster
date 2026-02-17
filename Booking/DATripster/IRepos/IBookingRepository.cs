@@ -11,7 +11,9 @@ namespace DALTripster.IRepos
     {
         public Task<int> AddBookingAsync(Booking booking);
         public Task<Booking?> GetBookingByIdAsync(int id);
-        public Task<IEnumerable<Booking>> GetUserBookingsAsync(int userId);
+        public Task<List<Booking>> GetUserBookingsAsync(int userId);
         Task<IEnumerable<Booking>> GetAllWithDetailsAsync();
+        Task<bool> CancelBookingAsync(int userId, int bookingId);
+
     }
 }
